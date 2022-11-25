@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 // import app
 import '../widgets/custom_button.dart';
-import '../widgets/custom_text_field_email.dart';
+import '../widgets/custom_text_field.dart';
 
 class ForgetPasswordPage extends StatelessWidget {
   const ForgetPasswordPage({super.key});
@@ -66,7 +66,7 @@ class ForgetPasswordPage extends StatelessWidget {
             SizedBox(
               height: bodyHeight * 0.02,
             ),
-            const CustomTextFieldEmail(
+            const CustomTextField(
               labelText: 'Email',
             ),
             SizedBox(

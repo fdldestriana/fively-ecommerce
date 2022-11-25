@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 // import app
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
-import '../widgets/custom_text_field_email.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -60,7 +59,7 @@ class SignUpPage extends StatelessWidget {
             SizedBox(
               height: bodyHeight * 0.01,
             ),
-            const CustomTextFieldEmail(
+            const CustomTextField(
               labelText: 'Email',
             ),
             SizedBox(

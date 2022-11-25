@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 // import app
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
-import '../widgets/custom_text_field_email.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -54,7 +53,7 @@ class LoginPage extends StatelessWidget {
             SizedBox(
               height: bodyHeight * 0.10,
             ),
-            const CustomTextFieldEmail(
+            const CustomTextField(
               labelText: 'Email',
             ),
             SizedBox(

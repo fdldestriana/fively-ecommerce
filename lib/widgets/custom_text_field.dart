@@ -1,5 +1,6 @@
 // import package
 import 'package:fively_ecommerce/utils/size.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -12,7 +13,11 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   final TextEditingController controller = TextEditingController();
+
   bool isDone = false;
+  bool isValid = false;
+  final String errorText =
+      'Not a  valid email address. Should be your@email.com';
 
   @override
   void dispose() {
@@ -51,7 +56,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(4))),
         child: TextField(
-          obscureText: (widget.labelText == 'Password') ? true : false,
           controller: controller,
           keyboardType: (widget.labelText == 'Email')
               ? TextInputType.emailAddress
@@ -59,18 +63,37 @@ class _CustomTextFieldState extends State<CustomTextField> {
           decoration: InputDecoration(
             border: InputBorder.none,
             contentPadding: const EdgeInsets.only(left: 20),
-            labelStyle: const TextStyle(color: Color(0xFF9B9B9B)),
+            errorText: (widget.labelText == 'Email' && isDone && !isValid)
+                ? errorText
+                : null,
+            labelStyle: (widget.labelText == 'Email' && isDone && !isValid)
+                ? const TextStyle(color: Colors.red)
+                : const TextStyle(color: Color(0xFF9B9B9B)),
             labelText: widget.labelText,
-            suffixIcon: (isDone && widget.labelText != 'Email')
+            suffixIcon: (widget.labelText == 'Email' && isDone && isValid)
                 ? const Icon(
                     Icons.done,
                     color: Colors.green,
                   )
-                : null,
+                : (widget.labelText == 'Email' && isDone && !isValid)
+                    ? const Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      )
+                    : (isDone && widget.labelText != 'Email')
+                        ? const Icon(
+                            Icons.done,
+                            color: Colors.green,
+                          )
+                        : null,
           ),
+          obscureText: (widget.labelText == 'Password') ? true : false,
           onChanged: (value) {
             setState(() {
               (value.isNotEmpty) ? isDone = true : isDone = false;
+              (EmailValidator.validate(value))
+                  ? isValid = true
+                  : isValid = false;
             });
           },
           onEditingComplete: () {
