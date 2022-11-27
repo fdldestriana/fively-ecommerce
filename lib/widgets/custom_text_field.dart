@@ -63,9 +63,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
           decoration: InputDecoration(
             border: InputBorder.none,
             contentPadding: const EdgeInsets.only(left: 20),
+            errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)),
             errorText: (widget.labelText == 'Email' && isDone && !isValid)
                 ? errorText
                 : null,
+            focusedErrorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)),
             labelStyle: (widget.labelText == 'Email' && isDone && !isValid)
                 ? const TextStyle(color: Colors.red)
                 : const TextStyle(color: Color(0xFF9B9B9B)),

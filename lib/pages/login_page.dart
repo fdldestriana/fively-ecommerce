@@ -1,5 +1,5 @@
 // import package
-import 'package:fively_ecommerce/pages/forget_password_page.dart';
+import 'package:fively_ecommerce/pages/forgot_password_page.dart';
 import 'package:fively_ecommerce/utils/size.dart';
 import 'package:flutter/material.dart';
 
