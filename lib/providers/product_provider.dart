@@ -9,7 +9,7 @@ class ProductProvider with ChangeNotifier {
 
   void getProducts() async {
     Uri url = Uri.parse('https://fakestoreapi.com/products');
-    final response = await http.get(url);
+    var response = await http.get(url);
     if (response.statusCode == 200) {
       List data = json.decode(response.body);
       _products = data.map((e) => Product.fromJson(e)).toList();

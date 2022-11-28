@@ -31,7 +31,7 @@ class ForgetPasswordPage extends StatelessWidget {
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
-    final bodyHeight = sizeConfig.bodyheight - myAppbar.preferredSize.height;
+    final bodyHeight = sizeConfig.screenHeight - myAppbar.preferredSize.height;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF9F9F9),

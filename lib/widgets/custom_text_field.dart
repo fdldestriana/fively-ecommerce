@@ -46,7 +46,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
-    final body = sizeConfig.bodyheight - myAppbar.preferredSize.height;
+    final body = sizeConfig.screenHeight - myAppbar.preferredSize.height;
 
     return Center(
       child: Container(
