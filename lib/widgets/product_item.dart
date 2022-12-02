@@ -16,7 +16,8 @@ class ProductItem extends StatelessWidget {
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
-    return SizedBox(
+    return Container(
+      color: const Color(0xFFFFFFFF),
       width: bodyWidth * 0.40,
       height: bodyHeight * 0.34,
       child: LayoutBuilder(
@@ -32,11 +33,38 @@ class ProductItem extends StatelessWidget {
                       BorderRadius.all(Radius.circular(bodyWidth * 0.03)),
                   child: Image.network(
                     product.images,
-                    width: constraints.maxWidth * 0.99,
+                    width: constraints.maxWidth * 1.00,
                     height: constraints.maxHeight * 0.71,
                     fit: BoxFit.cover,
                   ),
                 ),
+              ),
+              SizedBox(
+                height: constraints.maxHeight * 0.02,
+              ),
+              Row(
+                children: const [
+                  Icon(
+                    Icons.star_border_rounded,
+                    color: Color(0xFF9B9B9B),
+                  ),
+                  Icon(
+                    Icons.star_border_rounded,
+                    color: Color(0xFF9B9B9B),
+                  ),
+                  Icon(
+                    Icons.star_border_rounded,
+                    color: Color(0xFF9B9B9B),
+                  ),
+                  Icon(
+                    Icons.star_border_rounded,
+                    color: Color(0xFF9B9B9B),
+                  ),
+                  Icon(
+                    Icons.star_border_rounded,
+                    color: Color(0xFF9B9B9B),
+                  )
+                ],
               ),
               SizedBox(
                 height: constraints.maxHeight * 0.02,
