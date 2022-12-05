@@ -5,6 +5,7 @@ class Product {
   String category;
   String description;
   String images;
+  bool isFavorite = false;
   // Map<String, dynamic> rating;
 
   Product({
@@ -14,6 +15,7 @@ class Product {
     required this.category,
     required this.description,
     required this.images,
+
     // required this.rating
   });
 
@@ -36,4 +38,8 @@ class Product {
         'images': images,
         // 'rating': rating
       };
+
+  void addFavorite() {
+    isFavorite = !isFavorite;
+  }
 }

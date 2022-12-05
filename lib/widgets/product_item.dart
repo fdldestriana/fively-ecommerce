@@ -1,5 +1,6 @@
 import 'package:fively_ecommerce/models/product.dart';
 import 'package:fively_ecommerce/utils/size.dart';
+import 'package:fively_ecommerce/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
@@ -27,7 +28,7 @@ class ProductItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Stack(children: [
+                Stack(clipBehavior: Clip.none, children: [
                   ClipRRect(
                     borderRadius:
                         BorderRadius.all(Radius.circular(bodyWidth * 0.03)),
@@ -41,16 +42,9 @@ class ProductItem extends StatelessWidget {
                   Positioned(
                     left: constraints.maxWidth / 1.32,
                     top: constraints.maxHeight / 1.59,
-                    child: Container(
-                      width: constraints.maxWidth * 0.24,
-                      height: constraints.maxHeight * 0.14,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xFFFFFFFF)),
-                      child: IconButton(
-                        color: const Color(0xFF9B9B9B),
-                        icon: const Icon(Icons.favorite_border),
-                        onPressed: () {},
-                      ),
+                    child: FavoriteButton(
+                      parentWidth: constraints.maxWidth,
+                      parentHeight: constraints.maxHeight,
                     ),
                   )
                 ]),
