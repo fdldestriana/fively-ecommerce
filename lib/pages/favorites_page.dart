@@ -7,11 +7,12 @@ import 'package:flutter/material.dart';
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});
   static const routeName = 'favorites';
+  static const indexPage = 3;
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: CustomScrollView(
+    return Scaffold(
+      body: const CustomScrollView(
         slivers: <Widget>[
           MySliverAppBar(),
           SliverPadding(
@@ -20,7 +21,9 @@ class FavoritesPage extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBarCustom(),
+      bottomNavigationBar: BottomNavigationBarCustom(
+        currentIndex: indexPage,
+      ),
     );
   }
 }

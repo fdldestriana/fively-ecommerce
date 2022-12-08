@@ -1,4 +1,5 @@
 import 'package:fively_ecommerce/models/product.dart';
+import 'package:fively_ecommerce/pages/product_detal_page.dart';
 import 'package:fively_ecommerce/utils/size.dart';
 import 'package:fively_ecommerce/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,9 @@ class ProductItem extends StatelessWidget {
       child: LayoutBuilder(
         builder: (_, constraints) {
           return InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, ProductDetailPage.routeName);
+            },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

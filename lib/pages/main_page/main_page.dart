@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
   static const routeName = 'main';
+  static const indexPage = 0;
 
   @override
   Widget build(BuildContext context) {
-    print('rebuild');
-    return const Scaffold(
-      body: CustomScrollView(
+    return Scaffold(
+      body: const CustomScrollView(
         slivers: <Widget>[
           MySliverAppBar(),
           SliverPadding(
@@ -21,7 +21,9 @@ class MainPage extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBarCustom(),
+      bottomNavigationBar: BottomNavigationBarCustom(
+        currentIndex: indexPage,
+      ),
     );
   }
 }

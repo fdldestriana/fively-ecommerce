@@ -6,8 +6,11 @@ import 'package:fively_ecommerce/pages/shop_page.dart';
 import 'package:fively_ecommerce/widgets/navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BottomNavigationBarCustom extends StatefulWidget {
-  const BottomNavigationBarCustom({Key? key}) : super(key: key);
+  BottomNavigationBarCustom({Key? key, required this.currentIndex})
+      : super(key: key);
+  int currentIndex = 0;
 
   @override
   State<BottomNavigationBarCustom> createState() =>
@@ -15,10 +18,43 @@ class BottomNavigationBarCustom extends StatefulWidget {
 }
 
 class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
+  void _onTap(int index) {
+    switch (index) {
+      case 0:
+        Navigator.of(context).popAndPushNamed(MainPage.routeName);
+        setState(() {
+          widget.currentIndex = index;
+        });
+        break;
+      case 1:
+        Navigator.of(context).popAndPushNamed(ShopPage.routeName);
+        setState(() {
+          widget.currentIndex = index;
+        });
+        break;
+      case 2:
+        Navigator.of(context).popAndPushNamed(BagPage.routeName);
+        setState(() {
+          widget.currentIndex = index;
+        });
+        break;
+      case 3:
+        Navigator.of(context).popAndPushNamed(FavoritesPage.routeName);
+        setState(() {
+          widget.currentIndex = index;
+        });
+        break;
+      case 4:
+        Navigator.of(context).popAndPushNamed(ProfilePage.routeName);
+        setState(() {
+          widget.currentIndex = index;
+        });
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    int currentIndex = 0;
-
     return ClipRRect(
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(12), topRight: Radius.circular(12)),
@@ -27,42 +63,9 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
           type: BottomNavigationBarType.fixed,
           backgroundColor: const Color(0xFFFFFFFF),
           items: bottomNavigationBarItem,
-          currentIndex: currentIndex,
+          currentIndex: widget.currentIndex,
           selectedLabelStyle: const TextStyle(color: Color(0xFFDB3022)),
-          onTap: (currentIndex) {
-            switch (currentIndex) {
-              case 0:
-                Navigator.of(context).popAndPushNamed(MainPage.routeName);
-                setState(() {
-                  currentIndex = currentIndex;
-                });
-                break;
-              case 1:
-                Navigator.of(context).popAndPushNamed(ShopPage.routeName);
-                setState(() {
-                  currentIndex = currentIndex;
-                });
-                break;
-              case 2:
-                Navigator.of(context).popAndPushNamed(BagPage.routeName);
-                setState(() {
-                  currentIndex = currentIndex;
-                });
-                break;
-              case 3:
-                Navigator.of(context).popAndPushNamed(FavoritesPage.routeName);
-                setState(() {
-                  currentIndex = currentIndex;
-                });
-                break;
-              case 4:
-                Navigator.of(context).popAndPushNamed(ProfilePage.routeName);
-                setState(() {
-                  currentIndex = currentIndex;
-                });
-                break;
-            }
-          },
+          onTap: _onTap,
         ));
   }
 }
