@@ -21,10 +21,7 @@ class MySliverAppBar extends StatelessWidget {
           title: RichText(
             text: const TextSpan(
               text: 'New',
-              style: TextStyle(
-                  fontSize: 34,
-                  color: Color(0xFF222222),
-                  fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: 34, fontWeight: FontWeight.w700),
               children: <TextSpan>[
                 TextSpan(
                     text: '\nYou\'ve never seen it before',
@@ -39,12 +36,13 @@ class MySliverAppBar extends StatelessWidget {
                 onPressed: () {},
                 child: const Text(
                   'View all',
-                  style: TextStyle(fontSize: 12, color: Color(0xFF222222)),
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
                 ))
           ],
         ),
       ),
-      backgroundColor: const Color(0xFFDB3022),
       pinned: false,
       expandedHeight: bodyHeight * 0.80,
       flexibleSpace: Align(
@@ -52,23 +50,6 @@ class MySliverAppBar extends StatelessWidget {
         child: FlexibleSpaceBar(
           titlePadding: EdgeInsetsDirectional.only(
               start: bodyWidth * 0.03, bottom: bodyHeight * 0.10),
-          // title: Column(
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     const Text(
-          //       'Fashion\nsale',
-          //       style: TextStyle(
-          //           fontSize: 36,
-          //           fontWeight: FontWeight.w900,
-          //           color: Colors.white),
-          //     ),
-          //     CustomButton(
-          //         title: 'Check',
-          //         widthSize: bodyWidth * 0.29,
-          //         heightSize: bodyHeight * 0.04)
-          //   ],
-          // ),
           background: Image.asset(
             'assets/images/banner/watch_banner.jpg',
             fit: BoxFit.cover,

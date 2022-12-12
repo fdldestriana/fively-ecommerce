@@ -1,5 +1,5 @@
 import 'package:fively_ecommerce/models/product.dart';
-import 'package:fively_ecommerce/pages/product_detal_page.dart';
+import 'package:fively_ecommerce/pages/product_detail_page.dart';
 import 'package:fively_ecommerce/utils/size.dart';
 import 'package:fively_ecommerce/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,8 @@ class ProductItem extends StatelessWidget {
         builder: (_, constraints) {
           return InkWell(
             onTap: () {
-              Navigator.pushNamed(context, ProductDetailPage.routeName);
+              Navigator.pushNamed(context, ProductDetailPage.routeName,
+                  arguments: product.id);
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,11 +36,14 @@ class ProductItem extends StatelessWidget {
                   ClipRRect(
                     borderRadius:
                         BorderRadius.all(Radius.circular(bodyWidth * 0.03)),
-                    child: Image.network(
-                      product.images,
-                      width: constraints.maxWidth * 1.00,
-                      height: constraints.maxHeight * 0.71,
-                      fit: BoxFit.cover,
+                    child: Hero(
+                      tag: product.title,
+                      child: Image.network(
+                        product.images,
+                        width: constraints.maxWidth * 1.00,
+                        height: constraints.maxHeight * 0.71,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Positioned(
