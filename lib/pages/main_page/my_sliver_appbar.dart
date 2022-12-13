@@ -21,7 +21,10 @@ class MySliverAppBar extends StatelessWidget {
           title: RichText(
             text: const TextSpan(
               text: 'New',
-              style: TextStyle(fontSize: 34, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                  color: Color(0xFF222222),
+                  fontSize: 34,
+                  fontWeight: FontWeight.w700),
               children: <TextSpan>[
                 TextSpan(
                     text: '\nYou\'ve never seen it before',

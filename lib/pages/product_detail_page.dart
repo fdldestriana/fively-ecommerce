@@ -4,6 +4,7 @@ import 'package:fively_ecommerce/providers/product_provider.dart';
 import 'package:fively_ecommerce/utils/size.dart';
 import 'package:fively_ecommerce/widgets/custom_button.dart';
 import 'package:fively_ecommerce/widgets/favorite_button.dart';
+import 'package:fively_ecommerce/widgets/outlined_button_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,40 +58,12 @@ class ProductDetailPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(bodyWidth * 0.02)),
-                          fixedSize: Size(bodyWidth * 0.37, bodyHeight * 0.06)),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const <Widget>[
-                          Text(
-                            'Size',
-                          ),
-                          Icon(Icons.arrow_drop_down_sharp,
-                              color: Color(0xFF222222))
-                        ],
-                      )),
-                  OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(bodyWidth * 0.02)),
-                          fixedSize: Size(bodyWidth * 0.37, bodyHeight * 0.06)),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const <Widget>[
-                          Text(
-                            'Color',
-                          ),
-                          Icon(Icons.arrow_drop_down_sharp,
-                              color: Color(0xFF222222))
-                        ],
-                      )),
+                  const OutlinedButtonCustom(
+                    title: 'Size',
+                  ),
+                  const OutlinedButtonCustom(
+                    title: 'Color',
+                  ),
                   SizedBox(
                     width: bodyWidth * 0.11,
                     height: bodyHeight * 0.06,

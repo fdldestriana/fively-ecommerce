@@ -24,38 +24,43 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      builder: (BuildContext context, Widget? child) {
+      builder: (BuildContext _, Widget? __) {
         return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (context) => ProductProvider())
-            ],
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
+          providers: [
+            ChangeNotifierProvider(create: (context) => ProductProvider())
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
                 appBarTheme: const AppBarTheme(
                     color: Color(0xFFDB3022),
                     foregroundColor: Color(0xFF222222)),
                 fontFamily: 'Metropolis',
+                outlinedButtonTheme: OutlinedButtonThemeData(
+                    style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all(
+                            (const Color(0xFF222222))))),
+                primaryColor: const Color(0xFF222222),
                 textButtonTheme: TextButtonThemeData(
                     style: ButtonStyle(
-                        textStyle: MaterialStateProperty.all(
-                            const TextStyle(color: Color(0xFF222222))))),
-              ),
-              initialRoute: MainPage.routeName,
-              routes: {
-                SignUpPage.routeName: (context) => const SignUpPage(),
-                LoginPage.routeName: (context) => const LoginPage(),
-                ForgetPasswordPage.routeName: (context) =>
-                    const ForgetPasswordPage(),
-                MainPage.routeName: (context) => const MainPage(),
-                ShopPage.routeName: (context) => const ShopPage(),
-                BagPage.routeName: (context) => const BagPage(),
-                FavoritesPage.routeName: (context) => const FavoritesPage(),
-                ProfilePage.routeName: (context) => const ProfilePage(),
-                ProductDetailPage.routeName: (context) =>
-                    const ProductDetailPage()
-              },
-            ));
+                        foregroundColor: MaterialStateProperty.all(
+                            (const Color(0xFF222222)))))),
+            initialRoute: MainPage.routeName,
+            routes: {
+              SignUpPage.routeName: (context) => const SignUpPage(),
+              LoginPage.routeName: (context) => const LoginPage(),
+              ForgetPasswordPage.routeName: (context) =>
+                  const ForgetPasswordPage(),
+              MainPage.routeName: (context) => const MainPage(),
+              ShopPage.routeName: (context) => const ShopPage(),
+              BagPage.routeName: (context) => const BagPage(),
+              FavoritesPage.routeName: (context) => const FavoritesPage(),
+              ProfilePage.routeName: (context) => const ProfilePage(),
+              ProductDetailPage.routeName: (context) =>
+                  const ProductDetailPage()
+            },
+          ),
+        );
       },
     );
   }
