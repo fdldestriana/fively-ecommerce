@@ -35,7 +35,6 @@ class LoginPage extends StatelessWidget {
     final bodyHeight = sizeConfig.screenHeight - myAppbar.preferredSize.height;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
       appBar: myAppbar,
       body: SingleChildScrollView(
         child: Column(

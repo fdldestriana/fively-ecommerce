@@ -18,8 +18,7 @@ class ProductItem extends StatelessWidget {
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
-    return Container(
-      color: const Color(0xFFFFFFFF),
+    return SizedBox(
       width: bodyWidth * 0.40,
       height: bodyHeight * 0.34,
       child: LayoutBuilder(

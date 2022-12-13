@@ -35,16 +35,22 @@ class MyApp extends StatelessWidget {
                 appBarTheme: const AppBarTheme(
                     color: Color(0xFFDB3022),
                     foregroundColor: Color(0xFF222222)),
+                // canvasColor set to transparent to make a showModalBottomSheet clipping the background
+                canvasColor: Colors.transparent,
                 fontFamily: 'Metropolis',
                 outlinedButtonTheme: OutlinedButtonThemeData(
                     style: ButtonStyle(
                         foregroundColor: MaterialStateProperty.all(
                             (const Color(0xFF222222))))),
                 primaryColor: const Color(0xFF222222),
+                scaffoldBackgroundColor: const Color(0xFFF9F9F9),
                 textButtonTheme: TextButtonThemeData(
                     style: ButtonStyle(
                         foregroundColor: MaterialStateProperty.all(
-                            (const Color(0xFF222222)))))),
+                            (const Color(0xFF222222))))),
+                textTheme: const TextTheme(
+                    bodyText1: TextStyle(color: Color(0xFF222222)),
+                    bodyText2: TextStyle(color: Color(0xFF222222)))),
             initialRoute: MainPage.routeName,
             routes: {
               SignUpPage.routeName: (context) => const SignUpPage(),

@@ -1,4 +1,5 @@
 import 'package:fively_ecommerce/utils/size.dart';
+import 'package:fively_ecommerce/widgets/show_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class OutlinedButtonCustom extends StatelessWidget {
@@ -21,7 +22,11 @@ class OutlinedButtonCustom extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(bodyWidth * 0.02)),
             fixedSize: Size(bodyWidth * 0.37, bodyHeight * 0.06)),
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) => const ModalBottomSheet());
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
