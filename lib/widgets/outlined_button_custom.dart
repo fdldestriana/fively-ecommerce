@@ -1,8 +1,8 @@
 import 'package:fively_ecommerce/utils/size.dart';
-import 'package:fively_ecommerce/widgets/show_modal_bottom_sheet.dart';
+import 'package:fively_ecommerce/widgets/modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
-class OutlinedButtonCustom extends StatelessWidget {
+class OutlinedButtonCustom extends StatefulWidget {
   const OutlinedButtonCustom({
     Key? key,
     required this.title,
@@ -10,6 +10,12 @@ class OutlinedButtonCustom extends StatelessWidget {
 
   final String title;
 
+  @override
+  State<OutlinedButtonCustom> createState() => _OutlinedButtonCustomState();
+}
+
+class _OutlinedButtonCustomState extends State<OutlinedButtonCustom> {
+  late String choosen;
   @override
   Widget build(BuildContext context) {
     final SizeConfig sizeConfig = SizeConfig();
@@ -25,13 +31,15 @@ class OutlinedButtonCustom extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
               context: context,
-              builder: (BuildContext context) => const ModalBottomSheet());
+              builder: (BuildContext context) => ModalBottomSheet(
+                    title: widget.title,
+                  ));
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              title,
+              widget.title,
             ),
             const Icon(
               Icons.arrow_drop_down_sharp,
