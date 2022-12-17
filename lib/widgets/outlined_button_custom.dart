@@ -15,14 +15,17 @@ class OutlinedButtonCustom extends StatefulWidget {
 }
 
 class _OutlinedButtonCustomState extends State<OutlinedButtonCustom> {
-  late String choosen;
+  String? size;
+  String? color;
+  String? choosen;
+
   @override
   Widget build(BuildContext context) {
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
-
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
+
     return OutlinedButton(
         style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -33,18 +36,24 @@ class _OutlinedButtonCustomState extends State<OutlinedButtonCustom> {
               context: context,
               builder: (BuildContext context) => ModalBottomSheet(
                     title: widget.title,
-                  ));
+                  )).then((value) {
+            setState(() {
+              choosen = value;
+            });
+          });
         },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              widget.title,
-            ),
-            const Icon(
-              Icons.arrow_drop_down_sharp,
-            )
-          ],
-        ));
+        child: (choosen == null)
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.title,
+                  ),
+                  const Icon(
+                    Icons.arrow_drop_down_sharp,
+                  )
+                ],
+              )
+            : Text(choosen!.toUpperCase()));
   }
 }

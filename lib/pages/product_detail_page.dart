@@ -89,7 +89,9 @@ class ProductDetailPage extends StatelessWidget {
                       text: TextSpan(
                         text: product.category,
                         style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w700),
+                            color: Color(0xFF222222),
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700),
                         children: <TextSpan>[
                           TextSpan(
                               text: '\n${product.title}',

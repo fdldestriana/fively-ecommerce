@@ -1,5 +1,7 @@
+import 'package:fively_ecommerce/models/product_color.dart';
+import 'package:fively_ecommerce/models/product_size.dart';
 import 'package:fively_ecommerce/utils/size.dart';
-import 'package:fively_ecommerce/widgets/custom_button.dart';
+// import 'package:fively_ecommerce/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class ModalBottomSheet extends StatelessWidget {
@@ -13,9 +15,19 @@ class ModalBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
-
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
+
+    List<String?> sizeValue = [];
+    for (var size in ProductSize.values) {
+      sizeValue.add(size.toString().split('.').elementAt(1));
+    }
+
+    List<String?> colorValue = [];
+    for (var color in ProductColor.values) {
+      colorValue.add(color.toString().split('.').elementAt(1));
+    }
+    final choosen = (title == 'Size') ? sizeValue : colorValue;
     return Container(
       decoration: BoxDecoration(
           color: const Color(0xFFF9F9F9),
@@ -64,17 +76,18 @@ class ModalBottomSheet extends StatelessWidget {
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context, choosen[index]);
+                            },
                             style: OutlinedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        constraint.maxWidth * 0.02)),
-                                fixedSize: Size(constraint.maxWidth * 0.17,
-                                    constraint.maxHeight * 0.01)),
-                            child: Text('data $index'),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      constraint.maxWidth * 0.02)),
+                            ),
+                            child: Text('${choosen[index]?.toUpperCase()}'),
                           );
                         },
-                        itemCount: 5,
+                        itemCount: choosen.length,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                       ),
@@ -103,10 +116,10 @@ class ModalBottomSheet extends StatelessWidget {
                   SizedBox(
                     height: constraint.maxHeight * 0.08,
                   ),
-                  CustomButton(
-                      title: 'ADD TO CART',
-                      widthSize: constraint.maxWidth * 0.91,
-                      heightSize: constraint.maxHeight * 0.13)
+                  // CustomButton(
+                  //     title: 'ADD TO CART',
+                  //     widthSize: constraint.maxWidth * 0.91,
+                  //     heightSize: constraint.maxHeight * 0.13)
                 ],
               )),
     );
