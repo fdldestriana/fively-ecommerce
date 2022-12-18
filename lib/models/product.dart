@@ -25,7 +25,9 @@ class Product {
         price: json['price'],
         category: json['category']['name'],
         description: json['description'],
-        images: json['images'][0],
+        images: (json['images'] != [])
+            ? json['images'][0]
+            : 'https://api.lorem.space/image/watch?w=640&h=480&r=1040',
         // rating: json['rating']
       );
 

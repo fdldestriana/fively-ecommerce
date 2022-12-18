@@ -8,6 +8,7 @@ import 'package:fively_ecommerce/pages/product_detail_page.dart';
 import 'package:fively_ecommerce/pages/profile_page.dart';
 import 'package:fively_ecommerce/pages/shop_page.dart';
 import 'package:fively_ecommerce/pages/signup_page.dart';
+import 'package:fively_ecommerce/providers/category_provider.dart';
 import 'package:fively_ecommerce/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext _, Widget? __) {
         return MultiProvider(
           providers: [
-            ChangeNotifierProvider(create: (context) => ProductProvider())
+            ChangeNotifierProvider(create: (context) => ProductProvider()),
+            ChangeNotifierProvider(create: ((context) => CategoryProvider()))
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

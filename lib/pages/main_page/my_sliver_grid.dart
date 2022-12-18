@@ -30,7 +30,7 @@ class _MySliverGridState extends State<MySliverGrid> {
             delegate: SliverChildBuilderDelegate(((context, index) {
               (index == 0) ? index = 11 : index;
               return ProductItem(product: products[index]);
-            }), childCount: value.products.length ~/ 1.5),
+            }), childCount: products.length ~/ 1.5),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: 1 / 1.73,
                 mainAxisSpacing: 10,
