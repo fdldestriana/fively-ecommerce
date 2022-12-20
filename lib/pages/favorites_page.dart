@@ -34,6 +34,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return Scaffold(
       appBar: //
           AppBar(
+        elevation: 7,
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
         backgroundColor: const Color(0xFFF9F9F9),
         bottom: PreferredSize(
@@ -50,21 +51,41 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         fontSize: 34,
                         fontWeight: FontWeight.w700),
                   ),
+                  SizedBox(
+                    height: bodyHeight * 0.02,
+                  ),
                   Consumer<CategoryProvider>(
-                      builder: (BuildContext _, value, Widget? child) {
-                    List<Category> categories = value.categories;
-                    return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: categories.length,
-                        itemBuilder: (context, index) => CategoryButton(
-                              category: categories[index],
-                            ));
+                      builder: (BuildContext _, value, Widget? __) {
+                    return SizedBox(
+                      height: bodyHeight * 0.05,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: value.categories.length,
+                          itemBuilder: (context, index) => Padding(
+                                padding: EdgeInsets.only(
+                                  right: bodyWidth * 0.02,
+                                ),
+                                child: CategoryButton(
+                                  category: value.categories[index],
+                                ),
+                              )),
+                    );
                   }),
                   SizedBox(
                     height: bodyHeight * 0.02,
                   ),
-                  Row(children: const [Icon(Icons.search)])
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                            onPressed: () {}, icon: const Text('Filter')),
+                        IconButton(onPressed: () {}, icon: const Text('Price')),
+                        Padding(
+                          padding: EdgeInsets.only(right: bodyWidth * 0.03),
+                          child: const Icon(Icons.filter),
+                        ),
+                      ])
                 ],
               ),
             )),

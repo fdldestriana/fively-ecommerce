@@ -11,11 +11,9 @@ class CategoryButton extends StatelessWidget {
       builder: ((BuildContext _, BoxConstraints constraints) => OutlinedButton(
             style: OutlinedButton.styleFrom(
                 backgroundColor: const Color(0xFF222222),
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(constraints.maxWidth * 0.08)),
+                shape: const StadiumBorder(),
                 fixedSize: Size(
-                    constraints.maxWidth * 0.27, constraints.maxHeight * 0.16)),
+                    constraints.maxWidth * 0.27, constraints.maxHeight * 0.12)),
             onPressed: () {},
             child: Text(
               category.name,
