@@ -1,5 +1,4 @@
 // import package
-import 'package:fively_ecommerce/models/category.dart';
 import 'package:fively_ecommerce/pages/main_page/my_sliver_grid.dart';
 import 'package:fively_ecommerce/providers/category_provider.dart';
 import 'package:fively_ecommerce/utils/size.dart';
@@ -11,7 +10,11 @@ import 'package:provider/provider.dart';
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
   static const routeName = 'favorites';
-  static const indexPage = 3;
+  static Route route() {
+    return MaterialPageRoute(
+        settings: const RouteSettings(name: routeName),
+        builder: (_) => const FavoritesPage());
+  }
 
   @override
   State<FavoritesPage> createState() => _FavoritesPageState();
@@ -93,9 +96,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
       body: const CustomScrollView(
         slivers: [MySliverGrid()],
       ),
-      bottomNavigationBar: BottomNavigationBarCustom(
-        currentIndex: FavoritesPage.indexPage,
-      ),
+      bottomNavigationBar: const BottomNavigationBarCustom(),
     );
   }
 }

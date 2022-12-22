@@ -7,12 +7,16 @@ import 'package:flutter/material.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
   static const routeName = 'profile';
-  static const indexPage = 4;
+  static Route route() {
+    return MaterialPageRoute(
+        settings: const RouteSettings(name: routeName),
+        builder: (_) => const ProfilePage());
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const CustomScrollView(
+    return const Scaffold(
+      body: CustomScrollView(
         slivers: <Widget>[
           MySliverAppBar(),
           SliverPadding(
@@ -21,9 +25,7 @@ class ProfilePage extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBarCustom(
-        currentIndex: indexPage,
-      ),
+      bottomNavigationBar: BottomNavigationBarCustom(),
     );
   }
 }

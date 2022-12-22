@@ -7,12 +7,17 @@ import 'package:flutter/material.dart';
 class BagPage extends StatelessWidget {
   const BagPage({super.key});
   static const routeName = 'bag';
-  static const indexPage = 2;
+
+  static Route route() {
+    return MaterialPageRoute(
+        settings: const RouteSettings(name: routeName),
+        builder: (_) => const BagPage());
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const CustomScrollView(
+    return const Scaffold(
+      body: CustomScrollView(
         slivers: <Widget>[
           MySliverAppBar(),
           SliverPadding(
@@ -21,9 +26,7 @@ class BagPage extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBarCustom(
-        currentIndex: indexPage,
-      ),
+      bottomNavigationBar: BottomNavigationBarCustom(),
     );
   }
 }
