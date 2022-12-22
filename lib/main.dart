@@ -1,6 +1,7 @@
 // import package
 import 'package:fively_ecommerce/pages/main_page/main_page.dart';
 import 'package:fively_ecommerce/providers/category_provider.dart';
+import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
 import 'package:fively_ecommerce/providers/product_provider.dart';
 import 'package:fively_ecommerce/widgets/app_router.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,10 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext _, Widget? __) {
         return MultiProvider(
           providers: [
+            ChangeNotifierProvider(create: ((context) => CategoryProvider())),
             ChangeNotifierProvider(create: (context) => ProductProvider()),
-            ChangeNotifierProvider(create: ((context) => CategoryProvider()))
+            ChangeNotifierProvider(
+                create: (context) => ProductFavoriteProvider())
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

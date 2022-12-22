@@ -51,6 +51,7 @@ class ProductItem extends StatelessWidget {
                     child: FavoriteButton(
                       parentWidth: constraints.maxWidth,
                       parentHeight: constraints.maxHeight,
+                      product: product,
                     ),
                   )
                 ]),

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
+  final int index = 1;
   static const routeName = 'shop';
-
   static Route route() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: routeName),
@@ -16,8 +16,8 @@ class ShopPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: CustomScrollView(
+    return Scaffold(
+      body: const CustomScrollView(
         slivers: <Widget>[
           MySliverAppBar(),
           SliverPadding(
@@ -26,7 +26,9 @@ class ShopPage extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBarCustom(),
+      bottomNavigationBar: BottomNavigationBarCustom(
+        initialIndex: index,
+      ),
     );
   }
 }

@@ -1,13 +1,18 @@
+import 'package:fively_ecommerce/models/product.dart';
+import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteButton extends StatefulWidget {
   const FavoriteButton({
     Key? key,
     required this.parentWidth,
     required this.parentHeight,
+    required this.product,
   }) : super(key: key);
   final double parentWidth;
   final double parentHeight;
+  final Product product;
 
   @override
   State<FavoriteButton> createState() => _FavoriteButtonState();
@@ -18,6 +23,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
 
   @override
   Widget build(BuildContext context) {
+    ProductFavoriteProvider provider =
+        Provider.of<ProductFavoriteProvider>(context, listen: false);
+
     return Container(
       width: widget.parentWidth * 0.24,
       height: widget.parentHeight * 0.14,
@@ -39,6 +47,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             : const Icon(Icons.favorite_border),
         onPressed: () {
           setState(() {
+            provider.addToWishlist(widget.product);
             isFavorite = !isFavorite;
           });
         },

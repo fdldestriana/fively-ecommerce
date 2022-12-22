@@ -71,6 +71,7 @@ class ProductDetailPage extends StatelessWidget {
                       builder: (_, constraint) => FavoriteButton(
                         parentWidth: constraint.maxWidth,
                         parentHeight: constraint.maxHeight,
+                        product: product,
                       ),
                     ),
                   )

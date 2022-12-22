@@ -1,14 +1,17 @@
 // import package
-import 'package:fively_ecommerce/pages/main_page/my_sliver_grid.dart';
+import 'package:fively_ecommerce/models/product.dart';
 import 'package:fively_ecommerce/providers/category_provider.dart';
+import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
 import 'package:fively_ecommerce/utils/size.dart';
 import 'package:fively_ecommerce/widgets/bottom_navigation_bar_custom.dart';
 import 'package:fively_ecommerce/widgets/category_button.dart';
+import 'package:fively_ecommerce/widgets/product_item_favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
+  final int index = 3;
   static const routeName = 'favorites';
   static Route route() {
     return MaterialPageRoute(
@@ -82,21 +85,43 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                            onPressed: () {}, icon: const Text('Filter')),
-                        IconButton(onPressed: () {}, icon: const Text('Price')),
+                            onPressed: () {},
+                            icon: Image.asset(
+                                'assets/images/buttons/filter.png')),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Image.asset(
+                                'assets/images/buttons/filter_price.png')),
                         Padding(
                           padding: EdgeInsets.only(right: bodyWidth * 0.03),
-                          child: const Icon(Icons.filter),
+                          child: Image.asset('assets/images/buttons/view.png'),
                         ),
                       ])
                 ],
               ),
             )),
       ),
-      body: const CustomScrollView(
-        slivers: [MySliverGrid()],
+      body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Consumer<ProductFavoriteProvider>(
+            builder: (BuildContext context, value, Widget? child) {
+              List<Product> products = value.products;
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 2.96 / 1,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    crossAxisCount: 1),
+                itemBuilder: (((context, index) {
+                  return ProductItemFavorite(product: products[index]);
+                })),
+                itemCount: products.length,
+              );
+            },
+          )),
+      bottomNavigationBar: BottomNavigationBarCustom(
+        initialIndex: widget.index,
       ),
-      bottomNavigationBar: const BottomNavigationBarCustom(),
     );
   }
 }
