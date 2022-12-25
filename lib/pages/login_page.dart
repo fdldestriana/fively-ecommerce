@@ -4,7 +4,7 @@ import 'package:fively_ecommerce/utils/size.dart';
 import 'package:flutter/material.dart';
 
 // import app
-import '../widgets/custom_button.dart';
+import '../widgets/buttons/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 
 class LoginPage extends StatelessWidget {

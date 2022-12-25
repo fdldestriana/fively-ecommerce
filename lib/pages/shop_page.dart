@@ -1,7 +1,6 @@
 // import package
-import 'package:fively_ecommerce/pages/main_page/my_sliver_appbar.dart';
-import 'package:fively_ecommerce/pages/main_page/my_sliver_grid.dart';
 import 'package:fively_ecommerce/widgets/bottom_navigation_bar_custom.dart';
+import 'package:fively_ecommerce/widgets/buttons/add_to_bag_button.dart';
 import 'package:flutter/material.dart';
 
 class ShopPage extends StatelessWidget {
@@ -17,14 +16,12 @@ class ShopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const CustomScrollView(
-        slivers: <Widget>[
-          MySliverAppBar(),
-          SliverPadding(
-            padding: EdgeInsets.all(10),
-            sliver: MySliverGrid(),
-          )
-        ],
+      body: const Center(
+        child: SizedBox(
+          width: 343,
+          height: 104,
+          child: AddToBagButton(),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBarCustom(
         initialIndex: index,

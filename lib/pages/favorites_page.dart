@@ -4,7 +4,7 @@ import 'package:fively_ecommerce/providers/category_provider.dart';
 import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
 import 'package:fively_ecommerce/utils/size.dart';
 import 'package:fively_ecommerce/widgets/bottom_navigation_bar_custom.dart';
-import 'package:fively_ecommerce/widgets/category_button.dart';
+import 'package:fively_ecommerce/widgets/buttons/category_button.dart';
 import 'package:fively_ecommerce/widgets/product_item_favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

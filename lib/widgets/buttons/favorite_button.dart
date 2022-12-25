@@ -1,3 +1,4 @@
+// import package
 import 'package:fively_ecommerce/models/product.dart';
 import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,6 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     return Container(
       width: widget.parentWidth * 0.24,
       height: widget.parentHeight * 0.14,
-      // ignore: prefer_const_constructors
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: const Color(0xFFFFFFFF),
