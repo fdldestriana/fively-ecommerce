@@ -46,8 +46,10 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             ? const Icon(Icons.favorite)
             : const Icon(Icons.favorite_border),
         onPressed: () {
+          (!isFavorite)
+              ? provider.addToWishlist(widget.product)
+              : provider.removeFromWishlist(widget.product);
           setState(() {
-            provider.addToWishlist(widget.product);
             isFavorite = !isFavorite;
           });
         },

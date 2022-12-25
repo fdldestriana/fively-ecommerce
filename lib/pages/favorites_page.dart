@@ -38,8 +38,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     final bodyHeight = sizeConfig.screenHeight;
 
     return Scaffold(
-      appBar: //
-          AppBar(
+      appBar: AppBar(
         elevation: 7,
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
         backgroundColor: const Color(0xFFF9F9F9),
@@ -106,17 +105,20 @@ class _FavoritesPageState extends State<FavoritesPage> {
           child: Consumer<ProductFavoriteProvider>(
             builder: (BuildContext context, value, Widget? child) {
               List<Product> products = value.products;
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 2.96 / 1,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    crossAxisCount: 1),
-                itemBuilder: (((context, index) {
-                  return ProductItemFavorite(product: products[index]);
-                })),
-                itemCount: products.length,
-              );
+              return (products.isNotEmpty)
+                  ? GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 2.96 / 1,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              crossAxisCount: 1),
+                      itemBuilder: (((context, index) {
+                        return ProductItemFavorite(product: products[index]);
+                      })),
+                      itemCount: products.length,
+                    )
+                  : Container();
             },
           )),
       bottomNavigationBar: BottomNavigationBarCustom(
