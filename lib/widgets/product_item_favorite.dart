@@ -1,3 +1,4 @@
+// import package
 import 'package:fively_ecommerce/models/product.dart';
 import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
 import 'package:fively_ecommerce/utils/size.dart';

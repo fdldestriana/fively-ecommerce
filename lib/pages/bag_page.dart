@@ -1,10 +1,10 @@
 // import package
 import 'package:fively_ecommerce/models/product.dart';
 import 'package:fively_ecommerce/providers/category_provider.dart';
-import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
+import 'package:fively_ecommerce/providers/product_cart_provider.dart';
 import 'package:fively_ecommerce/utils/size.dart';
 import 'package:fively_ecommerce/widgets/bottom_navigation_bar_custom.dart';
-import 'package:fively_ecommerce/widgets/product_item_favorite.dart';
+import 'package:fively_ecommerce/widgets/product_item_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,7 +52,7 @@ class _BagPageState extends State<BagPage> {
                   fontWeight: FontWeight.w700),
             )),
       ),
-      body: Consumer<ProductFavoriteProvider>(
+      body: Consumer<ProductCartProvider>(
         builder: (BuildContext context, value, Widget? child) {
           List<Product> products = value.products;
           return (products.isNotEmpty)
@@ -69,7 +69,7 @@ class _BagPageState extends State<BagPage> {
                       mainAxisSpacing: bodyHeight * 0.04,
                       crossAxisCount: 1),
                   itemBuilder: (((context, index) {
-                    return ProductItemFavorite(product: products[index]);
+                    return ProductItemCart(product: products[index]);
                   })),
                   itemCount: products.length,
                 )
