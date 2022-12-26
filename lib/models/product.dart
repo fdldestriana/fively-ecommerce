@@ -6,7 +6,6 @@ class Product {
   String description;
   String images;
   bool isFavorite = false;
-  // Map<String, dynamic> rating;
 
   Product({
     required this.id,
@@ -15,8 +14,6 @@ class Product {
     required this.category,
     required this.description,
     required this.images,
-
-    // required this.rating
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -28,7 +25,6 @@ class Product {
         images: (json['images'] != [])
             ? json['images'][0]
             : 'https://api.lorem.space/image/watch?w=640&h=480&r=1040',
-        // rating: json['rating']
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,7 +34,6 @@ class Product {
         'category': category,
         'description': description,
         'images': images,
-        // 'rating': rating
       };
 
   void addFavorite() {

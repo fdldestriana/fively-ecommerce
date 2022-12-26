@@ -1,6 +1,5 @@
 // import package
 import 'package:fively_ecommerce/widgets/bottom_navigation_bar_custom.dart';
-import 'package:fively_ecommerce/widgets/buttons/add_to_bag_button.dart';
 import 'package:flutter/material.dart';
 
 class ShopPage extends StatelessWidget {
@@ -20,7 +19,7 @@ class ShopPage extends StatelessWidget {
         child: SizedBox(
           width: 343,
           height: 104,
-          child: AddToBagButton(),
+          // child: AddToBagButton(),
         ),
       ),
       bottomNavigationBar: BottomNavigationBarCustom(

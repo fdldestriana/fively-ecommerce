@@ -100,27 +100,30 @@ class _FavoritesPageState extends State<FavoritesPage> {
               ),
             )),
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Consumer<ProductFavoriteProvider>(
-            builder: (BuildContext context, value, Widget? child) {
-              List<Product> products = value.products;
-              return (products.isNotEmpty)
-                  ? GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 2.96 / 1,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              crossAxisCount: 1),
-                      itemBuilder: (((context, index) {
-                        return ProductItemFavorite(product: products[index]);
-                      })),
-                      itemCount: products.length,
-                    )
-                  : Container();
-            },
-          )),
+      body: Consumer<ProductFavoriteProvider>(
+        builder: (BuildContext context, value, Widget? child) {
+          List<Product> products = value.products;
+          return (products.isNotEmpty)
+              ? GridView.builder(
+                  padding: EdgeInsets.only(
+                    left: bodyWidth * 0.03,
+                    top: bodyHeight * 0.01,
+                    right: bodyWidth * 0.03,
+                    bottom: bodyHeight * 0.02,
+                  ),
+                  clipBehavior: Clip.none,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 2.96 / 1,
+                      mainAxisSpacing: bodyHeight * 0.04,
+                      crossAxisCount: 1),
+                  itemBuilder: (((context, index) {
+                    return ProductItemFavorite(product: products[index]);
+                  })),
+                  itemCount: products.length,
+                )
+              : Container();
+        },
+      ),
       bottomNavigationBar: BottomNavigationBarCustom(
         initialIndex: widget.index,
       ),

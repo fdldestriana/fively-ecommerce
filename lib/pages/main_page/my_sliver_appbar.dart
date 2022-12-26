@@ -18,6 +18,7 @@ class MySliverAppBar extends StatelessWidget {
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(bodyHeight * 0.11),
         child: AppBar(
+          automaticallyImplyLeading: false,
           title: RichText(
             text: const TextSpan(
               text: 'New',
