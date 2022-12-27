@@ -3,9 +3,9 @@ import 'package:fively_ecommerce/models/product.dart';
 import 'package:fively_ecommerce/providers/category_provider.dart';
 import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
 import 'package:fively_ecommerce/utils/size.dart';
-import 'package:fively_ecommerce/widgets/bottom_navigation_bar_custom.dart';
+import 'package:fively_ecommerce/widgets/buttons/bottom_navigation_bar_custom.dart';
 import 'package:fively_ecommerce/widgets/buttons/category_button.dart';
-import 'package:fively_ecommerce/widgets/product_item_favorite.dart';
+import 'package:fively_ecommerce/widgets/product_favorites_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -117,7 +117,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       mainAxisSpacing: bodyHeight * 0.04,
                       crossAxisCount: 1),
                   itemBuilder: (((context, index) {
-                    return ProductItemFavorite(product: products[index]);
+                    return ProductFavoritesItem(product: products[index]);
                   })),
                   itemCount: products.length,
                 )

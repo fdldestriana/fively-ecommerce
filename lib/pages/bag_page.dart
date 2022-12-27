@@ -3,8 +3,9 @@ import 'package:fively_ecommerce/models/product.dart';
 import 'package:fively_ecommerce/providers/category_provider.dart';
 import 'package:fively_ecommerce/providers/product_cart_provider.dart';
 import 'package:fively_ecommerce/utils/size.dart';
-import 'package:fively_ecommerce/widgets/bottom_navigation_bar_custom.dart';
-import 'package:fively_ecommerce/widgets/product_item_cart.dart';
+import 'package:fively_ecommerce/widgets/buttons/bottom_navigation_bar_custom.dart';
+import 'package:fively_ecommerce/widgets/buttons/custom_button.dart';
+import 'package:fively_ecommerce/widgets/product_cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,20 +38,38 @@ class _BagPageState extends State<BagPage> {
     final bodyHeight = sizeConfig.screenHeight;
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
-        backgroundColor: const Color(0xFFF9F9F9),
-        bottom: PreferredSize(
-            preferredSize: Size.fromHeight(bodyHeight * 0.13),
-            child: const Text(
+      bottomSheet: Container(
+        color: const Color(0xFFF9F9F9),
+        padding: EdgeInsets.only(
+            left: bodyWidth * 0.04,
+            top: bodyHeight * 0.03,
+            right: bodyWidth * 0.04,
+            bottom: bodyHeight * 0.04),
+        child: CustomButton(
+            title: 'CHECK OUT',
+            widthSize: bodyWidth * 0.91,
+            heightSize: bodyHeight * 0.06),
+      ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(bodyHeight * 0.13),
+        child: AppBar(
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
+          ],
+          backgroundColor: const Color(0xFFF9F9F9),
+          elevation: 0,
+          flexibleSpace: FlexibleSpaceBar(
+            titlePadding: EdgeInsets.only(left: bodyWidth * 0.04),
+            title: const Text(
               'My Bag',
               textAlign: TextAlign.left,
               style: TextStyle(
                   color: Color(0xFF222222),
                   fontSize: 34,
                   fontWeight: FontWeight.w700),
-            )),
+            ),
+          ),
+        ),
       ),
       body: Consumer<ProductCartProvider>(
         builder: (BuildContext context, value, Widget? child) {
@@ -69,7 +88,7 @@ class _BagPageState extends State<BagPage> {
                       mainAxisSpacing: bodyHeight * 0.04,
                       crossAxisCount: 1),
                   itemBuilder: (((context, index) {
-                    return ProductItemCart(product: products[index]);
+                    return ProductCartItem(product: products[index]);
                   })),
                   itemCount: products.length,
                 )
@@ -81,19 +100,4 @@ class _BagPageState extends State<BagPage> {
       ),
     );
   }
-}
-
-class MyAppBar extends StatelessWidget implements PreferredSize {
-  const MyAppBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget get child => throw UnimplementedError();
-
-  @override
-  Size get preferredSize => throw UnimplementedError();
 }

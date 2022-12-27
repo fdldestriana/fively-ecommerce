@@ -38,7 +38,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                 color: const Color(0xFF9B9B9B),
                 blurRadius: widget.parentWidth * 0.001,
                 spreadRadius: widget.parentWidth * 0.001,
-                offset: Offset(0, widget.parentWidth * 0.01))
+                offset: Offset(0, widget.parentWidth * 0.005))
           ]),
       child: IconButton(
         color: (isFavorite) ? const Color(0xFFDB3022) : const Color(0xFF9B9B9B),

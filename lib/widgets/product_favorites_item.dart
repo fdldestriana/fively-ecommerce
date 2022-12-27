@@ -6,8 +6,8 @@ import 'package:fively_ecommerce/widgets/buttons/add_to_bag_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProductItemFavorite extends StatelessWidget {
-  const ProductItemFavorite({
+class ProductFavoritesItem extends StatelessWidget {
+  const ProductFavoritesItem({
     Key? key,
     required this.product,
   }) : super(key: key);
@@ -20,8 +20,10 @@ class ProductItemFavorite extends StatelessWidget {
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
-    ProductFavoriteProvider provider =
+
+    ProductFavoriteProvider favoriteProvider =
         Provider.of<ProductFavoriteProvider>(context, listen: false);
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(bodyWidth * 0.03)),
@@ -120,7 +122,7 @@ class ProductItemFavorite extends StatelessWidget {
                 ),
                 IconButton(
                     onPressed: () {
-                      provider.removeFromWishlist(product);
+                      favoriteProvider.removeFromWishlist(product);
                     },
                     icon: const Icon(
                       Icons.close,
@@ -134,6 +136,7 @@ class ProductItemFavorite extends StatelessWidget {
                 child: AddToBagButton(
                   parentHeight: constraints.maxHeight,
                   parentWidth: constraints.maxWidth,
+                  product: product,
                 ))
           ]);
         },

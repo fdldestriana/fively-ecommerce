@@ -1,7 +1,7 @@
 // import package
 import 'package:fively_ecommerce/pages/main_page/my_sliver_appbar.dart';
 import 'package:fively_ecommerce/pages/main_page/my_sliver_grid.dart';
-import 'package:fively_ecommerce/widgets/bottom_navigation_bar_custom.dart';
+import 'package:fively_ecommerce/widgets/buttons/bottom_navigation_bar_custom.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {

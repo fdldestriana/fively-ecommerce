@@ -1,5 +1,5 @@
 // import package
-import 'package:fively_ecommerce/widgets/bottom_navigation_bar_custom.dart';
+import 'package:fively_ecommerce/widgets/buttons/bottom_navigation_bar_custom.dart';
 import 'package:flutter/material.dart';
 
 class ShopPage extends StatelessWidget {
