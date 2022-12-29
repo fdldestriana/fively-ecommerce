@@ -1,25 +1,25 @@
-import 'package:fively_ecommerce/pages/bag_page.dart';
-import 'package:fively_ecommerce/pages/favorites_page.dart';
-import 'package:fively_ecommerce/pages/main_page/main_page.dart';
-import 'package:fively_ecommerce/pages/profile_page.dart';
-import 'package:fively_ecommerce/pages/shop_page.dart';
+import 'package:fively_ecommerce/module/bag/view/bag_view.dart';
+import 'package:fively_ecommerce/module/favorites/view/favorites_view.dart';
+import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
+import 'package:fively_ecommerce/module/profile/view/profile_view.dart';
+import 'package:fively_ecommerce/module/shop/view/shop_view.dart';
 import 'package:flutter/cupertino.dart';
 
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.arguments) {
       case 0:
-        return MainPage.route();
+        return ProductListView.route();
       case 1:
-        return ShopPage.route();
+        return ShopView.route();
       case 2:
-        return BagPage.route();
+        return BagView.route();
       case 3:
-        return FavoritesPage.route();
+        return FavoritesView.route();
       case 4:
-        return ProfilePage.route();
+        return ProfileView.route();
       default:
-        return MainPage.route();
+        return ProductListView.route();
     }
   }
 }

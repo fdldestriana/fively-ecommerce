@@ -1,6 +1,6 @@
 // import package
-import 'package:fively_ecommerce/pages/main_page/main_page.dart';
-import 'package:fively_ecommerce/pages/product_detail_page.dart';
+import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
+import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_view.dart';
 import 'package:fively_ecommerce/controller/category_controller.dart';
 import 'package:fively_ecommerce/controller/product_cart_controller.dart';
 import 'package:fively_ecommerce/controller/product_favorite_controller.dart';
@@ -52,11 +52,11 @@ class MyApp extends StatelessWidget {
                 textTheme: const TextTheme(
                     bodyText1: TextStyle(color: Color(0xFF222222)),
                     bodyText2: TextStyle(color: Color(0xFF222222)))),
-            initialRoute: MainPage.routeName,
+            initialRoute: ProductListView.routeName,
             onGenerateRoute: AppRouter.onGenerateRoute,
             routes: {
-              ProductDetailPage.routeName: (context) =>
-                  const ProductDetailPage()
+              ProductDetailView.routeName: (context) =>
+                  const ProductDetailView()
             },
           ),
         );
