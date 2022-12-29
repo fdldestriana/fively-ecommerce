@@ -40,16 +40,27 @@ class _BagViewState extends State<BagView> {
     return Scaffold(
       bottomSheet: Container(
         color: const Color(0xFFF9F9F9),
-        padding: EdgeInsets.only(
-            left: bodyWidth * 0.04,
-            top: bodyHeight * 0.03,
-            right: bodyWidth * 0.04,
-            bottom: bodyHeight * 0.04),
-        child: CustomButton(
-            function: () {},
-            title: 'CHECK OUT',
-            widthSize: bodyWidth * 0.91,
-            heightSize: bodyHeight * 0.06),
+        height: bodyHeight * 0.23,
+        child: Column(
+          children: [
+            const Text('Total amount:'),
+            SizedBox(
+              height: bodyHeight * 0.03,
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                  left: bodyWidth * 0.04,
+                  top: bodyHeight * 0.03,
+                  right: bodyWidth * 0.04,
+                  bottom: bodyHeight * 0.04),
+              child: CustomButton(
+                  function: () {},
+                  title: 'CHECK OUT',
+                  widthSize: bodyWidth * 0.91,
+                  heightSize: bodyHeight * 0.06),
+            ),
+          ],
+        ),
       ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(bodyHeight * 0.13),
