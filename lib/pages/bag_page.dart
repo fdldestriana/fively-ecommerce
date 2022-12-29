@@ -1,8 +1,8 @@
 // import package
-import 'package:fively_ecommerce/models/product.dart';
-import 'package:fively_ecommerce/providers/category_provider.dart';
-import 'package:fively_ecommerce/providers/product_cart_provider.dart';
-import 'package:fively_ecommerce/utils/size.dart';
+import 'package:fively_ecommerce/model/product.dart';
+import 'package:fively_ecommerce/controller/category_controller.dart';
+import 'package:fively_ecommerce/controller/product_cart_controller.dart';
+import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widgets/buttons/bottom_navigation_bar_custom.dart';
 import 'package:fively_ecommerce/widgets/buttons/custom_button.dart';
 import 'package:fively_ecommerce/widgets/product_cart_item.dart';
@@ -26,7 +26,7 @@ class BagPage extends StatefulWidget {
 class _BagPageState extends State<BagPage> {
   @override
   void didChangeDependencies() {
-    Provider.of<CategoryProvider>(context, listen: false).getCategories();
+    Provider.of<CategoryController>(context, listen: false).getCategories();
     super.didChangeDependencies();
   }
 
@@ -71,7 +71,7 @@ class _BagPageState extends State<BagPage> {
           ),
         ),
       ),
-      body: Consumer<ProductCartProvider>(
+      body: Consumer<ProductCartController>(
         builder: (BuildContext context, value, Widget? child) {
           List<Product> products = value.products;
           return (products.isNotEmpty)

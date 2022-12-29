@@ -1,8 +1,8 @@
 // import package
-import 'package:fively_ecommerce/models/product.dart';
-import 'package:fively_ecommerce/providers/category_provider.dart';
-import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
-import 'package:fively_ecommerce/utils/size.dart';
+import 'package:fively_ecommerce/model/product.dart';
+import 'package:fively_ecommerce/controller/category_controller.dart';
+import 'package:fively_ecommerce/controller/product_favorite_controller.dart';
+import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widgets/buttons/bottom_navigation_bar_custom.dart';
 import 'package:fively_ecommerce/widgets/buttons/category_button.dart';
 import 'package:fively_ecommerce/widgets/product_favorites_item.dart';
@@ -26,7 +26,7 @@ class FavoritesPage extends StatefulWidget {
 class _FavoritesPageState extends State<FavoritesPage> {
   @override
   void didChangeDependencies() {
-    Provider.of<CategoryProvider>(context, listen: false).getCategories();
+    Provider.of<CategoryController>(context, listen: false).getCategories();
     super.didChangeDependencies();
   }
 
@@ -59,7 +59,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   SizedBox(
                     height: bodyHeight * 0.02,
                   ),
-                  Consumer<CategoryProvider>(
+                  Consumer<CategoryController>(
                       builder: (BuildContext _, value, Widget? __) {
                     return SizedBox(
                       height: bodyHeight * 0.05,
@@ -100,7 +100,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               ),
             )),
       ),
-      body: Consumer<ProductFavoriteProvider>(
+      body: Consumer<ProductFavoriteController>(
         builder: (BuildContext context, value, Widget? child) {
           List<Product> products = value.products;
           return (products.isNotEmpty)

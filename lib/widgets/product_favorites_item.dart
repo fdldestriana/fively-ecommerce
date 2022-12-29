@@ -1,7 +1,7 @@
 // import package
-import 'package:fively_ecommerce/models/product.dart';
-import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
-import 'package:fively_ecommerce/utils/size.dart';
+import 'package:fively_ecommerce/model/product.dart';
+import 'package:fively_ecommerce/controller/product_favorite_controller.dart';
+import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widgets/buttons/add_to_bag_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +21,8 @@ class ProductFavoritesItem extends StatelessWidget {
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
 
-    ProductFavoriteProvider favoriteProvider =
-        Provider.of<ProductFavoriteProvider>(context, listen: false);
+    ProductFavoriteController favoriteProvider =
+        Provider.of<ProductFavoriteController>(context, listen: false);
 
     return Container(
       decoration: BoxDecoration(

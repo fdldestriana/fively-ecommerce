@@ -1,11 +1,11 @@
 // import package
 import 'package:fively_ecommerce/pages/main_page/main_page.dart';
 import 'package:fively_ecommerce/pages/product_detail_page.dart';
-import 'package:fively_ecommerce/providers/category_provider.dart';
-import 'package:fively_ecommerce/providers/product_cart_provider.dart';
-import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
-import 'package:fively_ecommerce/providers/product_provider.dart';
-import 'package:fively_ecommerce/utils/app_router.dart';
+import 'package:fively_ecommerce/controller/category_controller.dart';
+import 'package:fively_ecommerce/controller/product_cart_controller.dart';
+import 'package:fively_ecommerce/controller/product_favorite_controller.dart';
+import 'package:fively_ecommerce/controller/product_controller.dart';
+import 'package:fively_ecommerce/shared/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +24,11 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext _, Widget? __) {
         return MultiProvider(
           providers: [
-            ChangeNotifierProvider(create: ((context) => CategoryProvider())),
-            ChangeNotifierProvider(create: (context) => ProductProvider()),
+            ChangeNotifierProvider(create: ((context) => CategoryController())),
+            ChangeNotifierProvider(create: (context) => ProductController()),
             ChangeNotifierProvider(
-                create: (context) => ProductFavoriteProvider()),
-            ChangeNotifierProvider(create: (context) => ProductCartProvider())
+                create: (context) => ProductFavoriteController()),
+            ChangeNotifierProvider(create: (context) => ProductCartController())
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

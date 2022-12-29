@@ -1,10 +1,10 @@
 // import package
 import 'dart:convert';
-import 'package:fively_ecommerce/models/product.dart';
+import 'package:fively_ecommerce/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class ProductProvider with ChangeNotifier {
+class ProductController with ChangeNotifier {
   List<Product> _products = [];
   List<Product> get products => _products;
 

@@ -1,6 +1,6 @@
 // import package
-import 'package:fively_ecommerce/models/product.dart';
-import 'package:fively_ecommerce/providers/product_favorite_provider.dart';
+import 'package:fively_ecommerce/model/product.dart';
+import 'package:fively_ecommerce/controller/product_favorite_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +24,8 @@ class _FavoriteButtonState extends State<FavoriteButton> {
 
   @override
   Widget build(BuildContext context) {
-    ProductFavoriteProvider provider =
-        Provider.of<ProductFavoriteProvider>(context, listen: false);
+    ProductFavoriteController provider =
+        Provider.of<ProductFavoriteController>(context, listen: false);
 
     return Container(
       width: widget.parentWidth * 0.24,

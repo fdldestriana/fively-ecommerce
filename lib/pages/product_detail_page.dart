@@ -1,7 +1,7 @@
 // import package
-import 'package:fively_ecommerce/models/product.dart';
-import 'package:fively_ecommerce/providers/product_provider.dart';
-import 'package:fively_ecommerce/utils/size.dart';
+import 'package:fively_ecommerce/model/product.dart';
+import 'package:fively_ecommerce/controller/product_controller.dart';
+import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widgets/buttons/custom_button.dart';
 import 'package:fively_ecommerce/widgets/buttons/favorite_button.dart';
 import 'package:fively_ecommerce/widgets/outlined_button_custom.dart';
@@ -21,7 +21,7 @@ class ProductDetailPage extends StatelessWidget {
     final bodyHeight = sizeConfig.screenHeight;
     final id = ModalRoute.of(context)!.settings.arguments as int;
     final List<Product> products =
-        Provider.of<ProductProvider>(context, listen: false).products;
+        Provider.of<ProductController>(context, listen: false).products;
     final Product product = products.firstWhere(
       (element) => element.id == id,
     );

@@ -1,5 +1,5 @@
 // import package
-import 'package:fively_ecommerce/utils/size.dart';
+import 'package:fively_ecommerce/shared/utils/size.dart';
 // import 'package:fively_ecommerce/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 

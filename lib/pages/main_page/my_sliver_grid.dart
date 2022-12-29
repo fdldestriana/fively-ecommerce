@@ -1,6 +1,6 @@
 // import package
-import 'package:fively_ecommerce/models/product.dart';
-import 'package:fively_ecommerce/providers/product_provider.dart';
+import 'package:fively_ecommerce/model/product.dart';
+import 'package:fively_ecommerce/controller/product_controller.dart';
 import 'package:fively_ecommerce/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,13 +17,13 @@ class MySliverGrid extends StatefulWidget {
 class _MySliverGridState extends State<MySliverGrid> {
   @override
   void didChangeDependencies() {
-    Provider.of<ProductProvider>(context, listen: false).getProducts();
+    Provider.of<ProductController>(context, listen: false).getProducts();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProductProvider>(
+    return Consumer<ProductController>(
       builder: (BuildContext context, value, Widget? child) {
         List<Product> products = value.products;
         return SliverGrid(

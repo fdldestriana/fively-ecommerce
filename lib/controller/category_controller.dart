@@ -1,10 +1,10 @@
 // import package
 import 'dart:convert';
-import 'package:fively_ecommerce/models/category.dart';
+import 'package:fively_ecommerce/model/category.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class CategoryProvider with ChangeNotifier {
+class CategoryController with ChangeNotifier {
   List<Category> _categories = [];
   List<Category> get categories => _categories;
 

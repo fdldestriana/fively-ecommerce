@@ -1,4 +1,4 @@
-import 'package:fively_ecommerce/models/category.dart';
+import 'package:fively_ecommerce/model/category.dart';
 import 'package:flutter/material.dart';
 
 class CategoryButton extends StatelessWidget {

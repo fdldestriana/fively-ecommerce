@@ -1,6 +1,6 @@
 // import package
-import 'package:fively_ecommerce/models/product.dart';
-import 'package:fively_ecommerce/utils/size.dart';
+import 'package:fively_ecommerce/model/product.dart';
+import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widgets/buttons/cart_button.dart';
 import 'package:fively_ecommerce/widgets/buttons/pop_up_menu_button_custom.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:fively_ecommerce/models/product.dart';
+import 'package:fively_ecommerce/model/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductFavoriteItem extends StatelessWidget {

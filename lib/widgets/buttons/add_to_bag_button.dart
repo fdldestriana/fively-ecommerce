@@ -1,6 +1,6 @@
 // import package
-import 'package:fively_ecommerce/models/product.dart';
-import 'package:fively_ecommerce/providers/product_cart_provider.dart';
+import 'package:fively_ecommerce/model/product.dart';
+import 'package:fively_ecommerce/controller/product_cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +18,8 @@ class AddToBagButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProductCartProvider cartProvider =
-        Provider.of<ProductCartProvider>(context, listen: false);
+    ProductCartController cartProvider =
+        Provider.of<ProductCartController>(context, listen: false);
 
     const snackBar = SnackBar(
       content: Text('1 item has successfully added to the cart'),
