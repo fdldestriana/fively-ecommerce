@@ -4,7 +4,7 @@ import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_
 import 'package:fively_ecommerce/controller/category_controller.dart';
 import 'package:fively_ecommerce/controller/product_cart_controller.dart';
 import 'package:fively_ecommerce/controller/product_favorite_controller.dart';
-import 'package:fively_ecommerce/controller/product_controller.dart';
+import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/shared/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(create: ((context) => CategoryController())),
-            ChangeNotifierProvider(create: (context) => ProductController()),
+            ChangeNotifierProvider(
+                create: (context) => ProductListController()),
             ChangeNotifierProvider(
                 create: (context) => ProductFavoriteController()),
             ChangeNotifierProvider(create: (context) => ProductCartController())

@@ -65,14 +65,18 @@ class _ProductCartItemState extends State<ProductCartItem> {
                           ),
                           Text(
                             widget.product.title,
+                            maxLines: 1,
                             style: const TextStyle(
-                                fontSize: 11, color: Color(0xFF9B9B9B)),
+                                overflow: TextOverflow.ellipsis,
+                                fontSize: 11,
+                                color: Color(0xFF9B9B9B)),
                           ),
                           SizedBox(
                             height: constraints.maxHeight * 0.03,
                           ),
                           Text(
                             widget.product.title,
+                            maxLines: 1,
                             style: const TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 15,

@@ -36,7 +36,7 @@ class ProductItem extends StatelessWidget {
                     borderRadius:
                         BorderRadius.all(Radius.circular(bodyWidth * 0.03)),
                     child: Hero(
-                      tag: product.title,
+                      tag: product.id,
                       child: Image.network(
                         product.images,
                         width: constraints.maxWidth * 1.00,
@@ -87,6 +87,7 @@ class ProductItem extends StatelessWidget {
                 ),
                 Text(
                   product.title,
+                  maxLines: 1,
                   style:
                       const TextStyle(fontSize: 11, color: Color(0xFF9B9B9B)),
                 ),
@@ -95,6 +96,7 @@ class ProductItem extends StatelessWidget {
                 ),
                 Text(
                   product.title,
+                  maxLines: 1,
                   style: const TextStyle(
                       overflow: TextOverflow.ellipsis,
                       fontSize: 16,
