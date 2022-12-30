@@ -1,10 +1,11 @@
 // import package
 import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
 import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_view.dart';
-import 'package:fively_ecommerce/controller/product_cart_controller.dart';
-import 'package:fively_ecommerce/controller/product_favorite_controller.dart';
-import 'package:fively_ecommerce/module/favorites/controller/categories_controller.dart';
+import 'package:fively_ecommerce/module/bag/controller/product_cart_controller.dart';
+import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
+import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
+import 'package:fively_ecommerce/module/shop/view/shop_product_view.dart';
 import 'package:fively_ecommerce/shared/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,7 +58,8 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: AppRouter.onGenerateRoute,
             routes: {
               ProductDetailView.routeName: (context) =>
-                  const ProductDetailView()
+                  const ProductDetailView(),
+              ShopProductView.routeName: ((context) => const ShopProductView())
             },
           ),
         );

@@ -1,15 +1,11 @@
 // import package
-import 'package:fively_ecommerce/module/bag/controller/product_cart_controller.dart';
 import 'package:fively_ecommerce/model/product.dart';
-import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
+// import 'package:fively_ecommerce/module/main/product_detail/widget/favorite_button.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
-import 'package:fively_ecommerce/module/favorites/widget/add_to_cart_button.dart';
-import 'package:fively_ecommerce/widget/snackbar_message.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class ProductFavoriteItem extends StatelessWidget {
-  const ProductFavoriteItem({
+class ProductShopItem extends StatelessWidget {
+  const ProductShopItem({
     Key? key,
     required this.product,
   }) : super(key: key);
@@ -22,12 +18,6 @@ class ProductFavoriteItem extends StatelessWidget {
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
-
-    ProductFavoriteController favoriteProvider =
-        Provider.of<ProductFavoriteController>(context, listen: false);
-
-    ProductCartController cartController =
-        Provider.of<ProductCartController>(context, listen: false);
 
     return Container(
       decoration: BoxDecoration(
@@ -125,28 +115,16 @@ class ProductFavoriteItem extends StatelessWidget {
                     ])
                   ],
                 ),
-                IconButton(
-                    onPressed: () {
-                      favoriteProvider.removeFromWishlist(product);
-                    },
-                    icon: const Icon(
-                      Icons.close,
-                      color: Color(0xFF9B9B9B),
-                    )),
               ],
             ),
-            Positioned(
-                bottom: -(constraints.maxHeight * 0.14),
-                right: 0,
-                child: AddToCartButton(
-                  function: () {
-                    cartController.addToCart(product);
-                    ScaffoldMessenger.of(context).showSnackBar(snackBarMessage);
-                  },
-                  parentHeight: constraints.maxHeight,
-                  parentWidth: constraints.maxWidth,
-                  product: product,
-                ))
+            // Positioned(
+            //     bottom: -(constraints.maxHeight * 0.14),
+            //     right: 0,
+            //     child: FavoriteButton(
+            //       parentHeight: constraints.maxHeight,
+            //       parentWidth: constraints.maxWidth,
+            //       product: product,
+            //     ))
           ]);
         },
       ),

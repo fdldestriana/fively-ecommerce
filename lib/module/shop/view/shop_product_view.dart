@@ -1,29 +1,30 @@
 // import package
+import 'package:fively_ecommerce/model/category.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
-import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
+import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
+import 'package:fively_ecommerce/module/shop/widget/product_shop_item.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/bottom_navigation_bar_custom.dart';
 import 'package:fively_ecommerce/module/favorites/widget/category_button.dart';
-import 'package:fively_ecommerce/module/favorites/widget/product_favorite_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FavoritesView extends StatefulWidget {
-  const FavoritesView({super.key});
-  final int index = 3;
-  static const routeName = 'favorites';
+class ShopProductView extends StatefulWidget {
+  const ShopProductView({super.key});
+  final int index = 1;
+  static const routeName = 'sho-product';
   static Route route() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: routeName),
-        builder: (_) => const FavoritesView());
+        builder: (_) => const ShopProductView());
   }
 
   @override
-  State<FavoritesView> createState() => _FavoritesViewState();
+  State<ShopProductView> createState() => _ShopProductViewState();
 }
 
-class _FavoritesViewState extends State<FavoritesView> {
+class _ShopProductViewState extends State<ShopProductView> {
   @override
   void didChangeDependencies() {
     Provider.of<CategoryController>(context, listen: false).getCategories();
@@ -37,6 +38,16 @@ class _FavoritesViewState extends State<FavoritesView> {
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
 
+    final Category category =
+        ModalRoute.of(context)!.settings.arguments as Category;
+
+    final List<Product> products =
+        Provider.of<ProductListController>(context, listen: false).products;
+
+    final Product product = products.firstWhere(
+      (element) => element.category == category.name,
+    );
+
     return Scaffold(
       appBar: AppBar(
         elevation: 7,
@@ -49,9 +60,9 @@ class _FavoritesViewState extends State<FavoritesView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Favorites',
-                    style: TextStyle(
+                  Text(
+                    product.category.toUpperCase(),
+                    style: const TextStyle(
                         color: Color(0xFF222222),
                         fontSize: 34,
                         fontWeight: FontWeight.w700),
@@ -101,9 +112,11 @@ class _FavoritesViewState extends State<FavoritesView> {
               ),
             )),
       ),
-      body: Consumer<ProductFavoriteController>(
+      body: Consumer<ProductListController>(
         builder: (BuildContext context, value, Widget? child) {
-          List<Product> products = value.products;
+          List<Product> products = value.products
+              .where((element) => element.category == product.category)
+              .toList();
           return (products.isNotEmpty)
               ? GridView.builder(
                   padding: EdgeInsets.only(
@@ -118,7 +131,7 @@ class _FavoritesViewState extends State<FavoritesView> {
                       mainAxisSpacing: bodyHeight * 0.04,
                       crossAxisCount: 1),
                   itemBuilder: (((context, index) {
-                    return ProductFavoriteItem(product: products[index]);
+                    return ProductShopItem(product: products[index]);
                   })),
                   itemCount: products.length,
                 )

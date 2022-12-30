@@ -1,6 +1,6 @@
 // import package
 import 'package:fively_ecommerce/model/product.dart';
-import 'package:fively_ecommerce/controller/product_favorite_controller.dart';
+import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
