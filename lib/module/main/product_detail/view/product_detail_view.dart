@@ -97,7 +97,7 @@ class ProductDetailView extends StatelessWidget {
                       text: product.category,
                       style: const TextStyle(
                           color: Color(0xFF222222),
-                          fontSize: 24,
+                          fontSize: 20,
                           fontWeight: FontWeight.w700),
                       children: <TextSpan>[
                         TextSpan(

@@ -1,9 +1,9 @@
 // import package
 import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
 import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_view.dart';
-import 'package:fively_ecommerce/controller/category_controller.dart';
 import 'package:fively_ecommerce/controller/product_cart_controller.dart';
 import 'package:fively_ecommerce/controller/product_favorite_controller.dart';
+import 'package:fively_ecommerce/module/favorites/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/shared/utils/app_router.dart';
 import 'package:flutter/material.dart';

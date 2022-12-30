@@ -7,7 +7,7 @@ class ProductListController with ChangeNotifier {
   List<Product> _products = [];
   List<Product> get products => _products;
 
-  Future<List<Product>> getData() async {
+  Future<List<Product>> getProducts() async {
     _products = await WebService.getProducts();
     notifyListeners();
     return _products;

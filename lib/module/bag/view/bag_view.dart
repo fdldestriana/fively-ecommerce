@@ -1,6 +1,6 @@
 // import package
 import 'package:fively_ecommerce/model/product.dart';
-import 'package:fively_ecommerce/controller/category_controller.dart';
+import 'package:fively_ecommerce/module/favorites/controller/categories_controller.dart';
 import 'package:fively_ecommerce/controller/product_cart_controller.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/bottom_navigation_bar_custom.dart';
