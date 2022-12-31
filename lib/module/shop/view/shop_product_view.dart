@@ -9,10 +9,10 @@ import 'package:fively_ecommerce/module/favorites/widget/category_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ShopProductView extends StatefulWidget {
+class ShopProductView extends StatelessWidget {
   const ShopProductView({super.key});
   final int index = 1;
-  static const routeName = 'sho-product';
+  static const routeName = 'shop-product';
   static Route route() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: routeName),
@@ -20,18 +20,8 @@ class ShopProductView extends StatefulWidget {
   }
 
   @override
-  State<ShopProductView> createState() => _ShopProductViewState();
-}
-
-class _ShopProductViewState extends State<ShopProductView> {
-  @override
-  void didChangeDependencies() {
-    Provider.of<CategoryController>(context, listen: false).getCategories();
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    print('rebuild');
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
@@ -39,18 +29,6 @@ class _ShopProductViewState extends State<ShopProductView> {
 
     final String category =
         ModalRoute.of(context)!.settings.arguments.toString();
-
-    final ProductListController productListController =
-        Provider.of<ProductListController>(context);
-
-    List<Product> products = [];
-    if (category != 'all') {
-      products = productListController.products
-          .where((element) => element.category == category)
-          .toList();
-    } else if (category == 'all') {
-      products = productListController.products;
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -116,27 +94,38 @@ class _ShopProductViewState extends State<ShopProductView> {
               ),
             )),
       ),
-      body: (products.isNotEmpty)
-          ? GridView.builder(
-              padding: EdgeInsets.only(
-                left: bodyWidth * 0.03,
-                top: bodyHeight * 0.01,
-                right: bodyWidth * 0.03,
-                bottom: bodyHeight * 0.02,
-              ),
-              clipBehavior: Clip.none,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 2.96 / 1,
-                  mainAxisSpacing: bodyHeight * 0.04,
-                  crossAxisCount: 1),
-              itemBuilder: (((context, index) {
-                return ProductShopItem(product: products[index]);
-              })),
-              itemCount: products.length,
-            )
-          : Container(),
-      bottomNavigationBar:
-          BottomNavigationBarCustom(initialIndex: widget.index),
+      body: Consumer<ProductListController>(
+        builder: (BuildContext _, value, Widget? __) {
+          List<Product> products = [];
+          if (category != 'all') {
+            products = value.products
+                .where((element) => element.category == category)
+                .toList();
+          } else if (category == 'all') {
+            products = value.products;
+          }
+          return (products.isNotEmpty)
+              ? GridView.builder(
+                  padding: EdgeInsets.only(
+                    left: bodyWidth * 0.03,
+                    top: bodyHeight * 0.01,
+                    right: bodyWidth * 0.03,
+                    bottom: bodyHeight * 0.03,
+                  ),
+                  clipBehavior: Clip.none,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 2.96 / 1,
+                      mainAxisSpacing: bodyHeight * 0.04,
+                      crossAxisCount: 1),
+                  itemBuilder: (((context, index) {
+                    return ProductShopItem(product: products[index]);
+                  })),
+                  itemCount: products.length,
+                )
+              : Container();
+        },
+      ),
+      bottomNavigationBar: BottomNavigationBarCustom(initialIndex: index),
     );
   }
 }

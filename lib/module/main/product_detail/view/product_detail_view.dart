@@ -31,6 +31,7 @@ class ProductDetailView extends StatelessWidget {
 
     final ProductCartController cartController =
         Provider.of<ProductCartController>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFFFF),

@@ -1,6 +1,6 @@
 // import package
 import 'package:fively_ecommerce/model/product.dart';
-// import 'package:fively_ecommerce/module/main/product_detail/widget/favorite_button.dart';
+import 'package:fively_ecommerce/module/main/product_detail/widget/favorite_button.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:flutter/material.dart';
 
@@ -117,14 +117,14 @@ class ProductShopItem extends StatelessWidget {
                 ),
               ],
             ),
-            // Positioned(
-            //     bottom: -(constraints.maxHeight * 0.14),
-            //     right: 0,
-            //     child: FavoriteButton(
-            //       parentHeight: constraints.maxHeight,
-            //       parentWidth: constraints.maxWidth,
-            //       product: product,
-            //     ))
+            Positioned(
+                bottom: -(constraints.maxHeight * 0.12),
+                right: -(constraints.maxWidth * 0.07),
+                child: FavoriteButton(
+                  parentHeight: constraints.maxHeight * 2,
+                  parentWidth: constraints.maxWidth,
+                  product: product,
+                ))
           ]);
         },
       ),
