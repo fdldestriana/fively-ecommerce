@@ -1,5 +1,4 @@
 // import package
-import 'package:fively_ecommerce/model/category.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
@@ -38,15 +37,20 @@ class _ShopProductViewState extends State<ShopProductView> {
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
 
-    final Category category =
-        ModalRoute.of(context)!.settings.arguments as Category;
+    final String category =
+        ModalRoute.of(context)!.settings.arguments.toString();
 
-    final List<Product> products =
-        Provider.of<ProductListController>(context, listen: false).products;
+    final ProductListController productListController =
+        Provider.of<ProductListController>(context);
 
-    final Product product = products.firstWhere(
-      (element) => element.category == category.name,
-    );
+    List<Product> products = [];
+    if (category != 'all') {
+      products = productListController.products
+          .where((element) => element.category == category)
+          .toList();
+    } else if (category == 'all') {
+      products = productListController.products;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -61,7 +65,7 @@ class _ShopProductViewState extends State<ShopProductView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.category.toUpperCase(),
+                    category.toUpperCase(),
                     style: const TextStyle(
                         color: Color(0xFF222222),
                         fontSize: 34,
@@ -112,35 +116,27 @@ class _ShopProductViewState extends State<ShopProductView> {
               ),
             )),
       ),
-      body: Consumer<ProductListController>(
-        builder: (BuildContext context, value, Widget? child) {
-          List<Product> products = value.products
-              .where((element) => element.category == product.category)
-              .toList();
-          return (products.isNotEmpty)
-              ? GridView.builder(
-                  padding: EdgeInsets.only(
-                    left: bodyWidth * 0.03,
-                    top: bodyHeight * 0.01,
-                    right: bodyWidth * 0.03,
-                    bottom: bodyHeight * 0.02,
-                  ),
-                  clipBehavior: Clip.none,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 2.96 / 1,
-                      mainAxisSpacing: bodyHeight * 0.04,
-                      crossAxisCount: 1),
-                  itemBuilder: (((context, index) {
-                    return ProductShopItem(product: products[index]);
-                  })),
-                  itemCount: products.length,
-                )
-              : Container();
-        },
-      ),
-      bottomNavigationBar: BottomNavigationBarCustom(
-        initialIndex: widget.index,
-      ),
+      body: (products.isNotEmpty)
+          ? GridView.builder(
+              padding: EdgeInsets.only(
+                left: bodyWidth * 0.03,
+                top: bodyHeight * 0.01,
+                right: bodyWidth * 0.03,
+                bottom: bodyHeight * 0.02,
+              ),
+              clipBehavior: Clip.none,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 2.96 / 1,
+                  mainAxisSpacing: bodyHeight * 0.04,
+                  crossAxisCount: 1),
+              itemBuilder: (((context, index) {
+                return ProductShopItem(product: products[index]);
+              })),
+              itemCount: products.length,
+            )
+          : Container(),
+      bottomNavigationBar:
+          BottomNavigationBarCustom(initialIndex: widget.index),
     );
   }
 }

@@ -91,7 +91,7 @@ class _ShopViewState extends State<ShopView> {
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, ShopProductView.routeName,
-                      arguments: category[index]);
+                      arguments: category[index].name);
                 },
               );
             },
