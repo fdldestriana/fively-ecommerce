@@ -2,10 +2,10 @@
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/bag/controller/product_cart_controller.dart';
+import 'package:fively_ecommerce/module/bag/widget/bottom_sheet_custom.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/bottom_navigation_bar_custom.dart';
 import 'package:fively_ecommerce/module/bag/widget/product_cart_item.dart';
-import 'package:fively_ecommerce/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,30 +38,6 @@ class _BagViewState extends State<BagView> {
     final bodyHeight = sizeConfig.screenHeight;
 
     return Scaffold(
-      bottomSheet: Container(
-        color: const Color(0xFFF9F9F9),
-        height: bodyHeight * 0.23,
-        child: Column(
-          children: [
-            const Text('Total amount:'),
-            SizedBox(
-              height: bodyHeight * 0.03,
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                  left: bodyWidth * 0.04,
-                  top: bodyHeight * 0.03,
-                  right: bodyWidth * 0.04,
-                  bottom: bodyHeight * 0.04),
-              child: CustomButton(
-                  function: () {},
-                  title: 'CHECK OUT',
-                  widthSize: bodyWidth * 0.91,
-                  heightSize: bodyHeight * 0.06),
-            ),
-          ],
-        ),
-      ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(bodyHeight * 0.13),
         child: AppBar(
@@ -110,6 +86,7 @@ class _BagViewState extends State<BagView> {
       bottomNavigationBar: BottomNavigationBarCustom(
         initialIndex: widget.index,
       ),
+      bottomSheet: const BottomSheetCustom(),
     );
   }
 }

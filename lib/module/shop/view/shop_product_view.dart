@@ -21,7 +21,6 @@ class ShopProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('rebuild');
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;

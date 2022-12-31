@@ -31,30 +31,33 @@ class ProductItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Stack(clipBehavior: Clip.none, children: [
-                  ClipRRect(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(bodyWidth * 0.03)),
-                    child: Hero(
-                      tag: product.id,
-                      child: Image.network(
-                        product.images,
-                        width: constraints.maxWidth * 1.00,
-                        height: constraints.maxHeight * 0.71,
-                        fit: BoxFit.cover,
+                Flexible(
+                  flex: 1,
+                  child: Stack(clipBehavior: Clip.none, children: [
+                    ClipRRect(
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(bodyWidth * 0.03)),
+                      child: Hero(
+                        tag: product.id,
+                        child: Image.network(
+                          product.images,
+                          width: constraints.maxWidth * 1.00,
+                          height: constraints.maxHeight * 0.71,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    left: constraints.maxWidth / 1.32,
-                    top: constraints.maxHeight / 1.59,
-                    child: FavoriteButton(
-                      parentWidth: constraints.maxWidth,
-                      parentHeight: constraints.maxHeight,
-                      product: product,
-                    ),
-                  )
-                ]),
+                    Positioned(
+                      left: constraints.maxWidth / 1.32,
+                      top: constraints.maxHeight / 1.59,
+                      child: FavoriteButton(
+                        parentWidth: constraints.maxWidth,
+                        parentHeight: constraints.maxHeight,
+                        product: product,
+                      ),
+                    )
+                  ]),
+                ),
                 SizedBox(
                   height: constraints.maxHeight * 0.02,
                 ),
