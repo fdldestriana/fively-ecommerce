@@ -30,9 +30,11 @@ class _BagViewState extends State<BagView> {
     super.didChangeDependencies();
   }
 
+  final SizeConfig sizeConfig = SizeConfig();
+  bool isVisible = true;
+
   @override
   Widget build(BuildContext context) {
-    final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
@@ -63,28 +65,41 @@ class _BagViewState extends State<BagView> {
             ),
           ),
           body: (products.isNotEmpty)
-              ? GridView.builder(
-                  padding: EdgeInsets.only(
-                    left: bodyWidth * 0.03,
-                    top: bodyHeight * 0.01,
-                    right: bodyWidth * 0.03,
-                    bottom: bodyHeight * 0.02,
+              ? GestureDetector(
+                  onVerticalDragStart: (_) => setState(() {
+                    isVisible = false;
+                  }),
+                  onVerticalDragCancel: () => setState(() {
+                    isVisible = true;
+                  }),
+                  child: GridView.builder(
+                    clipBehavior: Clip.none,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: 2.96 / 1,
+                        mainAxisSpacing: bodyHeight * 0.04,
+                        crossAxisCount: 1),
+                    itemBuilder: (((context, index) {
+                      return ProductCartItem(product: products[index]);
+                    })),
+                    itemCount: products.length,
+                    padding: EdgeInsets.only(
+                      left: bodyWidth * 0.03,
+                      top: bodyHeight * 0.01,
+                      right: bodyWidth * 0.03,
+                      bottom: bodyHeight * 0.02,
+                    ),
                   ),
-                  clipBehavior: Clip.none,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 2.96 / 1,
-                      mainAxisSpacing: bodyHeight * 0.04,
-                      crossAxisCount: 1),
-                  itemBuilder: (((context, index) {
-                    return ProductCartItem(product: products[index]);
-                  })),
-                  itemCount: products.length,
                 )
               : Container(),
           bottomNavigationBar: BottomNavigationBarCustom(
             initialIndex: widget.index,
           ),
-          bottomSheet: (products.isNotEmpty) ? const BottomSheetCustom() : null,
+          bottomSheet: (products.isNotEmpty)
+              ? Visibility(
+                  visible: isVisible,
+                  child: const BottomSheetCustom(),
+                )
+              : null,
         );
       },
     );
