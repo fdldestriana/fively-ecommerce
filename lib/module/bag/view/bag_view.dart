@@ -37,32 +37,32 @@ class _BagViewState extends State<BagView> {
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
 
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(bodyHeight * 0.13),
-        child: AppBar(
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
-          ],
-          backgroundColor: const Color(0xFFF9F9F9),
-          elevation: 0,
-          flexibleSpace: FlexibleSpaceBar(
-            titlePadding: EdgeInsets.only(left: bodyWidth * 0.04),
-            title: const Text(
-              'My Bag',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  color: Color(0xFF222222),
-                  fontSize: 34,
-                  fontWeight: FontWeight.w700),
+    return Consumer<ProductCartController>(
+      builder: (context, value, child) {
+        List<Product> products = value.products;
+        return Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(bodyHeight * 0.13),
+            child: AppBar(
+              actions: [
+                IconButton(onPressed: () {}, icon: const Icon(Icons.search))
+              ],
+              backgroundColor: const Color(0xFFF9F9F9),
+              elevation: 0,
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: EdgeInsets.only(left: bodyWidth * 0.04),
+                title: const Text(
+                  'My Bag',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: Color(0xFF222222),
+                      fontSize: 34,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-      body: Consumer<ProductCartController>(
-        builder: (BuildContext context, value, Widget? child) {
-          List<Product> products = value.products;
-          return (products.isNotEmpty)
+          body: (products.isNotEmpty)
               ? GridView.builder(
                   padding: EdgeInsets.only(
                     left: bodyWidth * 0.03,
@@ -80,13 +80,13 @@ class _BagViewState extends State<BagView> {
                   })),
                   itemCount: products.length,
                 )
-              : Container();
-        },
-      ),
-      bottomNavigationBar: BottomNavigationBarCustom(
-        initialIndex: widget.index,
-      ),
-      bottomSheet: const BottomSheetCustom(),
+              : Container(),
+          bottomNavigationBar: BottomNavigationBarCustom(
+            initialIndex: widget.index,
+          ),
+          bottomSheet: (products.isNotEmpty) ? const BottomSheetCustom() : null,
+        );
+      },
     );
   }
 }

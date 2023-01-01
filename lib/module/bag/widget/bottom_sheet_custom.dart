@@ -25,11 +25,17 @@ class BottomSheetCustom extends StatelessWidget {
           SizedBox(
             height: bodyHeight * 0.02,
           ),
-          Row(
-            children: const [Text('Total amount:'), Text('124\$')],
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: bodyWidth * 0.04,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [Text('Total amount:'), Text('124\$')],
+            ),
           ),
           SizedBox(
-            height: bodyHeight * 0.02,
+            height: bodyHeight * 0.01,
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(bodyWidth * 0.04, bodyHeight * 0.03,
