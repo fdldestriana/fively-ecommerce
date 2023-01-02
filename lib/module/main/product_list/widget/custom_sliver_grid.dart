@@ -16,9 +16,9 @@ class CustomSliverGrid extends StatefulWidget {
 
 class _CustomSliverGridState extends State<CustomSliverGrid> {
   @override
-  void didChangeDependencies() {
+  void initState() {
     Provider.of<ProductListController>(context, listen: false).getProducts();
-    super.didChangeDependencies();
+    super.initState();
   }
 
   @override
