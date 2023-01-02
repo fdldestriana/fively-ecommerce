@@ -1,6 +1,5 @@
 // import package
 import 'package:fively_ecommerce/module/main/product_list/widget/custom_sliver_appbar.dart';
-import 'package:fively_ecommerce/module/main/product_list/widget/custom_sliver_grid.dart';
 import 'package:fively_ecommerce/widget/bottom_navigation_bar_custom.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +21,7 @@ class ProfileView extends StatelessWidget {
           CustomSliverAppBar(),
           SliverPadding(
             padding: EdgeInsets.all(10),
-            sliver: CustomSliverGrid(),
+            // sliver: sliver(),
           )
         ],
       ),
