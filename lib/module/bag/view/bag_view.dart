@@ -7,6 +7,7 @@ import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/bottom_navigation_bar_custom.dart';
 import 'package:fively_ecommerce/module/bag/widget/product_cart_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class BagView extends StatefulWidget {
@@ -31,7 +32,29 @@ class _BagViewState extends State<BagView> {
   }
 
   final SizeConfig sizeConfig = SizeConfig();
+  final ScrollController _controller = ScrollController();
   bool isVisible = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      if (_controller.position.userScrollDirection == ScrollDirection.idle ||
+          _controller.position.userScrollDirection == ScrollDirection.forward) {
+        setState(() => isVisible = true);
+      } else if (_controller.position.userScrollDirection ==
+              ScrollDirection.reverse &&
+          isVisible == true) {
+        setState(() => isVisible = false);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,29 +88,22 @@ class _BagViewState extends State<BagView> {
             ),
           ),
           body: (products.isNotEmpty)
-              ? GestureDetector(
-                  onVerticalDragStart: (_) => setState(() {
-                    isVisible = false;
-                  }),
-                  onVerticalDragCancel: () => setState(() {
-                    isVisible = true;
-                  }),
-                  child: GridView.builder(
-                    clipBehavior: Clip.none,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 2.96 / 1,
-                        mainAxisSpacing: bodyHeight * 0.04,
-                        crossAxisCount: 1),
-                    itemBuilder: (((context, index) {
-                      return ProductCartItem(product: products[index]);
-                    })),
-                    itemCount: products.length,
-                    padding: EdgeInsets.only(
-                      left: bodyWidth * 0.03,
-                      top: bodyHeight * 0.01,
-                      right: bodyWidth * 0.03,
-                      bottom: bodyHeight * 0.02,
-                    ),
+              ? GridView.builder(
+                  clipBehavior: Clip.none,
+                  controller: _controller,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 2.96 / 1,
+                      mainAxisSpacing: bodyHeight * 0.04,
+                      crossAxisCount: 1),
+                  itemBuilder: (((context, index) {
+                    return ProductCartItem(product: products[index]);
+                  })),
+                  itemCount: products.length,
+                  padding: EdgeInsets.only(
+                    left: bodyWidth * 0.03,
+                    top: bodyHeight * 0.01,
+                    right: bodyWidth * 0.03,
+                    bottom: bodyHeight * 0.02,
                   ),
                 )
               : Container(),
