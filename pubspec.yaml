@@ -20,6 +20,7 @@ dependencies:
   http: ^0.13.5
   dio: ^4.0.6
   provider: ^6.0.4
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +37,7 @@ flutter:
     - assets/images/buttons/
     - assets/images/buttons/bottom_navigation_bar/
     - assets/images/banner/
+    - assets/images/internet/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -13,9 +13,9 @@ class WebService {
       var response = await http.get(url);
       List data = json.decode(response.body);
       return data.map((e) => Product.fromJson(e)).toList();
-    } on SocketException catch (e) {
+    } on SocketException {
       throw Failure(
-          'There is no internet connection. Please check your data, $e');
+          'There is no internet connection.\n Please check your data roaming');
     }
   }
 
@@ -25,9 +25,9 @@ class WebService {
       var response = await http.get(url);
       List data = json.decode(response.body);
       return data.map((e) => Category(name: e)).toList();
-    } on SocketException catch (e) {
+    } on SocketException {
       throw Failure(
-          'There is no internet connection. Please check your data, $e');
+          'There is no internet connection.\n Please check your data roaming');
     }
   }
 }
