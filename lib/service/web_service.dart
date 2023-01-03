@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:fively_ecommerce/model/category.dart';
+import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,8 +13,9 @@ class WebService {
       var response = await http.get(url);
       List data = json.decode(response.body);
       return data.map((e) => Product.fromJson(e)).toList();
-    } on SocketException {
-      rethrow;
+    } on SocketException catch (e) {
+      throw Failure(
+          'There is no internet connection. Please check your data, $e');
     }
   }
 
@@ -23,8 +25,9 @@ class WebService {
       var response = await http.get(url);
       List data = json.decode(response.body);
       return data.map((e) => Category(name: e)).toList();
-    } on SocketException {
-      rethrow;
+    } on SocketException catch (e) {
+      throw Failure(
+          'There is no internet connection. Please check your data, $e');
     }
   }
 }
