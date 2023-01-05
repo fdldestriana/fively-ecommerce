@@ -9,20 +9,22 @@ enum NotifierState { initial, loading, loaded }
 class ProductListController with ChangeNotifier {
   NotifierState _state = NotifierState.loading;
   NotifierState get state => _state;
+
   void _setState(NotifierState state) {
     _state = state;
     notifyListeners();
   }
 
-  List<Product> _products = [];
-  List<Product> get products => _products;
-
   Failure _failure = Failure('message');
+
   Failure get failure => _failure;
   void setFailure(Failure failure) {
     _failure = failure;
     notifyListeners();
   }
+
+  List<Product> _products = [];
+  List<Product> get products => _products;
 
   Future<void> getProducts() async {
     try {
