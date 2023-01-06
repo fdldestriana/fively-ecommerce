@@ -18,7 +18,7 @@ class ProductListController with ChangeNotifier {
   Failure _failure = Failure('message');
 
   Failure get failure => _failure;
-  void setFailure(Failure failure) {
+  void _setFailure(Failure failure) {
     _failure = failure;
     notifyListeners();
   }
@@ -31,7 +31,7 @@ class ProductListController with ChangeNotifier {
       _products = await WebService.getProducts();
       notifyListeners();
     } on Failure catch (f) {
-      setFailure(f);
+      _setFailure(f);
     }
     _setState(NotifierState.loaded);
   }

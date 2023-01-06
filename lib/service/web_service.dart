@@ -20,6 +20,18 @@ class WebService {
     }
   }
 
+  static Future getProduct(int productId) async {
+    Uri url = Uri.parse('https://fakestoreapi.com/products/$productId');
+    try {
+      var response = await http.get(url);
+      Product data = json.decode(response.body);
+      return data;
+    } on SocketException {
+      throw Failure(
+          'There is no internet connection.\n Please check your data roaming');
+    }
+  }
+
   static Future getCategories() async {
     Uri url = Uri.parse('https://fakestoreapi.com/products/categories');
     try {
@@ -37,18 +49,6 @@ class WebService {
     try {
       var respone = await http.get(url);
       Cart data = json.decode(respone.body);
-      return data;
-    } on SocketException {
-      throw Failure(
-          'There is no internet connection.\n Please check your data roaming');
-    }
-  }
-
-  static Future getProduct(int productId) async {
-    Uri url = Uri.parse('https://fakestoreapi.com/products/$productId');
-    try {
-      var response = await http.get(url);
-      Product data = json.decode(response.body);
       return data;
     } on SocketException {
       throw Failure(
