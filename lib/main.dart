@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
                 create: (context) => ProductListController()),
             ChangeNotifierProvider(
                 create: (context) => ProductFavoriteController()),
-            // ChangeNotifierProvider(
-            //     create: (context) => ProductCartController()),
+            ChangeNotifierProvider(
+                create: (context) => ProductCartController()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

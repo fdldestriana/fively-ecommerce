@@ -46,7 +46,6 @@ class CartController with ChangeNotifier {
       for (var item in products) {
         if (item.id == product['productId']) {
           _cartProducts.add(item);
-          notifyListeners();
         } else {
           continue;
         }

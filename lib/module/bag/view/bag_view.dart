@@ -2,7 +2,6 @@
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
-import 'package:fively_ecommerce/module/bag/controller/product_cart_controller.dart';
 import 'package:fively_ecommerce/module/bag/widget/bottom_sheet_custom.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
@@ -27,13 +26,6 @@ class BagView extends StatefulWidget {
 }
 
 class _BagViewState extends State<BagView> {
-  @override
-  void didChangeDependencies() {
-    Provider.of<CategoryController>(context, listen: false).getCategories();
-    Provider.of<CartController>(context, listen: false).getCart();
-    super.didChangeDependencies();
-  }
-
   final SizeConfig sizeConfig = SizeConfig();
   final ScrollController _controller = ScrollController();
   bool isVisible = true;
@@ -41,6 +33,11 @@ class _BagViewState extends State<BagView> {
   @override
   void initState() {
     super.initState();
+    Provider.of<CategoryController>(context, listen: false).getCategories();
+    if (cartProducts.isEmpty) {
+      Provider.of<CartController>(context, listen: false).getCart();
+    }
+
     _controller.addListener(() {
       if (_controller.position.userScrollDirection == ScrollDirection.idle ||
           _controller.position.userScrollDirection == ScrollDirection.forward) {
@@ -59,40 +56,44 @@ class _BagViewState extends State<BagView> {
     super.dispose();
   }
 
+  List<Product> cartProducts = [];
+
   @override
   Widget build(BuildContext context) {
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
 
-    return Consumer2<ProductListController, CartController>(
-      builder: (context, productListController, cartController, child) {
-        List<Product> productList = productListController.products;
-        cartController.getCartProducts(productList);
-        List<Product> cartProducts = cartController.cartProducts;
-        return Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(bodyHeight * 0.13),
-            child: AppBar(
-              actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.search))
-              ],
-              backgroundColor: const Color(0xFFF9F9F9),
-              elevation: 0,
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(left: bodyWidth * 0.04),
-                title: const Text(
-                  'My Bag',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: Color(0xFF222222),
-                      fontSize: 34,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(bodyHeight * 0.13),
+        child: AppBar(
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
+          ],
+          backgroundColor: const Color(0xFFF9F9F9),
+          elevation: 0,
+          flexibleSpace: FlexibleSpaceBar(
+            titlePadding: EdgeInsets.only(left: bodyWidth * 0.04),
+            title: const Text(
+              'My Bag',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  color: Color(0xFF222222),
+                  fontSize: 34,
+                  fontWeight: FontWeight.w700),
             ),
           ),
-          body: (cartProducts.isNotEmpty)
+        ),
+      ),
+      body: Consumer2<ProductListController, CartController>(
+        builder: (_, productListController, cartController, __) {
+          List<Product> products = productListController.products;
+          cartController.getCartProducts(products);
+          cartProducts = cartController.cartProducts;
+          print(cartProducts.length);
+
+          return (cartProducts.isNotEmpty)
               ? GridView.builder(
                   clipBehavior: Clip.none,
                   controller: _controller,
@@ -111,18 +112,18 @@ class _BagViewState extends State<BagView> {
                     bottom: bodyHeight * 0.02,
                   ),
                 )
-              : Container(),
-          bottomNavigationBar: BottomNavigationBarCustom(
-            initialIndex: widget.index,
-          ),
-          bottomSheet: (cartProducts.isNotEmpty)
-              ? Visibility(
-                  visible: isVisible,
-                  child: const BottomSheetCustom(),
-                )
-              : null,
-        );
-      },
+              : Container();
+        },
+      ),
+      bottomNavigationBar: BottomNavigationBarCustom(
+        initialIndex: widget.index,
+      ),
+      bottomSheet: (cartProducts.isNotEmpty)
+          ? Visibility(
+              visible: isVisible,
+              child: const BottomSheetCustom(),
+            )
+          : null,
     );
   }
 }

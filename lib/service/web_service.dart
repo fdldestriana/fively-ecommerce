@@ -49,7 +49,6 @@ class WebService {
     try {
       var respone = await http.get(url);
       Cart data = Cart.fromJson(json.decode(respone.body));
-      print(data);
       return data;
     } on SocketException {
       throw Failure(

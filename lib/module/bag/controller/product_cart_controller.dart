@@ -3,7 +3,7 @@ import 'package:fively_ecommerce/model/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductCartController with ChangeNotifier {
-  final int _counter = 0;
+  // final int _counter = 0;
 
   final num _totalAmount = 0;
   num get totalAMount => _totalAmount;
