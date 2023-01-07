@@ -1,4 +1,5 @@
 // import package
+import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
 import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_view.dart';
 import 'package:fively_ecommerce/module/bag/controller/product_cart_controller.dart';
@@ -25,12 +26,14 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext _, Widget? __) {
         return MultiProvider(
           providers: [
+            ChangeNotifierProvider(create: (context) => CartController()),
             ChangeNotifierProvider(create: ((context) => CategoryController())),
             ChangeNotifierProvider(
                 create: (context) => ProductListController()),
             ChangeNotifierProvider(
                 create: (context) => ProductFavoriteController()),
-            ChangeNotifierProvider(create: (context) => ProductCartController())
+            // ChangeNotifierProvider(
+            //     create: (context) => ProductCartController()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

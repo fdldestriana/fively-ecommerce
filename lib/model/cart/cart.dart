@@ -2,7 +2,7 @@ class Cart {
   int id;
   int userId;
   String date;
-  List<Map<String, int>> products;
+  List<dynamic> products;
 
   Cart(
       {required this.id,

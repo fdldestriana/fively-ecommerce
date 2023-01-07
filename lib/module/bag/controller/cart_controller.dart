@@ -24,28 +24,9 @@ class CartController with ChangeNotifier {
   }
 
   /////////////////////////////////////////////////////////////////
+  /// This code is to get the cart data and products within the cart
 
   Cart _cart = Cart(id: 0, userId: 0, date: '', products: []);
-
-  int _cartId = 0;
-  int get cartId => _cartId;
-  void setCartId() {
-    _cartId = _cart.id;
-  }
-
-  int _totalQuantity = 0;
-  int get totalQuantity => _totalQuantity;
-  void setCounter() {
-    for (int index = 0; _cart.products.length; index++) {
-      _totalQuantity + _cart.products[index]['quantity'];
-    }
-  }
-
-  num _totalAmount = 0;
-  num get totalAmount => _totalAmount;
-
-  Map<Product, int> cartProducts = {};
-
   Future getCart({int userId = 1}) async {
     try {
       _cart = await WebService.getCart(userId);
@@ -54,5 +35,32 @@ class CartController with ChangeNotifier {
       _setFailure(f);
     }
     _setState(NotifierState.loaded);
+  }
+
+  final List<Product> _cartProducts = [];
+  List<Product> get cartProducts => _cartProducts;
+
+  // products paramater should be from Consumer<ProductListProvider>
+  void getCartProducts(List<Product> products) {
+    for (var product in _cart.products) {
+      for (var item in products) {
+        if (item.id == product['productId']) {
+          _cartProducts.add(item);
+          notifyListeners();
+        } else {
+          continue;
+        }
+      }
+    }
+  }
+
+  void addToCart(Product product) {
+    _cartProducts.add(product);
+    notifyListeners();
+  }
+
+  void removeFromCart(Product product) {
+    _cartProducts.remove(product);
+    notifyListeners();
   }
 }

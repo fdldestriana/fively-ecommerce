@@ -1,8 +1,10 @@
 // import package
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
+import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/bag/controller/product_cart_controller.dart';
 import 'package:fively_ecommerce/module/bag/widget/bottom_sheet_custom.dart';
+import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/bottom_navigation_bar_custom.dart';
 import 'package:fively_ecommerce/module/bag/widget/product_cart_item.dart';
@@ -28,6 +30,7 @@ class _BagViewState extends State<BagView> {
   @override
   void didChangeDependencies() {
     Provider.of<CategoryController>(context, listen: false).getCategories();
+    Provider.of<CartController>(context, listen: false).getCart();
     super.didChangeDependencies();
   }
 
@@ -62,9 +65,11 @@ class _BagViewState extends State<BagView> {
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
 
-    return Consumer<ProductCartController>(
-      builder: (context, value, child) {
-        List<Product> products = value.products;
+    return Consumer2<ProductListController, CartController>(
+      builder: (context, productListController, cartController, child) {
+        List<Product> productList = productListController.products;
+        cartController.getCartProducts(productList);
+        List<Product> cartProducts = cartController.cartProducts;
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(bodyHeight * 0.13),
@@ -87,7 +92,7 @@ class _BagViewState extends State<BagView> {
               ),
             ),
           ),
-          body: (products.isNotEmpty)
+          body: (cartProducts.isNotEmpty)
               ? GridView.builder(
                   clipBehavior: Clip.none,
                   controller: _controller,
@@ -96,9 +101,9 @@ class _BagViewState extends State<BagView> {
                       mainAxisSpacing: bodyHeight * 0.04,
                       crossAxisCount: 1),
                   itemBuilder: (((context, index) {
-                    return ProductCartItem(product: products[index]);
+                    return ProductCartItem(product: cartProducts[index]);
                   })),
-                  itemCount: products.length,
+                  itemCount: cartProducts.length,
                   padding: EdgeInsets.only(
                     left: bodyWidth * 0.03,
                     top: bodyHeight * 0.01,
@@ -110,7 +115,7 @@ class _BagViewState extends State<BagView> {
           bottomNavigationBar: BottomNavigationBarCustom(
             initialIndex: widget.index,
           ),
-          bottomSheet: (products.isNotEmpty)
+          bottomSheet: (cartProducts.isNotEmpty)
               ? Visibility(
                   visible: isVisible,
                   child: const BottomSheetCustom(),
