@@ -107,9 +107,15 @@ class _BagViewState extends State<BagView> {
         body: Consumer<CartController>(
           builder: (_, value, __) {
             List<Product> cartProducts = value.cartProducts;
-            if (value.state == NotifierState.loading) {
+            if (value.state == NotifierState.loading &&
+                value.cartProducts.isEmpty) {
               return const LoadingStateCart();
-            } else if (value.failure.message.isNotEmpty &&
+            }
+            if (value.state == NotifierState.loaded &&
+                value.cartProducts.isEmpty) {
+              return const LoadingStateCart();
+            }
+            if (value.failure.message.isNotEmpty &&
                 value.failure.message != 'message') {
               return ErrorStateCart(
                 message: value.failure.message,

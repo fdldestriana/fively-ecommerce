@@ -12,7 +12,7 @@ class AddRemoveCartButton extends StatelessWidget {
   final double parentWidth;
   final double parentHeight;
   final String title;
-  final void Function() function;
+  final void Function()? function;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +30,7 @@ class AddRemoveCartButton extends StatelessWidget {
                 offset: Offset(0, parentWidth * 0.005))
           ]),
       child: IconButton(
+        disabledColor: const Color(0xFFF9F9F9),
         color: const Color(0xFFFFFFFF),
         icon: (title == 'Add')
             ? const Icon(

@@ -99,11 +99,13 @@ class _ProductCartItemState extends State<ProductCartItem> {
                           ),
                           Row(children: [
                             AddRemoveCartButton(
-                              function: () {
-                                setState(() {
-                                  countItem--;
-                                });
-                              },
+                              function: (countItem == 0)
+                                  ? null
+                                  : () {
+                                      setState(() {
+                                        countItem--;
+                                      });
+                                    },
                               parentHeight: constraints.maxHeight,
                               parentWidth: constraints.maxWidth,
                               title: 'Remove',

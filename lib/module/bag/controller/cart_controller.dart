@@ -6,6 +6,8 @@ import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
 import 'package:flutter/material.dart';
 
 class CartController with ChangeNotifier {
+  /////////////////////////////////////////////////////////////////
+  /// This code is to get the state
   NotifierState _state = NotifierState.loading;
   NotifierState get state => _state;
 
@@ -38,7 +40,6 @@ class CartController with ChangeNotifier {
 
   final List<Product> _cartProducts = [];
   List<Product> get cartProducts => _cartProducts;
-
   // products paramater should be from Consumer<ProductListProvider>
   void getCartProducts(List<Product> products) {
     for (var product in _cart.products) {
@@ -54,8 +55,20 @@ class CartController with ChangeNotifier {
     }
   }
 
+  final List<int> _counter = [];
+  List<int> get counter => _counter;
+  void getCounter() {
+    for (var index in _cart.products) {
+      _counter.add(index);
+    }
+  }
+
   void addToCart(Product product) {
-    _cartProducts.add(product);
+    if (_cartProducts.contains(product)) {
+    } else {
+      _cartProducts.add(product);
+    }
+
     notifyListeners();
   }
 
