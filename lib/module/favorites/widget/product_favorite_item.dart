@@ -1,5 +1,5 @@
 // import package
-import 'package:fively_ecommerce/module/bag/controller/product_cart_controller.dart';
+import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
@@ -26,8 +26,8 @@ class ProductFavoriteItem extends StatelessWidget {
     ProductFavoriteController favoriteProvider =
         Provider.of<ProductFavoriteController>(context, listen: false);
 
-    ProductCartController cartController =
-        Provider.of<ProductCartController>(context, listen: false);
+    CartController cartController =
+        Provider.of<CartController>(context, listen: false);
 
     return Container(
       decoration: BoxDecoration(

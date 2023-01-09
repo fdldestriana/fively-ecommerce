@@ -2,7 +2,6 @@
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
 import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_view.dart';
-import 'package:fively_ecommerce/module/bag/controller/product_cart_controller.dart';
 import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
@@ -32,8 +31,8 @@ class MyApp extends StatelessWidget {
                 create: (context) => ProductListController()),
             ChangeNotifierProvider(
                 create: (context) => ProductFavoriteController()),
-            ChangeNotifierProvider(
-                create: (context) => ProductCartController()),
+            // ChangeNotifierProvider(
+            //     create: (context) => ProductCartController()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

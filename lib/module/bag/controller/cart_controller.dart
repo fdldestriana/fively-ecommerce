@@ -2,9 +2,8 @@ import 'package:fively_ecommerce/model/cart/cart.dart';
 import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/service/web_service.dart';
+import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
 import 'package:flutter/material.dart';
-
-enum NotifierState { initial, loading, loaded }
 
 class CartController with ChangeNotifier {
   NotifierState _state = NotifierState.loading;
@@ -46,6 +45,8 @@ class CartController with ChangeNotifier {
       for (var item in products) {
         if (item.id == product['productId']) {
           _cartProducts.add(item);
+          _setState(NotifierState.loaded);
+          notifyListeners();
         } else {
           continue;
         }

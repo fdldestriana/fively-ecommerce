@@ -1,5 +1,5 @@
 // import package
-import 'package:fively_ecommerce/module/bag/controller/product_cart_controller.dart';
+import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
@@ -29,8 +29,8 @@ class ProductDetailView extends StatelessWidget {
       (element) => element.id == id,
     );
 
-    final ProductCartController cartController =
-        Provider.of<ProductCartController>(context, listen: false);
+    final CartController cartController =
+        Provider.of<CartController>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(

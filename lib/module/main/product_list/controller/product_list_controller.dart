@@ -1,10 +1,9 @@
 // import package
+import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
 import 'package:flutter/material.dart';
 import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/service/web_service.dart';
-
-enum NotifierState { initial, loading, loaded }
 
 class ProductListController with ChangeNotifier {
   NotifierState _state = NotifierState.loading;

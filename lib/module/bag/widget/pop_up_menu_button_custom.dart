@@ -1,6 +1,6 @@
 // import package
 import 'package:fively_ecommerce/model/product.dart';
-import 'package:fively_ecommerce/module/bag/controller/product_cart_controller.dart';
+import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +19,8 @@ class PopUpMenuButtonCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProductCartController cartProvider =
-        Provider.of<ProductCartController>(context, listen: false);
+    CartController cartProvider =
+        Provider.of<CartController>(context, listen: false);
     ProductFavoriteController favoriteProvider =
         Provider.of<ProductFavoriteController>(context, listen: false);
     return PopupMenuButton(
