@@ -99,7 +99,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                           ),
                           Row(children: [
                             AddRemoveCartButton(
-                              function: (countItem == 0)
+                              function: (countItem == 1)
                                   ? null
                                   : () {
                                       setState(() {
