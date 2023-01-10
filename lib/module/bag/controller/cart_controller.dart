@@ -48,7 +48,11 @@ class CartController with ChangeNotifier {
     for (var map in _cart.products) {
       for (var product in products) {
         if (product.id == map['productId']) {
-          _cartProducts = _cart.products[index].addAll({'product': product});
+          // the code below is potentially causing the Unhandle Exception:
+          // type Null is not a subtype of type List<dynamic>
+          // so we check the value, and if value is null we assign an empty list to _cartProducts
+          _cartProducts =
+              _cart.products[index].addAll({'product': product}) ?? [];
           // _cartProducts.add(product);
         } else {
           continue;
