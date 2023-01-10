@@ -6,8 +6,9 @@ import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
 import 'package:flutter/material.dart';
 
 class CartController with ChangeNotifier {
-  /////////////////////////////////////////////////////////////////
-  /// This code is to get the state
+  /*
+  This code below is to get the state
+   */
   NotifierState _state = NotifierState.loading;
   NotifierState get state => _state;
 
@@ -24,43 +25,39 @@ class CartController with ChangeNotifier {
     notifyListeners();
   }
 
-  /////////////////////////////////////////////////////////////////
-  /// This code is to get the cart data and products within the cart
+  /*
+  This code below is to get the cart data and products within the cart
+   */
 
-  Cart _cart = Cart(id: 0, userId: 0, date: '', products: []);
+  Cart _cart = Cart(id: 0, userId: 0, date: '', products: <Map>[]);
   Future getCart({int userId = 1}) async {
     try {
       _cart = await WebService.getCart(userId);
-      notifyListeners();
     } on Failure catch (f) {
       _setFailure(f);
     }
     _setState(NotifierState.loaded);
+    notifyListeners();
   }
 
-  final List<Product> _cartProducts = [];
-  List<Product> get cartProducts => _cartProducts;
+  List<dynamic> _cartProducts = [];
+  List<dynamic> get cartProducts => _cartProducts;
   // products paramater should be from Consumer<ProductListProvider>
   void getCartProducts(List<Product> products) {
-    for (var product in _cart.products) {
-      for (var item in products) {
-        if (item.id == product['productId']) {
-          _cartProducts.add(item);
-          _setState(NotifierState.loaded);
-          notifyListeners();
+    int index = 0;
+    for (var map in _cart.products) {
+      for (var product in products) {
+        if (product.id == map['productId']) {
+          _cartProducts = _cart.products[index].addAll({'product': product});
+          // _cartProducts.add(product);
         } else {
           continue;
         }
       }
+      index++;
     }
-  }
-
-  final List<int> _counter = [];
-  List<int> get counter => _counter;
-  void getCounter() {
-    for (var index in _cart.products) {
-      _counter.add(index);
-    }
+    _setState(NotifierState.loaded);
+    notifyListeners();
   }
 
   void addToCart(Product product) {

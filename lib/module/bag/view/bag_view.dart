@@ -106,7 +106,7 @@ class _BagViewState extends State<BagView> {
         ),
         body: Consumer<CartController>(
           builder: (_, value, __) {
-            List<Product> cartProducts = value.cartProducts;
+            List<dynamic> cartProducts = value.cartProducts;
             if (value.state == NotifierState.loading &&
                 value.cartProducts.isEmpty) {
               return const LoadingStateCart();
@@ -151,7 +151,7 @@ class LoadedStateCart extends StatelessWidget {
         super(key: key);
 
   final ScrollController _controller;
-  final List<Product> cartProducts;
+  final List<dynamic> cartProducts;
   final SizeConfig sizeConfig = SizeConfig();
 
   @override
@@ -167,7 +167,10 @@ class LoadedStateCart extends StatelessWidget {
           mainAxisSpacing: bodyHeight * 0.04,
           crossAxisCount: 1),
       itemBuilder: (((context, index) {
-        return ProductCartItem(product: cartProducts[index]);
+        return ProductCartItem(
+          product: cartProducts[index]['product'],
+          quantity: cartProducts[index]['quantity'],
+        );
       })),
       itemCount: cartProducts.length,
       padding: EdgeInsets.only(

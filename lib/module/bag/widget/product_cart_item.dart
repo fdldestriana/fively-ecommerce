@@ -5,21 +5,22 @@ import 'package:fively_ecommerce/module/bag/widget/add_remove_cart_button.dart';
 import 'package:fively_ecommerce/module/bag/widget/pop_up_menu_button_custom.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ProductCartItem extends StatefulWidget {
-  const ProductCartItem({
+  ProductCartItem({
     Key? key,
     required this.product,
+    required this.quantity,
   }) : super(key: key);
 
   final Product product;
+  int quantity;
 
   @override
   State<ProductCartItem> createState() => _ProductCartItemState();
 }
 
 class _ProductCartItemState extends State<ProductCartItem> {
-  int countItem = 1;
-
   @override
   Widget build(BuildContext context) {
     final SizeConfig sizeConfig = SizeConfig();
@@ -99,11 +100,11 @@ class _ProductCartItemState extends State<ProductCartItem> {
                           ),
                           Row(children: [
                             AddRemoveCartButton(
-                              function: (countItem == 1)
+                              function: (widget.quantity == 1)
                                   ? null
                                   : () {
                                       setState(() {
-                                        countItem--;
+                                        widget.quantity--;
                                       });
                                     },
                               parentHeight: constraints.maxHeight,
@@ -113,14 +114,14 @@ class _ProductCartItemState extends State<ProductCartItem> {
                             SizedBox(
                               width: constraints.maxWidth * 0.03,
                             ),
-                            Text('$countItem'),
+                            Text('$widget.quantity'),
                             SizedBox(
                               width: constraints.maxWidth * 0.03,
                             ),
                             AddRemoveCartButton(
                               function: () {
                                 setState(() {
-                                  countItem++;
+                                  widget.quantity++;
                                 });
                               },
                               parentHeight: constraints.maxHeight,
@@ -131,7 +132,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               width: constraints.maxWidth * 0.12,
                             ),
                             Text(
-                              '${widget.product.price * countItem}\$',
+                              '${widget.product.price * widget.quantity}\$',
                               style: const TextStyle(
                                   fontSize: 14, color: Color(0xFF222222)),
                             ),
