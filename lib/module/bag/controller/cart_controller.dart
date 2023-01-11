@@ -33,11 +33,10 @@ class CartController with ChangeNotifier {
   Future getCart({int userId = 1}) async {
     try {
       _cart = await WebService.getCart(userId);
+      _cartProducts = _cart.products;
     } on Failure catch (f) {
       _setFailure(f);
     }
-    _setState(NotifierState.loaded);
-    notifyListeners();
   }
 
   List<dynamic> _cartProducts = [];
@@ -45,14 +44,13 @@ class CartController with ChangeNotifier {
   // products paramater should be from Consumer<ProductListProvider>
   void getCartProducts(List<Product> products) {
     int index = 0;
-    for (var map in _cart.products) {
+    for (var map in _cartProducts) {
       for (var product in products) {
         if (product.id == map['productId']) {
           // the code below is potentially causing the Unhandle Exception:
           // type Null is not a subtype of type List<dynamic>
           // so we check the value, and if value is null we assign an empty list to _cartProducts
-          _cartProducts =
-              _cart.products[index].addAll({'product': product}) ?? [];
+          _cartProducts[index].addAll({'product': product});
           // _cartProducts.add(product);
         } else {
           continue;

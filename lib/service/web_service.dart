@@ -48,6 +48,7 @@ class WebService {
     Uri url = Uri.parse('https://fakestoreapi.com/carts/$userId');
     try {
       var respone = await http.get(url);
+      print(json.decode(respone.body));
       Cart data = Cart.fromJson(json.decode(respone.body));
       return data;
     } on SocketException {

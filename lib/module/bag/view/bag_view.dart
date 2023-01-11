@@ -46,16 +46,18 @@ class _BagViewState extends State<BagView> {
       if (Provider.of<CartController>(context, listen: false)
           .cartProducts
           .isEmpty) {
-        // The code below is to fetch the list of product id from the cart api
-        Provider.of<CartController>(context, listen: false).getCart();
-
         // The code below is to fetch the list of product from the value of ProductListController
         List<Product> products =
             Provider.of<ProductListController>(context, listen: false).products;
 
-        // The code below is to get the appropriate list of products that contained within the cart
+        // The code below is to fetch the list of product id from the cart api
         Provider.of<CartController>(context, listen: false)
-            .getCartProducts(products);
+            .getCart()
+            .whenComplete(() =>
+                // The code below is to get the appropriate list of products that contained within the cart
+
+                Provider.of<CartController>(context, listen: false)
+                    .getCartProducts(products));
       }
     });
 
@@ -104,9 +106,24 @@ class _BagViewState extends State<BagView> {
             ),
           ),
         ),
-        body: Consumer<CartController>(
+        body:
+            // FutureBuilder(
+            //     future:
+            //         Provider.of<CartController>(context, listen: false).getCart(),
+            //     builder: ((context, snapshot) {
+            //       Provider.of<CartController>(context)
+            //           .getCartProducts(snapshot.data);
+            //       List<dynamic> data =
+            //           Provider.of<CartController>(context).cartProducts;
+
+            //       return (snapshot.connectionState == NotifierState.loading &&
+            //               data.isEmpty)
+            //           ? const LoadingStateCart()
+            //           : LoadedStateCart(
+            //               controller: _controller, cartProducts: data);
+            //     }))
+            Consumer<CartController>(
           builder: (_, value, __) {
-            List<dynamic> cartProducts = value.cartProducts;
             if (value.state == NotifierState.loading &&
                 value.cartProducts.isEmpty) {
               return const LoadingStateCart();
@@ -120,9 +137,13 @@ class _BagViewState extends State<BagView> {
               return ErrorStateCart(
                 message: value.failure.message,
               );
-            } else {
+            }
+            if (value.state == NotifierState.loaded &&
+                value.cartProducts.isNotEmpty) {
               return LoadedStateCart(
-                  controller: _controller, cartProducts: cartProducts);
+                  controller: _controller, cartProducts: value.cartProducts);
+            } else {
+              return const CircularProgressIndicator();
             }
           },
         ),

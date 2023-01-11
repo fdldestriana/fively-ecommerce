@@ -114,7 +114,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                             SizedBox(
                               width: constraints.maxWidth * 0.03,
                             ),
-                            Text('$widget.quantity'),
+                            Text(widget.quantity.toString()),
                             SizedBox(
                               width: constraints.maxWidth * 0.03,
                             ),
@@ -131,10 +131,12 @@ class _ProductCartItemState extends State<ProductCartItem> {
                             SizedBox(
                               width: constraints.maxWidth * 0.12,
                             ),
-                            Text(
-                              '${widget.product.price * widget.quantity}\$',
-                              style: const TextStyle(
-                                  fontSize: 14, color: Color(0xFF222222)),
+                            FittedBox(
+                              child: Text(
+                                '${widget.product.price * widget.quantity}\$',
+                                style: const TextStyle(
+                                    fontSize: 14, color: Color(0xFF222222)),
+                              ),
                             ),
                           ])
                         ],
