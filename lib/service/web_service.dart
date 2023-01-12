@@ -24,8 +24,8 @@ class WebService {
     Uri url = Uri.parse('https://fakestoreapi.com/products/$productId');
     try {
       var response = await http.get(url);
-      Product data = json.decode(response.body);
-      return data;
+      Product product = Product.fromJson(json.decode(response.body));
+      return product;
     } on SocketException {
       throw Failure(
           'There is no internet connection.\n Please check your data roaming');
@@ -36,8 +36,8 @@ class WebService {
     Uri url = Uri.parse('https://fakestoreapi.com/products/categories');
     try {
       var response = await http.get(url);
-      List data = json.decode(response.body);
-      return data.map((e) => Category(name: e)).toList();
+      List categories = json.decode(response.body);
+      return categories.map((e) => Category(name: e)).toList();
     } on SocketException {
       throw Failure(
           'There is no internet connection.\n Please check your data roaming');
@@ -48,7 +48,6 @@ class WebService {
     Uri url = Uri.parse('https://fakestoreapi.com/carts/$userId');
     try {
       var respone = await http.get(url);
-      print(json.decode(respone.body));
       Cart data = Cart.fromJson(json.decode(respone.body));
       return data;
     } on SocketException {

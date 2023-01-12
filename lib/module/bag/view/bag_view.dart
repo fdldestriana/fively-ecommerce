@@ -106,23 +106,7 @@ class _BagViewState extends State<BagView> {
             ),
           ),
         ),
-        body:
-            // FutureBuilder(
-            //     future:
-            //         Provider.of<CartController>(context, listen: false).getCart(),
-            //     builder: ((context, snapshot) {
-            //       Provider.of<CartController>(context)
-            //           .getCartProducts(snapshot.data);
-            //       List<dynamic> data =
-            //           Provider.of<CartController>(context).cartProducts;
-
-            //       return (snapshot.connectionState == NotifierState.loading &&
-            //               data.isEmpty)
-            //           ? const LoadingStateCart()
-            //           : LoadedStateCart(
-            //               controller: _controller, cartProducts: data);
-            //     }))
-            Consumer<CartController>(
+        body: Consumer<CartController>(
           builder: (_, value, __) {
             if (value.state == NotifierState.loading &&
                 value.cartProducts.isEmpty) {

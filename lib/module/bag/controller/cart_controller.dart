@@ -47,11 +47,10 @@ class CartController with ChangeNotifier {
     for (var map in _cartProducts) {
       for (var product in products) {
         if (product.id == map['productId']) {
-          // the code below is potentially causing the Unhandle Exception:
-          // type Null is not a subtype of type List<dynamic>
-          // so we check the value, and if value is null we assign an empty list to _cartProducts
+          /* the code below is potentially causing the Unhandle Exception:
+           type Null is not a subtype of type List<dynamic>
+           so we check the value, and if value is null we assign an empty list to _cartProducts */
           _cartProducts[index].addAll({'product': product});
-          // _cartProducts.add(product);
         } else {
           continue;
         }
@@ -65,7 +64,11 @@ class CartController with ChangeNotifier {
   void addToCart(Product product) {
     if (_cartProducts.contains(product)) {
     } else {
-      _cartProducts.add(product);
+      _cartProducts.addAll({
+        'productId': product.id,
+        'quantity': 1,
+        'product': product
+      } as Iterable);
     }
 
     notifyListeners();
