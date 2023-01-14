@@ -173,8 +173,7 @@ class LoadedStateCart extends StatelessWidget {
           crossAxisCount: 1),
       itemBuilder: (((context, index) {
         return ProductCartItem(
-          product: cartProducts[index]['product'],
-          quantity: cartProducts[index]['quantity'],
+          productCart: cartProducts[index],
         );
       })),
       itemCount: cartProducts.length,

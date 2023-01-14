@@ -30,7 +30,7 @@ class CartController with ChangeNotifier {
   */
 
   Cart _cart = Cart(id: 0, userId: 0, date: '', products: <Map>[]);
-  Future getCart({int userId = 1}) async {
+  Future getCart({int userId = 3}) async {
     try {
       _cart = await WebService.getCart(userId);
       _cartProducts = _cart.products;
@@ -39,14 +39,9 @@ class CartController with ChangeNotifier {
     }
   }
 
-  double _totalAmount = 0;
-  double get totalAmount => _totalAmount;
-  void getTotalAmount() {
-    for (var map in _cartProducts) {
-      _totalAmount = _totalAmount + (map['quantity'] * map['product'].price);
-    }
-  }
-
+  /*
+  This code below is used to get products list within the cart
+  */
   List<dynamic> _cartProducts = [];
   List<dynamic> get cartProducts => _cartProducts;
   // products paramater should be from Consumer<ProductListProvider>
@@ -62,7 +57,8 @@ class CartController with ChangeNotifier {
       }
       index++;
     }
-    getTotalAmount();
+    // Calling _setTotalAmount for the first time calculating and displaying the _totalAmount
+    _setTotalAmount();
     _setState(NotifierState.loaded);
     notifyListeners();
   }
@@ -85,5 +81,42 @@ class CartController with ChangeNotifier {
   void removeFromCart(Product product) {
     _cartProducts.remove(product);
     notifyListeners();
+  }
+
+  /*
+  This code below is used to get quantity of a particular product within the cart
+  */
+  void addQuantity(int productId) {
+    int index = _cartProducts
+        .indexWhere((element) => element['product'].id == productId);
+    _cartProducts[index]['quantity']++;
+    // Calling _setTotalAmount to reset the _totalAmount every adding the quantity
+    _setTotalAmount();
+    notifyListeners();
+  }
+
+  void removeQuantity(int productId) {
+    int index = _cartProducts
+        .indexWhere((element) => element['product'].id == productId);
+    _cartProducts[index]['quantity']--;
+    // Calling _setTotalAmount to reset the _totalAmount every removing the qunatity
+    _setTotalAmount();
+    notifyListeners();
+  }
+
+  /*
+  This code below is used to get totalAmount price of products within the cart
+  */
+  double _totalAmount = 0;
+  double get totalAmount => _totalAmount;
+  void _setTotalAmount() {
+    /*
+    Set _totalAmount to 0, to ensure everytime the _setTotalAmount is called
+    the _totalAmount not go with the higher/undesired amount
+    */
+    _totalAmount = 0;
+    for (var map in _cartProducts) {
+      _totalAmount = _totalAmount + (map['quantity'] * map['product'].price);
+    }
   }
 }
