@@ -6,7 +6,6 @@ import 'package:fively_ecommerce/module/bag/widget/pop_up_menu_button_custom.dar
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class ProductCartItem extends StatefulWidget {
   const ProductCartItem({
     Key? key,
