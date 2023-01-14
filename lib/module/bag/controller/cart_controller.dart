@@ -1,4 +1,4 @@
-import 'package:fively_ecommerce/model/cart/cart.dart';
+import 'package:fively_ecommerce/model/cart.dart';
 import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/service/web_service.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class CartController with ChangeNotifier {
   /*
   This code below is to get the state
-   */
+  */
   NotifierState _state = NotifierState.loading;
   NotifierState get state => _state;
 
@@ -27,7 +27,7 @@ class CartController with ChangeNotifier {
 
   /*
   This code below is to get the cart data and products within the cart
-   */
+  */
 
   Cart _cart = Cart(id: 0, userId: 0, date: '', products: <Map>[]);
   Future getCart({int userId = 1}) async {
@@ -39,6 +39,14 @@ class CartController with ChangeNotifier {
     }
   }
 
+  double _totalAmount = 0;
+  double get totalAmount => _totalAmount;
+  void getTotalAmount() {
+    for (var map in _cartProducts) {
+      _totalAmount = _totalAmount + (map['quantity'] * map['product'].price);
+    }
+  }
+
   List<dynamic> _cartProducts = [];
   List<dynamic> get cartProducts => _cartProducts;
   // products paramater should be from Consumer<ProductListProvider>
@@ -47,9 +55,6 @@ class CartController with ChangeNotifier {
     for (var map in _cartProducts) {
       for (var product in products) {
         if (product.id == map['productId']) {
-          /* the code below is potentially causing the Unhandle Exception:
-           type Null is not a subtype of type List<dynamic>
-           so we check the value, and if value is null we assign an empty list to _cartProducts */
           _cartProducts[index].addAll({'product': product});
         } else {
           continue;
@@ -57,20 +62,23 @@ class CartController with ChangeNotifier {
       }
       index++;
     }
+    getTotalAmount();
     _setState(NotifierState.loaded);
     notifyListeners();
   }
 
+  /*
+  The code for adding and removing the cart is going to be edited
+  */
   void addToCart(Product product) {
+    var data = <dynamic>[];
     if (_cartProducts.contains(product)) {
     } else {
-      _cartProducts.addAll({
-        'productId': product.id,
-        'quantity': 1,
-        'product': product
-      } as Iterable);
+      data = [
+        {'productId': product.id, 'quantity': 1, 'product': product}
+      ];
+      _cartProducts.addAll(data.elementAt(0));
     }
-
     notifyListeners();
   }
 

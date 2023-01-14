@@ -58,88 +58,92 @@ class _ProductCartItemState extends State<ProductCartItem> {
                       SizedBox(
                         width: constraints.maxWidth * 0.03,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: constraints.maxHeight * 0.14,
-                          ),
-                          Text(
-                            widget.product.title,
-                            maxLines: 1,
-                            style: const TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                fontSize: 11,
-                                color: Color(0xFF9B9B9B)),
-                          ),
-                          SizedBox(
-                            height: constraints.maxHeight * 0.03,
-                          ),
-                          Text(
-                            widget.product.title,
-                            maxLines: 1,
-                            style: const TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                fontSize: 15,
-                                color: Color(0xFF222222)),
-                          ),
-                          SizedBox(
-                            height: constraints.maxHeight * 0.06,
-                          ),
-                          Row(
-                            children: [
-                              const Text('Color: '),
+                      Flexible(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: constraints.maxHeight * 0.14,
+                            ),
+                            Text(
+                              widget.product.title,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                  fontSize: 11,
+                                  color: Color(0xFF9B9B9B)),
+                            ),
+                            SizedBox(
+                              height: constraints.maxHeight * 0.03,
+                            ),
+                            Text(
+                              widget.product.title,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                  fontSize: 15,
+                                  color: Color(0xFF222222)),
+                            ),
+                            SizedBox(
+                              height: constraints.maxHeight * 0.06,
+                            ),
+                            Row(
+                              children: [
+                                const Text('Color: '),
+                                SizedBox(
+                                  width: constraints.maxWidth * 0.07,
+                                ),
+                                const Text('Size: ')
+                              ],
+                            ),
+                            SizedBox(
+                              height: constraints.maxHeight * 0.08,
+                            ),
+                            Row(children: [
+                              AddRemoveCartButton(
+                                function: (widget.quantity == 1)
+                                    ? null
+                                    : () {
+                                        setState(() {
+                                          widget.quantity--;
+                                        });
+                                      },
+                                parentHeight: constraints.maxHeight,
+                                parentWidth: constraints.maxWidth,
+                                title: 'Remove',
+                              ),
                               SizedBox(
-                                width: constraints.maxWidth * 0.07,
+                                width: constraints.maxWidth * 0.03,
                               ),
-                              const Text('Size: ')
-                            ],
-                          ),
-                          SizedBox(
-                            height: constraints.maxHeight * 0.08,
-                          ),
-                          Row(children: [
-                            AddRemoveCartButton(
-                              function: (widget.quantity == 1)
-                                  ? null
-                                  : () {
-                                      setState(() {
-                                        widget.quantity--;
-                                      });
-                                    },
-                              parentHeight: constraints.maxHeight,
-                              parentWidth: constraints.maxWidth,
-                              title: 'Remove',
-                            ),
-                            SizedBox(
-                              width: constraints.maxWidth * 0.03,
-                            ),
-                            Text(widget.quantity.toString()),
-                            SizedBox(
-                              width: constraints.maxWidth * 0.03,
-                            ),
-                            AddRemoveCartButton(
-                              function: () {
-                                setState(() {
-                                  widget.quantity++;
-                                });
-                              },
-                              parentHeight: constraints.maxHeight,
-                              parentWidth: constraints.maxWidth,
-                              title: 'Add',
-                            ),
-                            SizedBox(
-                              width: constraints.maxWidth * 0.12,
-                            ),
-                            FittedBox(
-                              child: Text(
-                                '${widget.product.price * widget.quantity}\$',
-                                style: const TextStyle(
-                                    fontSize: 14, color: Color(0xFF222222)),
+                              Text(widget.quantity.toString()),
+                              SizedBox(
+                                width: constraints.maxWidth * 0.03,
                               ),
-                            ),
-                          ])
-                        ],
+                              AddRemoveCartButton(
+                                function: () {
+                                  setState(() {
+                                    widget.quantity++;
+                                  });
+                                },
+                                parentHeight: constraints.maxHeight,
+                                parentWidth: constraints.maxWidth,
+                                title: 'Add',
+                              ),
+                              SizedBox(
+                                width: constraints.maxWidth * 0.12,
+                              ),
+                              Flexible(
+                                flex: 1,
+                                child: Text(
+                                  '${(widget.product.price * widget.quantity).toStringAsFixed(1)}\$',
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Color(0xFF222222)),
+                                ),
+                              ),
+                            ])
+                          ],
+                        ),
                       ),
                     ],
                   ),

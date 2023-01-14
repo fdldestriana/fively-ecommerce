@@ -1,7 +1,9 @@
+import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/bag/widget/promo_text_field.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BottomSheetCustom extends StatelessWidget {
   const BottomSheetCustom({super.key});
@@ -31,7 +33,14 @@ class BottomSheetCustom extends StatelessWidget {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [Text('Total amount:'), Text('124\$')],
+              children: [
+                const Text('Total amount:'),
+                Consumer<CartController>(
+                  builder: (_, value, __) {
+                    return Text(value.totalAmount.toStringAsFixed(1));
+                  },
+                )
+              ],
             ),
           ),
           SizedBox(

@@ -1,7 +1,7 @@
 // import package
 import 'dart:io';
 import 'dart:convert';
-import 'package:fively_ecommerce/model/cart/cart.dart';
+import 'package:fively_ecommerce/model/cart.dart';
 import 'package:fively_ecommerce/model/category.dart';
 import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/product.dart';
