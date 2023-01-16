@@ -3,9 +3,7 @@ import 'package:fively_ecommerce/module/login/view/login_view.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
 import 'package:flutter/material.dart';
-
-// import app
-import '../../../widget/custom_text_field.dart';
+import 'package:fively_ecommerce/widget/custom_text_field.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});

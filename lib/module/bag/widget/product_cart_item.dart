@@ -61,8 +61,11 @@ class _ProductCartItemState extends State<ProductCartItem> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: constraints.maxHeight * 0.14,
+                            Flexible(
+                              flex: 1,
+                              child: SizedBox(
+                                height: constraints.maxHeight * 0.14,
+                              ),
                             ),
                             Text(
                               widget.productCart['product'].title,
@@ -141,14 +144,17 @@ class _ProductCartItemState extends State<ProductCartItem> {
                                 },
                               ),
                               SizedBox(
-                                width: constraints.maxWidth * 0.12,
+                                width: constraints.maxWidth * 0.11,
                               ),
                               Flexible(
                                 flex: 1,
                                 child: Text(
                                   '${(widget.productCart['product'].price * widget.productCart['quantity']).toStringAsFixed(1)}\$',
+                                  maxLines: 1,
                                   style: const TextStyle(
-                                      fontSize: 14, color: Color(0xFF222222)),
+                                    fontSize: 14,
+                                    color: Color(0xFF222222),
+                                  ),
                                 ),
                               ),
                             ])

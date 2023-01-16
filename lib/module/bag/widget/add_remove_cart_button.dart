@@ -33,11 +33,13 @@ class AddRemoveCartButton extends StatelessWidget {
         disabledColor: const Color(0xFFF9F9F9),
         color: const Color(0xFFFFFFFF),
         icon: (title == 'Add')
-            ? const Icon(
-                Icons.add,
-                color: Color(0xFF9B9B9B),
+            ? const Center(
+                child: Icon(
+                  Icons.add,
+                  color: Color(0xFF9B9B9B),
+                ),
               )
-            : const Icon(Icons.remove, color: Color(0xFF9B9B9B)),
+            : const Center(child: Icon(Icons.remove, color: Color(0xFF9B9B9B))),
         onPressed: function,
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/bag/widget/promo_text_field.dart';
+import 'package:fively_ecommerce/module/checkout/view/checkout_view.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,9 @@ class BottomSheetCustom extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(bodyWidth * 0.04, bodyHeight * 0.03,
                 bodyWidth * 0.04, bodyHeight * 0.04),
             child: CustomButton(
-                function: () {},
+                function: () {
+                  Navigator.pushNamed(context, CheckoutView.routeName);
+                },
                 title: 'CHECK OUT',
                 widthSize: bodyWidth * 0.91,
                 heightSize: bodyHeight * 0.06),

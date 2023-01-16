@@ -1,5 +1,6 @@
 // import package
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
+import 'package:fively_ecommerce/module/checkout/view/checkout_view.dart';
 import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
 import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_view.dart';
 import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
@@ -31,8 +32,6 @@ class MyApp extends StatelessWidget {
                 create: (context) => ProductListController()),
             ChangeNotifierProvider(
                 create: (context) => ProductFavoriteController()),
-            // ChangeNotifierProvider(
-            //     create: (context) => ProductCartController()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -59,6 +58,7 @@ class MyApp extends StatelessWidget {
             initialRoute: ProductListView.routeName,
             onGenerateRoute: AppRouter.onGenerateRoute,
             routes: {
+              CheckoutView.routeName: (context) => const CheckoutView(),
               ProductDetailView.routeName: (context) =>
                   const ProductDetailView(),
               ShopProductView.routeName: ((context) => const ShopProductView())
