@@ -1,30 +1,16 @@
 // import package
-import 'package:fively_ecommerce/controller/categories_controller.dart';
-import 'package:fively_ecommerce/module/shop/view/shop_product_view.dart';
+import 'package:fively_ecommerce/module/checkout/widget/card_address.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
-import 'package:fively_ecommerce/widget/bottom_navigation_bar_custom.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class CheckoutView extends StatefulWidget {
+class CheckoutView extends StatelessWidget {
   const CheckoutView({super.key});
   static const routeName = 'checkout';
   static Route route() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: routeName),
         builder: (_) => const CheckoutView());
-  }
-
-  @override
-  State<CheckoutView> createState() => _CheckoutViewState();
-}
-
-class _CheckoutViewState extends State<CheckoutView> {
-  @override
-  void didChangeDependencies() {
-    Provider.of<CategoryController>(context, listen: false).getCategories();
-    super.didChangeDependencies();
   }
 
   @override
@@ -45,7 +31,8 @@ class _CheckoutViewState extends State<CheckoutView> {
         children: [
           SizedBox(
             height: bodyHeight * 0.04,
-          )
+          ),
+          CardAddress(bodyWidth: bodyWidth, bodyHeight: bodyHeight)
         ],
       ),
       bottomNavigationBar: Padding(
