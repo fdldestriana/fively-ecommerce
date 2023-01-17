@@ -32,7 +32,51 @@ class CheckoutView extends StatelessWidget {
           SizedBox(
             height: bodyHeight * 0.04,
           ),
-          CardAddress(bodyWidth: bodyWidth, bodyHeight: bodyHeight)
+          CardAddress(bodyWidth: bodyWidth, bodyHeight: bodyHeight),
+          SizedBox(
+            height: bodyHeight * 0.07,
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left: bodyWidth * 0.04, right: bodyWidth * 0.10),
+            child: SizedBox(
+              height: bodyHeight * 0.18,
+              width: bodyWidth * 0.85,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Payment',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: bodyWidth * 0.5,
+                      ),
+                      TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            'Change',
+                            style: TextStyle(color: Color(0xFFDB3022)),
+                          )),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/cards/mastercard.png',
+                        height: bodyHeight * 0.10,
+                        width: bodyWidth * 0.34,
+                      ),
+                      const Text('**** **** **** 3947')
+                    ],
+                  )
+                ],
+              ),
+            ),
+          )
         ],
       ),
       bottomNavigationBar: Padding(
