@@ -42,7 +42,7 @@ class _ShopViewState extends State<ShopView> {
         elevation: 0,
         title: const Text('Categories'),
       ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      body: ListView(children: [
         SizedBox(
           height: bodyHeight * 0.03,
         ),

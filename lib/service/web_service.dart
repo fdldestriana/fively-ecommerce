@@ -9,10 +9,10 @@ import 'package:http/http.dart' as http;
 
 class WebService {
   static Future getProducts() async {
-    Uri url = Uri.parse('https://fakestoreapi.com/products');
+    Uri url = Uri.parse('https://dummyjson.com/products');
     try {
       var response = await http.get(url);
-      List data = json.decode(response.body);
+      List data = json.decode(response.body)['products'];
       return data.map((e) => Product.fromJson(e)).toList();
     } on SocketException {
       throw Failure(
@@ -21,7 +21,7 @@ class WebService {
   }
 
   static Future getProduct(int productId) async {
-    Uri url = Uri.parse('https://fakestoreapi.com/products/$productId');
+    Uri url = Uri.parse('https://dummyjson.com/products/$productId');
     try {
       var response = await http.get(url);
       Product product = Product.fromJson(json.decode(response.body));
@@ -33,7 +33,7 @@ class WebService {
   }
 
   static Future getCategories() async {
-    Uri url = Uri.parse('https://fakestoreapi.com/products/categories');
+    Uri url = Uri.parse('https://dummyjson.com/products/categories');
     try {
       var response = await http.get(url);
       List categories = json.decode(response.body);

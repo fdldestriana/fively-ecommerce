@@ -39,6 +39,7 @@ flutter:
     - assets/images/banner/
     - assets/images/cards/
     - assets/images/internet/
+    - assets/images/transactions/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -5,7 +5,7 @@ class Product {
   num price;
   String category;
   String description;
-  double rating;
+  num rating;
   String images;
   bool isFavorite = false;
 
@@ -22,15 +22,16 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
       id: json['id'],
-      title: 'Product ${json['id']}',
+      title: json['title'],
       brand: json['brand'],
       price: json['price'],
       category: json['category'],
       description: json['description'],
       rating: json['rating'],
-      images: (json['category'] == 'electronics')
+      images: (json['category'] == 'smartphones' ||
+              json['category'] == 'laptops')
           ? 'https://api.lorem.space/image/watch?w=640&h=480&r=${json['id']}'
-          : (json['category'] == 'men\'s clothing')
+          : (json['category'] == 'groceries')
               ? 'https://api.lorem.space/image/shoes?w=640&h=480&r=${json['id']}'
               : 'https://api.lorem.space/image/fashion?w=640&h=480&r=${json['id']}');
 
