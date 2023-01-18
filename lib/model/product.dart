@@ -1,27 +1,33 @@
 class Product {
   int id;
   String title;
+  String brand;
   num price;
   String category;
   String description;
+  double rating;
   String images;
   bool isFavorite = false;
 
   Product({
     required this.id,
     required this.title,
+    required this.brand,
     required this.price,
     required this.category,
     required this.description,
+    required this.rating,
     required this.images,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
       id: json['id'],
       title: 'Product ${json['id']}',
+      brand: json['brand'],
       price: json['price'],
       category: json['category'],
       description: json['description'],
+      rating: json['rating'],
       images: (json['category'] == 'electronics')
           ? 'https://api.lorem.space/image/watch?w=640&h=480&r=${json['id']}'
           : (json['category'] == 'men\'s clothing')
@@ -31,9 +37,11 @@ class Product {
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
+        'brand': brand,
         'price': price,
         'category': category,
         'description': description,
+        'rating': rating,
         'images': images,
       };
 
