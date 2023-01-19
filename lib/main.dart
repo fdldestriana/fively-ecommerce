@@ -7,10 +7,11 @@ import 'package:fively_ecommerce/module/favorites/controller/product_favorite_co
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/module/shop/view/shop_product_view.dart';
+import 'package:fively_ecommerce/module/success/view/success_view.dart';
 import 'package:fively_ecommerce/shared/utils/app_router.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,7 +62,8 @@ class MyApp extends StatelessWidget {
               CheckoutView.routeName: (context) => const CheckoutView(),
               ProductDetailView.routeName: (context) =>
                   const ProductDetailView(),
-              ShopProductView.routeName: ((context) => const ShopProductView())
+              ShopProductView.routeName: ((context) => const ShopProductView()),
+              SuccessView.routeName: (context) => const SuccessView()
             },
           ),
         );
