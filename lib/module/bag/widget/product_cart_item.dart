@@ -1,4 +1,5 @@
 // import package
+import 'package:fively_ecommerce/model/cart/product_cart.dart';
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/module/bag/widget/add_remove_cart_button.dart';
@@ -12,7 +13,7 @@ class ProductCartItem extends StatefulWidget {
     required this.productCart,
   }) : super(key: key);
 
-  final Map<String, dynamic> productCart;
+  final ProductCart productCart;
 
   @override
   State<ProductCartItem> createState() => _ProductCartItemState();
@@ -42,7 +43,8 @@ class _ProductCartItemState extends State<ProductCartItem> {
                 ClipRect(
                   clipBehavior: Clip.hardEdge,
                   child: Image.network(
-                    widget.productCart['product'].images,
+                    // TO BE EDITED IN THE FUTURE
+                    "https://api.lorem.space/image/watch?w=640&h=480&r=10",
                     alignment: Alignment.centerLeft,
                     width: constraints.maxWidth * 0.30,
                     height: constraints.maxHeight * 1.00,
@@ -68,7 +70,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               ),
                             ),
                             Text(
-                              widget.productCart['product'].title,
+                              widget.productCart.title,
                               maxLines: 1,
                               style: const TextStyle(
                                   overflow: TextOverflow.ellipsis,
@@ -79,7 +81,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               height: constraints.maxHeight * 0.03,
                             ),
                             Text(
-                              widget.productCart['product'].title,
+                              widget.productCart.title,
                               maxLines: 1,
                               style: const TextStyle(
                                   overflow: TextOverflow.ellipsis,
@@ -105,16 +107,14 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               Consumer<CartController>(
                                 builder: (_, value, __) {
                                   return AddRemoveCartButton(
-                                    function:
-                                        (widget.productCart['quantity'] == 1)
-                                            ? null
-                                            : () {
-                                                setState(() {
-                                                  value.removeQuantity(widget
-                                                      .productCart['product']
-                                                      .id);
-                                                });
-                                              },
+                                    function: (widget.productCart.quantity == 1)
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              value.removeQuantity(
+                                                  widget.productCart.id);
+                                            });
+                                          },
                                     parentHeight: constraints.maxHeight,
                                     parentWidth: constraints.maxWidth,
                                     title: 'Remove',
@@ -124,7 +124,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               SizedBox(
                                 width: constraints.maxWidth * 0.03,
                               ),
-                              Text(widget.productCart['quantity'].toString()),
+                              Text(widget.productCart.quantity.toString()),
                               SizedBox(
                                 width: constraints.maxWidth * 0.03,
                               ),
@@ -133,8 +133,8 @@ class _ProductCartItemState extends State<ProductCartItem> {
                                   return AddRemoveCartButton(
                                     function: () {
                                       setState(() {
-                                        value.addQuantity(
-                                            widget.productCart['product'].id);
+                                        value
+                                            .addQuantity(widget.productCart.id);
                                       });
                                     },
                                     parentHeight: constraints.maxHeight,
@@ -149,7 +149,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               Flexible(
                                 flex: 1,
                                 child: Text(
-                                  '${(widget.productCart['product'].price * widget.productCart['quantity']).toStringAsFixed(1)}\$',
+                                  '${(widget.productCart.price * widget.productCart.quantity).toStringAsFixed(1)}\$',
                                   maxLines: 1,
                                   style: const TextStyle(
                                     fontSize: 14,
@@ -164,11 +164,11 @@ class _ProductCartItemState extends State<ProductCartItem> {
                     ],
                   ),
                 ),
-                PopUpMenuButtonCustom(
-                  parentHeight: constraints.maxHeight,
-                  parentWidth: constraints.maxWidth,
-                  product: widget.productCart['product'],
-                )
+                // PopUpMenuButtonCustom(
+                //   parentHeight: constraints.maxHeight,
+                //   parentWidth: constraints.maxWidth,
+                //   product: widget.productCart['product'],
+                // )
               ]);
         },
       ),

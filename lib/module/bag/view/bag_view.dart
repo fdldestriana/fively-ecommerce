@@ -1,4 +1,5 @@
 // import package
+import 'package:fively_ecommerce/model/cart/product_cart.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/bag/widget/bottom_sheet_custom.dart';
@@ -43,22 +44,23 @@ class _BagViewState extends State<BagView> {
 
     Future.delayed(Duration.zero, () {
       // The if statement to control that the code below just called once
-      if (Provider.of<CartController>(context, listen: false)
-          .cartProducts
-          .isEmpty) {
-        // The code below is to fetch the list of product from the value of ProductListController
-        List<Product> products =
-            Provider.of<ProductListController>(context, listen: false).products;
+      // if (Provider.of<CartController>(context, listen: false)
+      //     .cartProducts
+      //     .isEmpty) {
+      //   // The code below is to fetch the list of product from the value of ProductListController
+      //   List<Product> products =
+      //       Provider.of<ProductListController>(context, listen: false).products;
 
-        // The code below is to fetch the list of product id from the cart api
-        Provider.of<CartController>(context, listen: false)
-            .getCart()
-            .whenComplete(() =>
-                // The code below is to get the appropriate list of products that contained within the cart
+      //   // The code below is to fetch the list of product id from the cart api
+      //   Provider.of<CartController>(context, listen: false)
+      //       .getCart()
+      //       .whenComplete(() =>
+      //           // The code below is to get the appropriate list of products that contained within the cart
 
-                Provider.of<CartController>(context, listen: false)
-                    .getCartProducts(products));
-      }
+      //           Provider.of<CartController>(context, listen: false)
+      //               .getCartProducts(products));
+      // }
+      Provider.of<CartController>(context, listen: false).getCart();
     });
 
     _controller.addListener(() {
