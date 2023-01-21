@@ -1,9 +1,7 @@
 // import package
-import 'package:fively_ecommerce/model/cart/product_cart.dart';
-import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/bag/widget/bottom_sheet_custom.dart';
-import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
+// import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/bottom_navigation_bar_custom.dart';
@@ -60,7 +58,12 @@ class _BagViewState extends State<BagView> {
       //           Provider.of<CartController>(context, listen: false)
       //               .getCartProducts(products));
       // }
-      Provider.of<CartController>(context, listen: false).getCart();
+      // The if statement to control that the code below just called once
+      if (Provider.of<CartController>(context, listen: false)
+          .cartProducts
+          .isEmpty) {
+        Provider.of<CartController>(context, listen: false).getCart();
+      }
     });
 
     _controller.addListener(() {

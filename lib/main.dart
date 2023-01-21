@@ -27,10 +27,21 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext _, Widget? __) {
         return MultiProvider(
           providers: [
-            ChangeNotifierProvider(create: (context) => CartController()),
-            ChangeNotifierProvider(create: ((context) => CategoryController())),
             ChangeNotifierProvider(
                 create: (context) => ProductListController()),
+            ChangeNotifierProxyProvider<ProductListController, CartController>(
+              create: (context) => CartController(
+                  productListController:
+                      Provider.of<ProductListController>(context, listen: false)
+                          .products),
+              update: (_, productListController, cartController) =>
+                  CartController(
+                      productListController: Provider.of<ProductListController>(
+                              context,
+                              listen: false)
+                          .products),
+            ),
+            ChangeNotifierProvider(create: ((context) => CategoryController())),
             ChangeNotifierProvider(
                 create: (context) => ProductFavoriteController()),
           ],

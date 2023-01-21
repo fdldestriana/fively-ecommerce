@@ -7,6 +7,8 @@ import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
 import 'package:flutter/material.dart';
 
 class CartController with ChangeNotifier {
+  List<Product> productListController;
+  CartController({required this.productListController});
   /*
   This code below is to get the state
   */
@@ -55,27 +57,32 @@ class CartController with ChangeNotifier {
   List<ProductCart> _cartProducts = [];
   List<ProductCart> get cartProducts {
     // Calling _setTotalAmount for the first time calculating and displaying the _totalAmount
+    _getProductImage(productListController);
     _setTotalAmount();
     return _cartProducts;
   }
-  // products paramater should be from Consumer<ProductListProvider>
-  // void getCartProducts(List<Product> products) {
-  //   int index = 0;
-  //   for (var map in _cartProducts) {
-  //     for (var product in products) {
-  //       if (product.id == map['productId']) {
-  //         _cartProducts[index].addAll({'product': product});
-  //       } else {
-  //         continue;
-  //       }
-  //     }
-  //     index++;
-  //   }
 
-  //   _setTotalAmount();
-  //   _setState(NotifierState.loaded);
-  //   notifyListeners();
-  // }
+  /*
+  This code below is to get image of a product from productListController,
+  because the cart endpoint doesn't providing list of products with the image urls
+  products paramater should be from Consumer<ProductListProvider>
+  */
+  void _getProductImage(List<Product> productListController) {
+    int index = 0;
+    for (var productCart in _cartProducts) {
+      for (var product in productListController) {
+        if (product.id == productCart.id) {
+          _cartProducts[index].image = product.images;
+        } else {
+          continue;
+        }
+      }
+      index++;
+    }
+
+    _setState(NotifierState.loaded);
+    notifyListeners();
+  }
 
   /*
   This code below is used to get totalAmount price of products within the cart
@@ -99,7 +106,7 @@ class CartController with ChangeNotifier {
   void addToCart(Product product) {
     (_cartProducts.any((element) => element.id == product.id))
         ? addQuantity(product.id)
-        : _cart.products.add(ProductCart.fromJson({
+        : _cartProducts.add(ProductCart.fromJson({
             'id': product.id,
             'title': product.title,
             'price': product.price,
