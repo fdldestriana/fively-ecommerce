@@ -89,7 +89,7 @@ class ProductItem extends StatelessWidget {
                   height: constraints.maxHeight * 0.02,
                 ),
                 Text(
-                  product.brand,
+                  product.brand as String,
                   maxLines: 1,
                   style:
                       const TextStyle(fontSize: 11, color: Color(0xFF9B9B9B)),

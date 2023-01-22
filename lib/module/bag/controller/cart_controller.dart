@@ -1,14 +1,13 @@
 import 'package:fively_ecommerce/model/cart/cart.dart';
-import 'package:fively_ecommerce/model/cart/product_cart.dart';
 import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/product.dart';
+import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/service/web_service.dart';
 import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartController with ChangeNotifier {
-  List<Product> productListController;
-  CartController({required this.productListController});
   /*
   This code below is to get the state
   */
@@ -36,15 +35,14 @@ class CartController with ChangeNotifier {
       id: 0,
       userId: 0,
       total: 0,
-      products: <ProductCart>[],
+      products: <Product>[],
       totalProducts: 0,
       totalQuantity: 0);
   Future getCart({int userId = 5}) async {
     _setState(NotifierState.loading);
     try {
       _cart = await WebService.getCart(userId);
-      _cartProducts =
-          _cart.products.map((e) => ProductCart.fromJson(e)).toList();
+      _cartProducts = _cart.products.map((e) => Product.fromJson(e)).toList();
       _setState(NotifierState.loaded);
     } on Failure catch (f) {
       _setFailure(f);
@@ -54,10 +52,9 @@ class CartController with ChangeNotifier {
   /*
   This code below is used to get products list within the cart
   */
-  List<ProductCart> _cartProducts = [];
-  List<ProductCart> get cartProducts {
+  List<Product> _cartProducts = [];
+  List<Product> get cartProducts {
     // Calling _setTotalAmount for the first time calculating and displaying the _totalAmount
-    _getProductImage(productListController);
     _setTotalAmount();
     return _cartProducts;
   }
@@ -65,22 +62,20 @@ class CartController with ChangeNotifier {
   /*
   This code below is to get image of a product from productListController,
   because the cart endpoint doesn't providing list of products with the image urls
-  products paramater should be from Consumer<ProductListProvider>
+  productListController variable should be an object from ProductListProvider.
   */
-  void _getProductImage(List<Product> productListController) {
-    int index = 0;
+  void getProductImage(BuildContext context) {
+    List<Product> productListController =
+        Provider.of<ProductListController>(context, listen: false).products;
     for (var productCart in _cartProducts) {
       for (var product in productListController) {
-        if (product.id == productCart.id) {
-          _cartProducts[index].image = product.images;
+        if (productCart.id == product.id) {
+          productCart.images = product.images;
         } else {
           continue;
         }
       }
-      index++;
     }
-
-    _setState(NotifierState.loaded);
     notifyListeners();
   }
 
@@ -96,7 +91,7 @@ class CartController with ChangeNotifier {
     */
     _totalAmount = 0;
     for (var product in _cartProducts) {
-      _totalAmount = _totalAmount + (product.quantity * product.price);
+      _totalAmount = _totalAmount + (product.quantity! * product.price);
     }
   }
 
@@ -106,15 +101,19 @@ class CartController with ChangeNotifier {
   void addToCart(Product product) {
     (_cartProducts.any((element) => element.id == product.id))
         ? addQuantity(product.id)
-        : _cartProducts.add(ProductCart.fromJson({
-            'id': product.id,
-            'title': product.title,
-            'price': product.price,
-            'quantity': 1,
-            'total': product.price * 1,
-            'discountPercentage': 0,
-            'discountedPrice': 0
-          }));
+        : _cartProducts.add(Product(
+            id: product.id,
+            title: product.title,
+            images: product.images,
+            price: product.price,
+            quantity: 1,
+            total: product.price * 1,
+            discountPercentage: 0,
+            discountedPrice: 0,
+            brand: product.brand,
+            category: product.category,
+            description: product.description,
+            rating: product.rating));
     _setTotalAmount();
   }
 
@@ -133,7 +132,7 @@ class CartController with ChangeNotifier {
   */
   void addQuantity(int productId) {
     int index = _cartProducts.indexWhere((element) => element.id == productId);
-    _cartProducts[index].quantity++;
+    _cartProducts[index].quantity = _cartProducts[index].quantity! + 1;
     // Calling _setTotalAmount to reset the _totalAmount every adding the quantity
     _setTotalAmount();
     notifyListeners();
@@ -141,7 +140,7 @@ class CartController with ChangeNotifier {
 
   void removeQuantity(int productId) {
     int index = _cartProducts.indexWhere((element) => element.id == productId);
-    _cartProducts[index].quantity--;
+    _cartProducts[index].quantity = _cartProducts[index].quantity! - 1;
     // Calling _setTotalAmount to reset the _totalAmount every removing the quantity
     _setTotalAmount();
     notifyListeners();

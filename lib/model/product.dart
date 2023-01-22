@@ -1,26 +1,37 @@
 class Product {
+  int? quantity;
+  num? total;
+  num? discountPercentage;
+  num? discountedPrice;
+  String? brand;
+  String? category;
+  String? description;
+  num? rating;
   int id;
   String title;
-  String brand;
   num price;
-  String category;
-  String description;
-  num rating;
   String images;
   bool isFavorite = false;
 
-  Product({
-    required this.id,
-    required this.title,
-    required this.brand,
-    required this.price,
-    required this.category,
-    required this.description,
-    required this.rating,
-    required this.images,
-  });
+  Product(
+      {this.quantity,
+      this.total,
+      this.discountPercentage,
+      this.discountedPrice,
+      this.brand,
+      this.category,
+      this.description,
+      this.rating,
+      required this.id,
+      required this.title,
+      required this.price,
+      required this.images});
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
+      quantity: json['quantity'],
+      total: json['total'],
+      discountPercentage: json['discountPercentage'],
+      discountedPrice: json['discountedPrice'],
       id: json['id'],
       title: json['title'],
       brand: json['brand'],
@@ -36,6 +47,10 @@ class Product {
               : 'https://api.lorem.space/image/fashion?w=640&h=480&r=${json['id']}');
 
   Map<String, dynamic> toJson() => {
+        'quantity': quantity,
+        'total': total,
+        'discountPercentage': discountPercentage,
+        'discountedPrice': discountedPrice,
         'id': id,
         'title': title,
         'brand': brand,

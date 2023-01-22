@@ -1,19 +1,19 @@
 // import package
-import 'package:fively_ecommerce/model/cart/product_cart.dart';
+import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
+import 'package:fively_ecommerce/module/bag/widget/pop_up_menu_button_custom.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/module/bag/widget/add_remove_cart_button.dart';
-// import 'package:fively_ecommerce/module/bag/widget/pop_up_menu_button_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductCartItem extends StatefulWidget {
   const ProductCartItem({
     Key? key,
-    required this.productCart,
+    required this.product,
   }) : super(key: key);
 
-  final ProductCart productCart;
+  final Product product;
 
   @override
   State<ProductCartItem> createState() => _ProductCartItemState();
@@ -43,8 +43,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                 ClipRect(
                   clipBehavior: Clip.hardEdge,
                   child: Image.network(
-                    // TO BE EDITED IN THE FUTURE
-                    "https://api.lorem.space/image/watch?w=640&h=480&r=10",
+                    widget.product.images,
                     alignment: Alignment.centerLeft,
                     width: constraints.maxWidth * 0.30,
                     height: constraints.maxHeight * 1.00,
@@ -70,7 +69,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               ),
                             ),
                             Text(
-                              widget.productCart.title,
+                              widget.product.title,
                               maxLines: 1,
                               style: const TextStyle(
                                   overflow: TextOverflow.ellipsis,
@@ -81,7 +80,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               height: constraints.maxHeight * 0.03,
                             ),
                             Text(
-                              widget.productCart.title,
+                              widget.product.title,
                               maxLines: 1,
                               style: const TextStyle(
                                   overflow: TextOverflow.ellipsis,
@@ -107,12 +106,12 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               Consumer<CartController>(
                                 builder: (_, value, __) {
                                   return AddRemoveCartButton(
-                                    function: (widget.productCart.quantity == 1)
+                                    function: (widget.product.quantity == 1)
                                         ? null
                                         : () {
                                             setState(() {
                                               value.removeQuantity(
-                                                  widget.productCart.id);
+                                                  widget.product.id);
                                             });
                                           },
                                     parentHeight: constraints.maxHeight,
@@ -124,7 +123,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               SizedBox(
                                 width: constraints.maxWidth * 0.03,
                               ),
-                              Text(widget.productCart.quantity.toString()),
+                              Text(widget.product.quantity.toString()),
                               SizedBox(
                                 width: constraints.maxWidth * 0.03,
                               ),
@@ -133,8 +132,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                                   return AddRemoveCartButton(
                                     function: () {
                                       setState(() {
-                                        value
-                                            .addQuantity(widget.productCart.id);
+                                        value.addQuantity(widget.product.id);
                                       });
                                     },
                                     parentHeight: constraints.maxHeight,
@@ -149,7 +147,7 @@ class _ProductCartItemState extends State<ProductCartItem> {
                               Flexible(
                                 flex: 1,
                                 child: Text(
-                                  '${(widget.productCart.price * widget.productCart.quantity).toStringAsFixed(1)}\$',
+                                  '${(widget.product.price * widget.product.quantity!).toStringAsFixed(1)}\$',
                                   maxLines: 1,
                                   style: const TextStyle(
                                     fontSize: 14,
@@ -164,11 +162,11 @@ class _ProductCartItemState extends State<ProductCartItem> {
                     ],
                   ),
                 ),
-                // PopUpMenuButtonCustom(
-                //   parentHeight: constraints.maxHeight,
-                //   parentWidth: constraints.maxWidth,
-                //   product: widget.productCart['product'],
-                // )
+                PopUpMenuButtonCustom(
+                  parentHeight: constraints.maxHeight,
+                  parentWidth: constraints.maxWidth,
+                  product: widget.product,
+                )
               ]);
         },
       ),

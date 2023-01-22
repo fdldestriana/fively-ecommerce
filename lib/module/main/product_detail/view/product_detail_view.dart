@@ -153,7 +153,7 @@ class ProductDetailView extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: bodyWidth * 0.03, right: bodyWidth * 0.03),
               child: Text(
-                product.description,
+                product.description as String,
                 textAlign: TextAlign.justify,
               ),
             ),

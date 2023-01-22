@@ -29,17 +29,8 @@ class MyApp extends StatelessWidget {
           providers: [
             ChangeNotifierProvider(
                 create: (context) => ProductListController()),
-            ChangeNotifierProxyProvider<ProductListController, CartController>(
-              create: (context) => CartController(
-                  productListController:
-                      Provider.of<ProductListController>(context, listen: false)
-                          .products),
-              update: (_, productListController, cartController) =>
-                  CartController(
-                      productListController: Provider.of<ProductListController>(
-                              context,
-                              listen: false)
-                          .products),
+            ChangeNotifierProvider<CartController>(
+              create: (context) => CartController(),
             ),
             ChangeNotifierProvider(create: ((context) => CategoryController())),
             ChangeNotifierProvider(

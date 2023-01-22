@@ -62,7 +62,11 @@ class _BagViewState extends State<BagView> {
       if (Provider.of<CartController>(context, listen: false)
           .cartProducts
           .isEmpty) {
-        Provider.of<CartController>(context, listen: false).getCart();
+        Provider.of<CartController>(context, listen: false)
+            .getCart()
+            .whenComplete(() =>
+                Provider.of<CartController>(context, listen: false)
+                    .getProductImage(context));
       }
     });
 
@@ -178,7 +182,7 @@ class LoadedStateCart extends StatelessWidget {
           crossAxisCount: 1),
       itemBuilder: (((context, index) {
         return ProductCartItem(
-          productCart: cartProducts[index],
+          product: cartProducts[index],
         );
       })),
       itemCount: cartProducts.length,
