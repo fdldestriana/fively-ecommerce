@@ -1,7 +1,8 @@
 // import package
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/checkout/view/checkout_view.dart';
-import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
+import 'package:fively_ecommerce/module/login/controller/login_controller.dart';
+import 'package:fively_ecommerce/module/login/view/login_view.dart';
 import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_view.dart';
 import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
@@ -27,14 +28,13 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext _, Widget? __) {
         return MultiProvider(
           providers: [
-            ChangeNotifierProvider(
-                create: (context) => ProductListController()),
-            ChangeNotifierProvider<CartController>(
-              create: (context) => CartController(),
-            ),
-            ChangeNotifierProvider(create: ((context) => CategoryController())),
+            ChangeNotifierProvider(create: (context) => CartController()),
+            ChangeNotifierProvider(create: (context) => CategoryController()),
+            ChangeNotifierProvider(create: (context) => LoginController()),
             ChangeNotifierProvider(
                 create: (context) => ProductFavoriteController()),
+            ChangeNotifierProvider(
+                create: (context) => ProductListController()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
                 textTheme: const TextTheme(
                     bodyText1: TextStyle(color: Color(0xFF222222)),
                     bodyText2: TextStyle(color: Color(0xFF222222)))),
-            initialRoute: ProductListView.routeName,
+            home: const LoginView(),
             onGenerateRoute: AppRouter.onGenerateRoute,
             routes: {
               CheckoutView.routeName: (context) => const CheckoutView(),

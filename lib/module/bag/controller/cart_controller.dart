@@ -1,4 +1,4 @@
-import 'package:fively_ecommerce/model/cart/cart.dart';
+import 'package:fively_ecommerce/model/cart.dart';
 import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
