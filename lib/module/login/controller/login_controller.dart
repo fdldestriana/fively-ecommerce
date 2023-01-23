@@ -4,6 +4,7 @@ import 'package:fively_ecommerce/model/user.dart';
 import 'package:fively_ecommerce/service/web_service.dart';
 import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController with ChangeNotifier {
   NotifierState _state = NotifierState.loading;
@@ -28,6 +29,7 @@ class LoginController with ChangeNotifier {
   Future<void> login() async {
     try {
       _user = await WebService.login();
+      _setPrefsUserId(_user.id);
       notifyListeners();
     } on Failure catch (f) {
       _setFailure(f);
@@ -35,13 +37,14 @@ class LoginController with ChangeNotifier {
     _setState(NotifierState.loaded);
   }
 
-  // User(
-  //     id: 0,
-  //     username: 'username',
-  //     email: 'email',
-  //     firstName: 'firstName',
-  //     lastName: 'lastName',
-  //     gender: 'gender',
-  //     image: 'image',
-  //     token: 'token');
+  void _setPrefsUserId(int userId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('userId', userId);
+  }
+
+  void getPrefsUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.getInt('userId') ?? 0;
+    notifyListeners();
+  }
 }
