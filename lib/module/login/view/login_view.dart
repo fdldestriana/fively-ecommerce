@@ -1,9 +1,9 @@
 // import package
 import 'package:fively_ecommerce/module/forgot_password/view/forgot_password_view.dart';
 import 'package:fively_ecommerce/module/login/controller/login_controller.dart';
+import 'package:fively_ecommerce/module/login/widget/login_custom_text_field.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
-import 'package:fively_ecommerce/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,9 +35,9 @@ class LoginView extends StatelessWidget {
     final bodyHeight = sizeConfig.screenHeight - myAppbar.preferredSize.height;
 
     return Scaffold(
-      appBar: myAppbar,
-      body: SingleChildScrollView(
-        child: Column(
+        appBar: myAppbar,
+        body: SingleChildScrollView(
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
@@ -52,13 +52,15 @@ class LoginView extends StatelessWidget {
             SizedBox(
               height: bodyHeight * 0.10,
             ),
-            const CustomTextField(
-              labelText: 'Email',
+            const LoginCustomTextField(
+              labelText: 'Username',
             ),
             SizedBox(
               height: bodyHeight * 0.01,
             ),
-            const CustomTextField(labelText: 'Password'),
+            const LoginCustomTextField(
+              labelText: 'Password',
+            ),
             SizedBox(
               height: bodyHeight * 0.02,
             ),
@@ -127,8 +129,6 @@ class LoginView extends StatelessWidget {
               ),
             )
           ],
-        ),
-      ),
-    );
+        )));
   }
 }

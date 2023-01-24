@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
   final String title;
   final double widthSize;
   final double heightSize;
-  final void Function() function;
+  final void Function()? function;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
             backgroundColor: const Color(0xFFDB3022)),
-        onPressed: function,
+        onPressed: (function != null) ? function : null,
         child: Text(
           title,
           style: const TextStyle(color: Colors.white),

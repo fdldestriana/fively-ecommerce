@@ -29,7 +29,7 @@ class LoginController with ChangeNotifier {
   Future<void> login() async {
     try {
       _user = await WebService.login();
-      _setPrefsUserId(_user.id);
+      _setPrefsUserId(_user.token, _user.id);
       notifyListeners();
     } on Failure catch (f) {
       _setFailure(f);
@@ -37,13 +37,15 @@ class LoginController with ChangeNotifier {
     _setState(NotifierState.loaded);
   }
 
-  void _setPrefsUserId(int userId) async {
+  void _setPrefsUserId(String token, int userId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
     prefs.setInt('userId', userId);
   }
 
   void getPrefsUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.getString('token') ?? 'token';
     prefs.getInt('userId') ?? 0;
     notifyListeners();
   }
