@@ -2,15 +2,15 @@
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:flutter/material.dart';
 
-class LoginCustomTextField extends StatefulWidget {
-  const LoginCustomTextField({super.key, required this.labelText});
-  final String labelText;
+class PasswordCustomTextField extends StatefulWidget {
+  const PasswordCustomTextField({super.key});
 
   @override
-  State<LoginCustomTextField> createState() => _LoginCustomTextFieldState();
+  State<PasswordCustomTextField> createState() =>
+      _PasswordCustomTextFieldState();
 }
 
-class _LoginCustomTextFieldState extends State<LoginCustomTextField> {
+class _PasswordCustomTextFieldState extends State<PasswordCustomTextField> {
   final TextEditingController _controller = TextEditingController();
 
   bool _submitted = false;
@@ -37,14 +37,14 @@ class _LoginCustomTextFieldState extends State<LoginCustomTextField> {
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
-    final body = sizeConfig.screenHeight;
+    final bodyHeight = sizeConfig.screenHeight;
 
     return ValueListenableBuilder(
       valueListenable: _controller,
-      builder: (context, value, child) => Center(
+      builder: (_, value, __) => Center(
         child: Container(
           width: bodyWidth * 0.91,
-          height: body * 0.09,
+          height: bodyHeight * 0.09,
           decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(4))),
@@ -60,7 +60,7 @@ class _LoginCustomTextFieldState extends State<LoginCustomTextField> {
               focusedErrorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red)),
               labelStyle: const TextStyle(color: Color(0xFF9B9B9B)),
-              labelText: widget.labelText,
+              labelText: 'Password',
               suffixIcon: (_errorText == null)
                   ? const Icon(
                       Icons.done,
@@ -68,8 +68,8 @@ class _LoginCustomTextFieldState extends State<LoginCustomTextField> {
                     )
                   : null,
             ),
-            obscureText: (widget.labelText == 'Password') ? true : false,
-            onChanged: ((value) => _submitted = !_submitted),
+            obscureText: true,
+            onChanged: ((_) => _submitted = false),
             onEditingComplete: () {
               // to make keyboard dismiss automatically after pressing the submit button
               FocusScopeNode currentFocus = FocusScope.of(context);
@@ -77,9 +77,8 @@ class _LoginCustomTextFieldState extends State<LoginCustomTextField> {
                 currentFocus.unfocus();
               }
             },
-            onSubmitted: ((value) {
-              _submitted = !_submitted;
-              _errorText;
+            onSubmitted: ((_) {
+              _submitted = true;
             }),
           ),
         ),

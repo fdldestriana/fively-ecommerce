@@ -1,7 +1,8 @@
 // import package
 import 'package:fively_ecommerce/module/forgot_password/view/forgot_password_view.dart';
 import 'package:fively_ecommerce/module/login/controller/login_controller.dart';
-import 'package:fively_ecommerce/module/login/widget/login_custom_text_field.dart';
+import 'package:fively_ecommerce/module/login/widget/password_custom_textfield.dart';
+import 'package:fively_ecommerce/module/login/widget/username_custom_textfield.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -52,15 +53,11 @@ class LoginView extends StatelessWidget {
             SizedBox(
               height: bodyHeight * 0.10,
             ),
-            const LoginCustomTextField(
-              labelText: 'Username',
-            ),
+            const UsernameCustomTextField(),
             SizedBox(
               height: bodyHeight * 0.01,
             ),
-            const LoginCustomTextField(
-              labelText: 'Password',
-            ),
+            const PasswordCustomTextField(),
             SizedBox(
               height: bodyHeight * 0.02,
             ),
