@@ -2,35 +2,16 @@
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:flutter/material.dart';
 
-class PasswordCustomTextField extends StatefulWidget {
-  const PasswordCustomTextField({super.key});
-
-  @override
-  State<PasswordCustomTextField> createState() =>
-      _PasswordCustomTextFieldState();
-}
-
-class _PasswordCustomTextFieldState extends State<PasswordCustomTextField> {
-  final TextEditingController _controller = TextEditingController();
-
-  bool _submitted = false;
-
-  String? get _errorText {
-    if (_controller.value.text.isEmpty) {
-      return 'Can\'t be empty';
-    }
-    if (_controller.value.text.length < 4) {
-      return 'Too short';
-    }
-    // return null if the text is valid
-    return null;
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+// ignore: must_be_immutable
+class LoginCustomTextField extends StatelessWidget {
+  const LoginCustomTextField(
+      {super.key,
+      required this.controller,
+      required this.labelText,
+      required this.errorText});
+  final TextEditingController controller;
+  final String labelText;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +21,7 @@ class _PasswordCustomTextFieldState extends State<PasswordCustomTextField> {
     final bodyHeight = sizeConfig.screenHeight;
 
     return ValueListenableBuilder(
-      valueListenable: _controller,
+      valueListenable: controller,
       builder: (_, value, __) => Center(
         child: Container(
           width: bodyWidth * 0.91,
@@ -49,27 +30,28 @@ class _PasswordCustomTextFieldState extends State<PasswordCustomTextField> {
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(4))),
           child: TextField(
-            controller: _controller,
+            controller: controller,
             keyboardType: TextInputType.name,
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: const EdgeInsets.only(left: 20),
               errorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red)),
-              errorText: _submitted ? _errorText : null,
+              errorText: (errorText == null) ? null : errorText,
               focusedErrorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red)),
               labelStyle: const TextStyle(color: Color(0xFF9B9B9B)),
-              labelText: 'Password',
-              suffixIcon: (_errorText == null)
-                  ? const Icon(
-                      Icons.done,
-                      color: Colors.green,
-                    )
-                  : null,
+              labelText: labelText,
+              suffixIcon:
+                  (errorText == null && controller.value.text.isNotEmpty)
+                      ? const Icon(
+                          Icons.done,
+                          color: Colors.green,
+                        )
+                      : null,
             ),
-            obscureText: true,
-            onChanged: ((_) => _submitted = false),
+            obscureText: (labelText == 'Password') ? true : false,
+            onChanged: (_) => controller.value.text = '',
             onEditingComplete: () {
               // to make keyboard dismiss automatically after pressing the submit button
               FocusScopeNode currentFocus = FocusScope.of(context);
@@ -77,9 +59,7 @@ class _PasswordCustomTextFieldState extends State<PasswordCustomTextField> {
                 currentFocus.unfocus();
               }
             },
-            onSubmitted: ((_) {
-              _submitted = true;
-            }),
+            onSubmitted: (_) => print(controller.value.text),
           ),
         ),
       ),

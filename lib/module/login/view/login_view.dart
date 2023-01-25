@@ -1,16 +1,43 @@
 // import package
 import 'package:fively_ecommerce/module/forgot_password/view/forgot_password_view.dart';
 import 'package:fively_ecommerce/module/login/controller/login_controller.dart';
-import 'package:fively_ecommerce/module/login/widget/password_custom_textfield.dart';
-import 'package:fively_ecommerce/module/login/widget/username_custom_textfield.dart';
+import 'package:fively_ecommerce/module/login/widget/login_custom_textfield.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
   static const routeName = 'login';
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  String? get _errorText {
+    if (_usernameController.value.text.isEmpty) {
+      return _usernameErrorText = 'Can\'t be empty';
+    }
+    if (_passwordController.value.text.isEmpty) {
+      return _passwordErrorText = 'Can\'t be empty';
+    }
+    if (_usernameController.value.text.length < 4) {
+      return _usernameErrorText = 'Too short';
+    }
+    if (_passwordController.value.text.length < 4) {
+      return _passwordErrorText = 'Too short';
+    }
+    // return null if the text is valid
+    return _usernameErrorText = null;
+  }
+
+  String? _usernameErrorText;
+  String? _passwordErrorText;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +61,6 @@ class LoginView extends StatelessWidget {
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight - myAppbar.preferredSize.height;
-
     return Scaffold(
         appBar: myAppbar,
         body: SingleChildScrollView(
@@ -53,11 +79,19 @@ class LoginView extends StatelessWidget {
             SizedBox(
               height: bodyHeight * 0.10,
             ),
-            const UsernameCustomTextField(),
+            LoginCustomTextField(
+              controller: _usernameController,
+              errorText: _usernameErrorText,
+              labelText: 'Username',
+            ),
             SizedBox(
               height: bodyHeight * 0.01,
             ),
-            const PasswordCustomTextField(),
+            LoginCustomTextField(
+              controller: _passwordController,
+              errorText: _passwordErrorText,
+              labelText: 'Password',
+            ),
             SizedBox(
               height: bodyHeight * 0.02,
             ),
@@ -89,6 +123,8 @@ class LoginView extends StatelessWidget {
                 builder: (_, value, __) {
                   return CustomButton(
                     function: () {
+                      setState(() {});
+                      _errorText;
                       value.login();
                     },
                     title: 'LOGIN',
