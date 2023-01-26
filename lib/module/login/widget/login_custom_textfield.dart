@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class LoginCustomTextField extends StatelessWidget {
-  const LoginCustomTextField(
+  LoginCustomTextField(
       {super.key,
       required this.controller,
       required this.labelText,
       required this.errorText});
   final TextEditingController controller;
   final String labelText;
-  final String? errorText;
+  String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +37,13 @@ class LoginCustomTextField extends StatelessWidget {
               contentPadding: const EdgeInsets.only(left: 20),
               errorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red)),
-              errorText: (errorText == null) ? null : errorText,
+              errorText: (errorText != null) ? errorText : null,
               focusedErrorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red)),
               labelStyle: const TextStyle(color: Color(0xFF9B9B9B)),
               labelText: labelText,
               suffixIcon:
-                  (errorText == null && controller.value.text.isNotEmpty)
+                  (errorText == null && controller.value.text.length > 4)
                       ? const Icon(
                           Icons.done,
                           color: Colors.green,
@@ -51,15 +51,7 @@ class LoginCustomTextField extends StatelessWidget {
                       : null,
             ),
             obscureText: (labelText == 'Password') ? true : false,
-            onChanged: (_) => controller.value.text = '',
-            onEditingComplete: () {
-              // to make keyboard dismiss automatically after pressing the submit button
-              FocusScopeNode currentFocus = FocusScope.of(context);
-              if (!currentFocus.hasPrimaryFocus) {
-                currentFocus.unfocus();
-              }
-            },
-            onSubmitted: (_) => print(controller.value.text),
+            onChanged: (_) => errorText = null,
           ),
         ),
       ),

@@ -19,25 +19,28 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  String? get _errorText {
-    if (_usernameController.value.text.isEmpty) {
-      return _usernameErrorText = 'Can\'t be empty';
-    }
-    if (_passwordController.value.text.isEmpty) {
-      return _passwordErrorText = 'Can\'t be empty';
-    }
-    if (_usernameController.value.text.length < 4) {
-      return _usernameErrorText = 'Too short';
-    }
-    if (_passwordController.value.text.length < 4) {
-      return _passwordErrorText = 'Too short';
-    }
-    // return null if the text is valid
-    return _usernameErrorText = null;
-  }
-
   String? _usernameErrorText;
   String? _passwordErrorText;
+
+  void _usernameValidate() {
+    if (_usernameController.value.text.isEmpty) {
+      _usernameErrorText = 'Can\'t be empty';
+    } else if (_usernameController.value.text.length < 4) {
+      _usernameErrorText = 'Too short';
+    } else {
+      _usernameErrorText = null;
+    }
+  }
+
+  void _passwordValidate() {
+    if (_passwordController.value.text.isEmpty) {
+      _passwordErrorText = 'Can\'t be empty';
+    } else if (_passwordController.value.text.length < 4) {
+      _passwordErrorText = 'Too short';
+    } else {
+      _passwordErrorText = null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,8 +126,9 @@ class _LoginViewState extends State<LoginView> {
                 builder: (_, value, __) {
                   return CustomButton(
                     function: () {
+                      _usernameValidate();
+                      _passwordValidate();
                       setState(() {});
-                      _errorText;
                       value.login();
                     },
                     title: 'LOGIN',

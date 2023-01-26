@@ -17,9 +17,9 @@ class WebService {
           body: json.encode(
               <String, String>{'username': username, 'password': password}),
           headers: <String, String>{'Content-Type': 'application/json'});
-      print(response.body);
+      // print(response.body);
       User user = User.fromJson(json.decode(response.body));
-      print('this is token of the current user : ${user.token}');
+      // print('this is token of the current user : ${user.token}');
       return user;
     } on SocketException {
       throw Failure(
