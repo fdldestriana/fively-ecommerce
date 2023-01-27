@@ -22,6 +22,19 @@ class _LoginViewState extends State<LoginView> {
   String? _usernameErrorText;
   String? _passwordErrorText;
 
+  @override
+  void didChangeDependencies() {
+    /*
+    every time we navigate to another TextField
+    the build method called and can causing some UX issue
+    to prevent that issue, we reassign the errorTexts to null 
+    within this method because this method called with the build method
+    */
+    _usernameErrorText = null;
+    _passwordErrorText = null;
+    super.didChangeDependencies();
+  }
+
   void _usernameValidate() {
     if (_usernameController.value.text.isEmpty) {
       _usernameErrorText = 'Can\'t be empty';
@@ -125,14 +138,17 @@ class _LoginViewState extends State<LoginView> {
               child: Consumer<LoginController>(
                 builder: (_, value, __) {
                   return CustomButton(
-                    function: () {
-                      _usernameValidate();
-                      _passwordValidate();
-                      setState(() {});
-                      value.login();
-                    },
+                    function: (_usernameController.value.text.isEmpty &&
+                            _passwordController.value.text.isEmpty)
+                        ? null
+                        : () {
+                            setState(() {});
+                            _usernameValidate();
+                            _passwordValidate();
+                            value.login();
+                          },
                     title: 'LOGIN',
-                    widthSize: 128615 / bodyWidth,
+                    widthSize: bodyWidth * 0.91,
                     heightSize: bodyHeight * 0.07,
                   );
                 },
