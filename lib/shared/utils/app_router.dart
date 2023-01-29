@@ -4,6 +4,7 @@ import 'package:fively_ecommerce/module/favorites/view/favorites_view.dart';
 import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
 import 'package:fively_ecommerce/module/profile/view/profile_view.dart';
 import 'package:fively_ecommerce/module/shop/view/shop_view.dart';
+import 'package:fively_ecommerce/module/signup/view/signup_view.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -20,7 +21,7 @@ class AppRouter {
       case 4:
         return ProfileView.route();
       default:
-        return ProductListView.route();
+        return SignupView.route();
     }
   }
 }
