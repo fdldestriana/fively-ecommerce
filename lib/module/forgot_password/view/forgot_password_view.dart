@@ -78,7 +78,7 @@ class ForgotPasswordView extends StatelessWidget {
               child: CustomButton(
                 function: () {},
                 title: 'SEND',
-                widthSize: 128615 / bodyWidth,
+                widthSize: bodyWidth * 0.91,
                 heightSize: bodyHeight * 0.07,
               ),
             ),

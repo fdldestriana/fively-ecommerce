@@ -70,6 +70,13 @@ class _SignupViewState extends State<SignupView> {
     }
   }
 
+  void _signUp() {
+    setState(() {});
+    _usernameValidate();
+    _emailValidate(_emailController.value.text);
+    _passwordValidate();
+  }
+
   @override
   Widget build(BuildContext context) {
     AppBar myAppbar = AppBar(
@@ -144,14 +151,17 @@ class _SignupViewState extends State<SignupView> {
                   'Already have an account?',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(LoginView.routeName);
-                    },
-                    child: const Icon(
-                      Icons.arrow_right_alt_outlined,
-                      color: Color(0xFFDB3022),
-                    ))
+                Flexible(
+                  flex: 1,
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(LoginView.routeName);
+                      },
+                      child: const Icon(
+                        Icons.arrow_right_alt_outlined,
+                        color: Color(0xFFDB3022),
+                      )),
+                )
               ],
             ),
             SizedBox(
@@ -163,12 +173,7 @@ class _SignupViewState extends State<SignupView> {
                         _emailController.value.text.isEmpty &&
                         _passwordController.value.text.isEmpty)
                     ? null
-                    : () {
-                        setState(() {});
-                        _usernameValidate();
-                        _emailValidate(_emailController.value.text);
-                        _passwordValidate();
-                      },
+                    : _signUp,
                 title: 'SIGN UP',
                 widthSize: bodyWidth * 0.91,
                 heightSize: bodyHeight * 0.07,

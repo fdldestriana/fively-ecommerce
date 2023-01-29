@@ -1,7 +1,9 @@
 // import package
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/checkout/view/checkout_view.dart';
+import 'package:fively_ecommerce/module/forgot_password/view/forgot_password_view.dart';
 import 'package:fively_ecommerce/module/login/controller/login_controller.dart';
+import 'package:fively_ecommerce/module/login/view/login_view.dart';
 import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_view.dart';
 import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
@@ -60,6 +62,9 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: AppRouter.onGenerateRoute,
             routes: {
               CheckoutView.routeName: (context) => const CheckoutView(),
+              ForgotPasswordView.routeName: (context) =>
+                  const ForgotPasswordView(),
+              LoginView.routeName: (context) => const LoginView(),
               ProductDetailView.routeName: (context) =>
                   const ProductDetailView(),
               ShopProductView.routeName: ((context) => const ShopProductView()),

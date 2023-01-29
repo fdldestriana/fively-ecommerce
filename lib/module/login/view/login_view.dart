@@ -120,15 +120,18 @@ class _LoginViewState extends State<LoginView> {
                   'Forgot your password?',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(ForgotPasswordView.routeName);
-                    },
-                    child: const Icon(
-                      Icons.arrow_right_alt_outlined,
-                      color: Color(0xFFDB3022),
-                    ))
+                Flexible(
+                  flex: 1,
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(ForgotPasswordView.routeName);
+                      },
+                      child: const Icon(
+                        Icons.arrow_right_alt_outlined,
+                        color: Color(0xFFDB3022),
+                      )),
+                )
               ],
             ),
             SizedBox(
