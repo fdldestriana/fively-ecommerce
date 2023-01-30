@@ -76,18 +76,23 @@ class _SignupViewState extends State<SignupView> {
     }
   }
 
-  // void _signUp() {
-  //   setState(() {});
-  //   _usernameValidate();
-  //   _emailValidate(_emailController.value.text);
-  //   _passwordValidate();
-  //   if (_usernameErrorText != null &&
-  //       _emailErrorText != null &&
-  //       _passwordErrorText != null) {
-  //     WebService.signUp(_usernameController.value.text,
-  //         _emailController.value.text, _passwordController.value.text);
-  //   }
-  // }
+  _signUp(SignupController value) {
+    value.signUp(_usernameController.value.text, _emailController.value.text,
+        _passwordController.value.text);
+    _usernameValidate();
+    _emailValidate(_emailController.value.text);
+    _passwordValidate();
+    print(value.user.username);
+  }
+
+  @override
+  void initState() {
+    var value = Provider.of<SignupController>(context);
+    _usernameController.addListener(() {
+      _signUp(value);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,16 +191,7 @@ class _SignupViewState extends State<SignupView> {
                           _emailController.value.text.isEmpty &&
                           _passwordController.value.text.isEmpty)
                       ? null
-                      : () {
-                          value.signUp(
-                              _usernameController.value.text,
-                              _emailController.value.text,
-                              _passwordController.value.text);
-                          _usernameValidate();
-                          _emailValidate(_emailController.value.text);
-                          _passwordValidate();
-                          print(value.user.username);
-                        },
+                      : _signUp(value),
                   title: 'SIGN UP',
                   widthSize: bodyWidth * 0.91,
                   heightSize: bodyHeight * 0.07,
