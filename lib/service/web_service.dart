@@ -9,6 +9,24 @@ import 'package:fively_ecommerce/model/user.dart';
 import 'package:http/http.dart' as http;
 
 class WebService {
+  static Future signUp(String username, String email, String password) async {
+    Uri url = Uri.parse('https://dummyjson.com/users/add');
+    try {
+      var response = await http.post(url,
+          body: json.encode(<String, String>{
+            'username': username,
+            'email': email,
+            'password': password
+          }),
+          headers: <String, String>{'Content-Type': 'application/json'});
+      User user = User.fromJson(json.decode(response.body));
+      return user;
+    } on SocketException {
+      throw Failure(
+          'There is not internet connection.\n Please check your data roaming');
+    }
+  }
+
   static Future login(
       {String username = 'kminchelle', String password = '0lelplR'}) async {
     Uri url = Uri.parse('https://dummyjson.com/auth/login');

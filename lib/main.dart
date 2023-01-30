@@ -9,6 +9,7 @@ import 'package:fively_ecommerce/module/favorites/controller/product_favorite_co
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/module/shop/view/shop_product_view.dart';
+import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
 import 'package:fively_ecommerce/module/success/view/success_view.dart';
 import 'package:fively_ecommerce/shared/utils/app_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
                 create: (context) => ProductFavoriteController()),
             ChangeNotifierProvider(
                 create: (context) => ProductListController()),
+            ChangeNotifierProvider(create: (context) => SignupController())
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

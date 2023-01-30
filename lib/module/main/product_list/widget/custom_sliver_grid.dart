@@ -2,7 +2,7 @@
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/widget/product_item.dart';
-import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
+import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +28,7 @@ class _CustomSliverGridState extends State<CustomSliverGrid> {
     return Consumer<ProductListController>(
       builder: (BuildContext _, value, Widget? __) {
         List<Product> products = value.products;
-        if (value.state == NotifierState.loading) {
+        if (value.state == DataState.loading) {
           return const LoadingStateProductList();
         } else if (value.failure.message.isNotEmpty &&
             value.failure.message != 'message') {

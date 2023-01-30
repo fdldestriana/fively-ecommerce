@@ -1,10 +1,13 @@
 // import package
 import 'package:email_validator/email_validator.dart';
 import 'package:fively_ecommerce/module/login/view/login_view.dart';
+import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
 import 'package:fively_ecommerce/module/signup/widget/signup_custom_textfield.dart';
+import 'package:fively_ecommerce/service/web_service.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -39,6 +42,9 @@ class _SignupViewState extends State<SignupView> {
     _usernameErrorText = null;
     _emailErrorText = null;
     _passwordErrorText = null;
+    // _usernameController.dispose();
+    // _emailController.dispose();
+    // _passwordController.dispose();
     super.didChangeDependencies();
   }
 
@@ -70,12 +76,18 @@ class _SignupViewState extends State<SignupView> {
     }
   }
 
-  void _signUp() {
-    setState(() {});
-    _usernameValidate();
-    _emailValidate(_emailController.value.text);
-    _passwordValidate();
-  }
+  // void _signUp() {
+  //   setState(() {});
+  //   _usernameValidate();
+  //   _emailValidate(_emailController.value.text);
+  //   _passwordValidate();
+  //   if (_usernameErrorText != null &&
+  //       _emailErrorText != null &&
+  //       _passwordErrorText != null) {
+  //     WebService.signUp(_usernameController.value.text,
+  //         _emailController.value.text, _passwordController.value.text);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -168,15 +180,26 @@ class _SignupViewState extends State<SignupView> {
               height: bodyHeight * 0.04,
             ),
             Center(
-              child: CustomButton(
-                function: (_usernameController.value.text.isEmpty &&
-                        _emailController.value.text.isEmpty &&
-                        _passwordController.value.text.isEmpty)
-                    ? null
-                    : _signUp,
-                title: 'SIGN UP',
-                widthSize: bodyWidth * 0.91,
-                heightSize: bodyHeight * 0.07,
+              child: Consumer<SignupController>(
+                builder: (_, value, __) => CustomButton(
+                  function: (_usernameController.value.text.isEmpty &&
+                          _emailController.value.text.isEmpty &&
+                          _passwordController.value.text.isEmpty)
+                      ? null
+                      : () {
+                          value.signUp(
+                              _usernameController.value.text,
+                              _emailController.value.text,
+                              _passwordController.value.text);
+                          _usernameValidate();
+                          _emailValidate(_emailController.value.text);
+                          _passwordValidate();
+                          print(value.user.username);
+                        },
+                  title: 'SIGN UP',
+                  widthSize: bodyWidth * 0.91,
+                  heightSize: bodyHeight * 0.07,
+                ),
               ),
             ),
             SizedBox(

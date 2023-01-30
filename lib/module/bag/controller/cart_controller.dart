@@ -3,7 +3,7 @@ import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/service/web_service.dart';
-import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
+import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,10 +11,10 @@ class CartController with ChangeNotifier {
   /*
   This code below is to get the state
   */
-  NotifierState _state = NotifierState.loading;
-  NotifierState get state => _state;
+  DataState _state = DataState.loading;
+  DataState get state => _state;
 
-  void _setState(NotifierState state) {
+  void _setState(DataState state) {
     _state = state;
     notifyListeners();
   }
@@ -39,11 +39,11 @@ class CartController with ChangeNotifier {
       totalProducts: 0,
       totalQuantity: 0);
   Future getCart({int userId = 5}) async {
-    _setState(NotifierState.loading);
+    _setState(DataState.loading);
     try {
       _cart = await WebService.getCart(userId);
       _cartProducts = _cart.products.map((e) => Product.fromJson(e)).toList();
-      _setState(NotifierState.loaded);
+      _setState(DataState.loaded);
     } on Failure catch (f) {
       _setFailure(f);
     }

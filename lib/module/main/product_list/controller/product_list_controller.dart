@@ -1,15 +1,15 @@
 // import package
-import 'package:fively_ecommerce/shared/utils/notifier_state.dart';
+import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:flutter/material.dart';
 import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/service/web_service.dart';
 
 class ProductListController with ChangeNotifier {
-  NotifierState _state = NotifierState.loading;
-  NotifierState get state => _state;
+  DataState _state = DataState.loading;
+  DataState get state => _state;
 
-  void _setState(NotifierState state) {
+  void _setState(DataState state) {
     _state = state;
     notifyListeners();
   }
@@ -32,6 +32,6 @@ class ProductListController with ChangeNotifier {
     } on Failure catch (f) {
       _setFailure(f);
     }
-    _setState(NotifierState.loaded);
+    _setState(DataState.loaded);
   }
 }
