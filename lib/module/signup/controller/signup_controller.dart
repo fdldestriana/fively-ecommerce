@@ -24,15 +24,7 @@ class SignupController with ChangeNotifier {
   }
 
   // The user data
-  User _user = User(
-      id: 0,
-      username: 'username',
-      email: 'email',
-      firstName: 'firstName',
-      lastName: 'lastName',
-      gender: 'gender',
-      image: 'image',
-      token: 'token');
+  User _user = User();
   User get user => _user;
   Future<void> signUp(String username, String email, String password) async {
     try {

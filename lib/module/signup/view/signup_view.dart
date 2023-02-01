@@ -3,8 +3,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:fively_ecommerce/module/login/view/login_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
 import 'package:fively_ecommerce/module/signup/widget/signup_custom_textfield.dart';
-import 'package:fively_ecommerce/service/web_service.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
+import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,60 +42,61 @@ class _SignupViewState extends State<SignupView> {
     _usernameErrorText = null;
     _emailErrorText = null;
     _passwordErrorText = null;
-    // _usernameController.dispose();
-    // _emailController.dispose();
-    // _passwordController.dispose();
     super.didChangeDependencies();
   }
 
-  void _usernameValidate() {
+  bool _usernameValidate() {
     if (_usernameController.value.text.isEmpty) {
       _usernameErrorText = 'Can\'t be empty';
+      return false;
     } else if (_usernameController.value.text.length < 4) {
       _usernameErrorText = 'Too short';
+      return false;
     } else {
       _usernameErrorText = null;
+      return true;
     }
   }
 
-  void _emailValidate(String email) {
+  bool _emailValidate(String email) {
     if (!EmailValidator.validate(email)) {
       _emailErrorText = 'Not a valid email address. Should be your@email.com';
+      return false;
     } else {
       _emailErrorText = null;
+      return true;
     }
   }
 
-  void _passwordValidate() {
+  bool _passwordValidate() {
     if (_passwordController.value.text.isEmpty) {
       _passwordErrorText = 'Can\'t be empty';
+      return false;
     } else if (_passwordController.value.text.length < 4) {
       _passwordErrorText = 'Too short';
+      return false;
     } else {
       _passwordErrorText = null;
+      return true;
     }
   }
 
-  _signUp(SignupController value) {
-    value.signUp(_usernameController.value.text, _emailController.value.text,
-        _passwordController.value.text);
-    _usernameValidate();
-    _emailValidate(_emailController.value.text);
-    _passwordValidate();
-    print(value.user.username);
-  }
-
-  @override
-  void initState() {
-    var value = Provider.of<SignupController>(context);
-    _usernameController.addListener(() {
-      _signUp(value);
-    });
-    super.initState();
+  bool _validate() {
+    setState(() {});
+    var username = _usernameValidate();
+    var email = _emailValidate(_emailController.value.text);
+    var password = _passwordValidate();
+    if (username && email && password) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    SignupController provider = Provider.of<SignupController>(context);
+
     AppBar myAppbar = AppBar(
       elevation: 0,
       backgroundColor: const Color(0xFFF9F9F9),
@@ -116,6 +117,22 @@ class _SignupViewState extends State<SignupView> {
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight - myAppbar.preferredSize.height;
+
+    String username = _usernameController.value.text;
+    String email = _emailController.value.text;
+    String password = _passwordController.value.text;
+    bool issPressable =
+        (username.isNotEmpty && email.isNotEmpty && password.isNotEmpty)
+            ? true
+            : false;
+    signUp() {
+      if (_validate()) {
+        provider.signUp(_usernameController.value.text,
+            _emailController.value.text, _passwordController.value.text);
+      }
+    }
+
+    AuthState state = provider.state;
 
     return Scaffold(
       appBar: myAppbar,
@@ -184,20 +201,26 @@ class _SignupViewState extends State<SignupView> {
             SizedBox(
               height: bodyHeight * 0.04,
             ),
-            Center(
-              child: Consumer<SignupController>(
-                builder: (_, value, __) => CustomButton(
-                  function: (_usernameController.value.text.isEmpty &&
-                          _emailController.value.text.isEmpty &&
-                          _passwordController.value.text.isEmpty)
-                      ? null
-                      : _signUp(value),
-                  title: 'SIGN UP',
-                  widthSize: bodyWidth * 0.91,
-                  heightSize: bodyHeight * 0.07,
-                ),
-              ),
-            ),
+            (state == AuthState.registering)
+                ? Column(
+                    children: [
+                      const Center(
+                        child: CircularProgressIndicator(color: Colors.red),
+                      ),
+                      SizedBox(
+                        height: bodyHeight * 0.01,
+                      ),
+                      const Text('Registering the user')
+                    ],
+                  )
+                : Center(
+                    child: CustomButton(
+                      function: (issPressable) ? signUp : null,
+                      title: 'SIGN UP',
+                      widthSize: bodyWidth * 0.91,
+                      heightSize: bodyHeight * 0.07,
+                    ),
+                  ),
             SizedBox(
               height: bodyHeight * 0.12,
             ),
