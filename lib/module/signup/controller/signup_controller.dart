@@ -1,10 +1,10 @@
 // import package
 import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/user.dart';
+import 'package:fively_ecommerce/service/user_preferrences.dart';
 import 'package:fively_ecommerce/service/web_service.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:flutter/material.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupController with ChangeNotifier {
   AuthState _state = AuthState.notRegistered;
@@ -23,31 +23,17 @@ class SignupController with ChangeNotifier {
     notifyListeners();
   }
 
-  // The user data
   User _user = User();
   User get user => _user;
   Future<void> signUp(String username, String email, String password) async {
     try {
       _setState(AuthState.registering);
       _user = await WebService.signUp(username, email, password);
-      // _setPrefsUserId(_user.token, _user.id);
+      UserPreferrences().saveUser(_user);
       notifyListeners();
     } on Failure catch (f) {
       _setFailure(f);
     }
     _setState(AuthState.registered);
   }
-
-  // void _setPrefsUserId(String token, int userId) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.setString('token', token);
-  //   prefs.setInt('userId', userId);
-  // }
-
-  // void getPrefsUserId() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.getString('token') ?? 'token';
-  //   prefs.getInt('userId') ?? 0;
-  //   notifyListeners();
-  // }
 }

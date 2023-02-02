@@ -2,6 +2,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:fively_ecommerce/module/login/view/login_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
+import 'package:fively_ecommerce/module/signup/widget/custom_appbar.dart';
 import 'package:fively_ecommerce/module/signup/widget/signup_custom_textfield.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
@@ -12,11 +13,6 @@ import 'package:provider/provider.dart';
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
   static const routeName = 'signup';
-  static Route route() {
-    return MaterialPageRoute(
-        settings: const RouteSettings(name: routeName),
-        builder: (_) => const SignupView());
-  }
 
   @override
   State<SignupView> createState() => _SignupViewState();
@@ -96,46 +92,28 @@ class _SignupViewState extends State<SignupView> {
   @override
   Widget build(BuildContext context) {
     SignupController provider = Provider.of<SignupController>(context);
+    AuthState state = provider.state;
 
-    AppBar myAppbar = AppBar(
-      elevation: 0,
-      backgroundColor: const Color(0xFFF9F9F9),
-      leading: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Colors.transparent),
-            backgroundColor: const Color(0xFFF9F9F9)),
-        onPressed: () {
-          Navigator.of(context).canPop();
-        },
-        child: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black,
-        ),
-      ),
-    );
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
-    final bodyHeight = sizeConfig.screenHeight - myAppbar.preferredSize.height;
+    final bodyHeight = sizeConfig.screenHeight;
 
     String username = _usernameController.value.text;
     String email = _emailController.value.text;
     String password = _passwordController.value.text;
+
     bool issPressable =
-        (username.isNotEmpty && email.isNotEmpty && password.isNotEmpty)
-            ? true
-            : false;
-    signUp() {
+        !(username.isEmpty && email.isEmpty && password.isEmpty) ? true : false;
+
+    void signUp() {
       if (_validate()) {
-        provider.signUp(_usernameController.value.text,
-            _emailController.value.text, _passwordController.value.text);
+        provider.signUp(username, email, password);
       }
     }
 
-    AuthState state = provider.state;
-
     return Scaffold(
-      appBar: myAppbar,
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
