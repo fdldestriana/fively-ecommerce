@@ -10,7 +10,7 @@ class UserPreferrences {
     prefs.setString('token', user.token);
   }
 
-  Future<User> getUser() async {
+  Future<User?> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     try {

@@ -38,6 +38,28 @@ Map<String, Widget Function(BuildContext)> routes = {
   SuccessView.routeName: (context) => const SuccessView(),
 };
 
+ThemeData themeData() {
+  return ThemeData(
+      appBarTheme: const AppBarTheme(
+          color: Color(0xFFDB3022), foregroundColor: Color(0xFF222222)),
+      // canvasColor set to transparent to make a showModalBottomSheet clipping the background
+      canvasColor: Colors.transparent,
+      fontFamily: 'Metropolis',
+      outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+              foregroundColor:
+                  MaterialStateProperty.all((const Color(0xFF222222))))),
+      primaryColor: const Color(0xFF222222),
+      scaffoldBackgroundColor: const Color(0xFFF9F9F9),
+      textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+              foregroundColor:
+                  MaterialStateProperty.all((const Color(0xFF222222))))),
+      textTheme: const TextTheme(
+          bodyText1: TextStyle(color: Color(0xFF222222)),
+          bodyText2: TextStyle(color: Color(0xFF222222))));
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
@@ -48,7 +70,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<User> getUser() => UserPreferrences().getUser();
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (BuildContext _, Widget? __) {
@@ -56,51 +77,42 @@ class MyApp extends StatelessWidget {
           providers: providers,
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: FutureBuilder(
-                future: getUser(),
-                builder: ((context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                    case ConnectionState.waiting:
-                      return const CircularProgressIndicator(
-                        color: Colors.red,
-                      );
-                    default:
-                      if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else if (snapshot.data == null) {
-                        return const LoginView();
-                      } else {
-                        UserPreferrences().removeUser();
-                      }
-                      return const ProductListView();
-                  }
-                })),
             onGenerateRoute: AppRouter.onGenerateRoute,
             routes: routes,
-            theme: ThemeData(
-                appBarTheme: const AppBarTheme(
-                    color: Color(0xFFDB3022),
-                    foregroundColor: Color(0xFF222222)),
-                // canvasColor set to transparent to make a showModalBottomSheet clipping the background
-                canvasColor: Colors.transparent,
-                fontFamily: 'Metropolis',
-                outlinedButtonTheme: OutlinedButtonThemeData(
-                    style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all(
-                            (const Color(0xFF222222))))),
-                primaryColor: const Color(0xFF222222),
-                scaffoldBackgroundColor: const Color(0xFFF9F9F9),
-                textButtonTheme: TextButtonThemeData(
-                    style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all(
-                            (const Color(0xFF222222))))),
-                textTheme: const TextTheme(
-                    bodyText1: TextStyle(color: Color(0xFF222222)),
-                    bodyText2: TextStyle(color: Color(0xFF222222)))),
+            theme: themeData(),
           ),
         );
       },
     );
+  }
+}
+
+class LoadView extends StatelessWidget {
+  const LoadView({
+    Key? key,
+  }) : super(key: key);
+  Future<User?> getUser() => UserPreferrences().getUser();
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: getUser(),
+        builder: ((context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return const CircularProgressIndicator(
+                color: Colors.red,
+              );
+            default:
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else if (snapshot.hasData == false) {
+                return const LoginView();
+              } else {
+                UserPreferrences().removeUser();
+              }
+              return const ProductListView();
+          }
+        }));
   }
 }
