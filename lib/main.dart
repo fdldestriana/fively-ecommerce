@@ -12,6 +12,7 @@ import 'package:fively_ecommerce/module/main/product_list/controller/product_lis
 import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
 import 'package:fively_ecommerce/module/shop/view/shop_product_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
+import 'package:fively_ecommerce/module/signup/view/signup_view.dart';
 import 'package:fively_ecommerce/module/success/view/success_view.dart';
 import 'package:fively_ecommerce/service/user_preferrences.dart';
 import 'package:fively_ecommerce/shared/utils/app_router.dart';
@@ -67,6 +68,10 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  Future<String> getToken() {
+    var token = UserPreferrences().getToken();
+    return token;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +82,7 @@ class MyApp extends StatelessWidget {
           providers: providers,
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
+            home: const SignupView(),
             onGenerateRoute: AppRouter.onGenerateRoute,
             routes: routes,
             theme: themeData(),
