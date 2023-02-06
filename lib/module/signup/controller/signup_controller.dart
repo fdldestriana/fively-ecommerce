@@ -15,7 +15,7 @@ class SignupController with ChangeNotifier {
     notifyListeners();
   }
 
-  Failure _failure = Failure('message');
+  Failure _failure = Failure();
 
   Failure get failure => _failure;
   void _setFailure(Failure failure) {
@@ -28,8 +28,9 @@ class SignupController with ChangeNotifier {
   Future<void> signUp(String username, String email, String password) async {
     try {
       _setState(AuthState.registering);
-      _user = await WebService.signUp(username, email, password);
-      UserPreferrences().saveUser(_user);
+      var response = await WebService.signUp(username, email, password);
+      re
+      // UserPreferrences().saveUser(_user);
       notifyListeners();
     } on Failure catch (f) {
       _setFailure(f);

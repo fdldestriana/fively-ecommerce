@@ -20,10 +20,15 @@ class WebService {
           }),
           headers: <String, String>{'Content-Type': 'application/json'});
       User user = User.fromJson(json.decode(response.body));
-      return user;
+      if (response.statusCode != 200) {
+        return response.statusCode.toString();
+      } else {
+        return 'User has been created';
+      }
     } on SocketException {
       throw Failure(
-          'There is not internet connection.\n Please check your data roaming');
+          message:
+              'There is not internet connection.\n Please check your data roaming');
     }
   }
 
@@ -41,7 +46,8 @@ class WebService {
       return user;
     } on SocketException {
       throw Failure(
-          'There is no internet connection.\n Please check your data roaming');
+          message:
+              'There is no internet connection.\n Please check your data roaming');
     }
   }
 
@@ -53,7 +59,8 @@ class WebService {
       return data.map((e) => Product.fromJson(e)).toList();
     } on SocketException {
       throw Failure(
-          'There is no internet connection.\n Please check your data roaming');
+          message:
+              'There is no internet connection.\n Please check your data roaming');
     }
   }
 
@@ -65,7 +72,8 @@ class WebService {
       return product;
     } on SocketException {
       throw Failure(
-          'There is no internet connection.\n Please check your data roaming');
+          message:
+              'There is no internet connection.\n Please check your data roaming');
     }
   }
 
@@ -77,7 +85,8 @@ class WebService {
       return categories.map((e) => Category(name: e)).toList();
     } on SocketException {
       throw Failure(
-          'There is no internet connection.\n Please check your data roaming');
+          message:
+              'There is no internet connection.\n Please check your data roaming');
     }
   }
 
@@ -89,7 +98,8 @@ class WebService {
       return data;
     } on SocketException {
       throw Failure(
-          'There is no internet connection.\n Please check your data roaming');
+          message:
+              'There is no internet connection.\n Please check your data roaming');
     }
   }
 }

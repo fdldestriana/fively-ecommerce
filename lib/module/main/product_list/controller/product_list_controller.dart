@@ -14,7 +14,7 @@ class ProductListController with ChangeNotifier {
     notifyListeners();
   }
 
-  Failure _failure = Failure('message');
+  Failure _failure = Failure();
 
   Failure get failure => _failure;
   void _setFailure(Failure failure) {
