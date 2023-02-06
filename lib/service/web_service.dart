@@ -1,12 +1,12 @@
 // import package
 import 'dart:io';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/cart.dart';
 import 'package:fively_ecommerce/model/category.dart';
-import 'package:fively_ecommerce/model/failure.dart';
 import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/model/user.dart';
-import 'package:http/http.dart' as http;
 
 class WebService {
   static Future signUp(String username, String email, String password) async {
