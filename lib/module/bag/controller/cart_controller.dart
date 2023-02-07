@@ -19,7 +19,7 @@ class CartController with ChangeNotifier {
     notifyListeners();
   }
 
-  Failure _failure = Failure();
+  Failure _failure = Failure(message: 'message');
 
   Failure get failure => _failure;
   void _setFailure(Failure failure) {
