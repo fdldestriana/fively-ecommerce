@@ -17,20 +17,20 @@ class UserPreferrences {
       int id = prefs.getInt('userId') as int;
       String username = prefs.getString('username') as String;
       String email = prefs.getString('email') as String;
-      // String firstName = prefs.getString('firstName') as String;
-      // String lastName = prefs.getString('lastName') as String;
-      // String gender = prefs.getString('gender') as String;
-      // String image = prefs.getString('image') as String;
+      String firstName = prefs.getString('firstName') as String;
+      String lastName = prefs.getString('lastName') as String;
+      String gender = prefs.getString('gender') as String;
+      String image = prefs.getString('image') as String;
       String token = prefs.getString('token') as String;
 
       return User(
           id: id,
           username: username,
           email: email,
-          // firstName: firstName,
-          // lastName: lastName,
-          // gender: gender,
-          // image: image,
+          firstName: firstName,
+          lastName: lastName,
+          gender: gender,
+          image: image,
           token: token);
     } catch (e) {
       throw e.toString();

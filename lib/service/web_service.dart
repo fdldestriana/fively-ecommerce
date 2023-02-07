@@ -9,27 +9,43 @@ import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/model/user.dart';
 
 class WebService {
-  static Future signUp(String username, String email, String password) async {
+  static Future<Map<String, dynamic>> signUp(
+      String username, String email, String password) async {
+    Map<String, dynamic> result;
     Uri url = Uri.parse('https://dummyjson.com/users/add');
+    Map<String, String> data = {
+      'username': username,
+      'email': email,
+      'password': password
+    };
     try {
       var response = await http.post(url,
-          body: json.encode(<String, String>{
-            'username': username,
-            'email': email,
-            'password': password
-          }),
+          body: json.encode(data),
           headers: <String, String>{'Content-Type': 'application/json'});
-      User user = User.fromJson(json.decode(response.body));
-      if (response.statusCode != 200) {
-        return response.statusCode.toString();
+      if (response.statusCode == 200) {
+        User user = User.fromJson(json.decode(response.body));
+        result = {
+          'status': true,
+          'message': 'Successfully registered',
+          'data': user
+        };
       } else {
-        return 'User has been created';
+        result = {
+          'status': false,
+          'message': 'Registration failed',
+          'data': json.decode(response.body)
+        };
       }
     } on SocketException {
-      throw Failure(
-          message:
-              'There is not internet connection.\n Please check your data roaming');
+      result = {
+        'status': false,
+        'message': 'Unsuccessful request',
+        'data': Failure(
+            message:
+                'There is not internet connection.\n Please check your data roaming')
+      };
     }
+    return result;
   }
 
   static Future login(
