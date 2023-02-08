@@ -10,18 +10,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       backgroundColor: const Color(0xFFF9F9F9),
-      leading: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Colors.transparent),
-            backgroundColor: const Color(0xFFF9F9F9)),
-        onPressed: () {
-          Navigator.of(context).canPop();
-        },
-        child: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black,
-        ),
-      ),
+      // leading: OutlinedButton(
+      //   style: OutlinedButton.styleFrom(
+      //       side: const BorderSide(color: Colors.transparent),
+      //       backgroundColor: const Color(0xFFF9F9F9)),
+      //   onPressed: () {
+      //     Navigator.of(context).canPop();
+      //   }
+      //   ,
+      //   child: const Icon(
+      //     Icons.arrow_back_ios,
+      //     color: Colors.black,
+      //   ),
+      // ),
     );
   }
 

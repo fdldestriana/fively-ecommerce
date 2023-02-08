@@ -93,7 +93,6 @@ class _SignupViewState extends State<SignupView> {
   Widget build(BuildContext context) {
     SignupController provider = Provider.of<SignupController>(context);
     AuthState state = provider.state;
-    print('build state $state');
 
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
@@ -110,8 +109,19 @@ class _SignupViewState extends State<SignupView> {
     void signUp() {
       if (_validate()) {
         provider.signUp(username, email, password).then((value) {
-          if (value['state'] == AuthState.registered) {
-            Navigator.pushReplacementNamed(context, LoginView.routeName);
+          if (value['status']) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+              'User ${provider.user.username} ${provider.message}',
+              textAlign: TextAlign.center,
+            )));
+            Navigator.pushNamed(context, LoginView.routeName);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+              '$provider.message',
+              textAlign: TextAlign.center,
+            )));
           }
         });
       }
