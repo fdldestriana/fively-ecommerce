@@ -93,6 +93,7 @@ class _SignupViewState extends State<SignupView> {
   Widget build(BuildContext context) {
     SignupController provider = Provider.of<SignupController>(context);
     AuthState state = provider.state;
+    print('build state $state');
 
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
@@ -108,7 +109,11 @@ class _SignupViewState extends State<SignupView> {
 
     void signUp() {
       if (_validate()) {
-        provider.signUp(username, email, password);
+        provider.signUp(username, email, password).then((value) {
+          if (value['state'] == AuthState.registered) {
+            Navigator.pushReplacementNamed(context, LoginView.routeName);
+          }
+        });
       }
     }
 
@@ -179,26 +184,28 @@ class _SignupViewState extends State<SignupView> {
             SizedBox(
               height: bodyHeight * 0.04,
             ),
-            (state == AuthState.registering)
-                ? Column(
-                    children: [
-                      const Center(
-                        child: CircularProgressIndicator(color: Colors.red),
-                      ),
-                      SizedBox(
-                        height: bodyHeight * 0.01,
-                      ),
-                      const Text('Registering the user')
-                    ],
-                  )
-                : Center(
-                    child: CustomButton(
-                      function: (issPressable) ? signUp : null,
-                      title: 'SIGN UP',
-                      widthSize: bodyWidth * 0.91,
-                      heightSize: bodyHeight * 0.07,
-                    ),
+            if (state == AuthState.notRegistered) ...[
+              Center(
+                child: CustomButton(
+                  function: (issPressable) ? signUp : null,
+                  title: 'SIGN UP',
+                  widthSize: bodyWidth * 0.91,
+                  heightSize: bodyHeight * 0.07,
+                ),
+              ),
+            ] else if (state == AuthState.registering) ...[
+              Column(
+                children: [
+                  const Center(
+                    child: CircularProgressIndicator(color: Colors.red),
                   ),
+                  SizedBox(
+                    height: bodyHeight * 0.01,
+                  ),
+                  const Text('Registering the user')
+                ],
+              )
+            ],
             SizedBox(
               height: bodyHeight * 0.12,
             ),

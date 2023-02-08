@@ -27,22 +27,23 @@ class SignupController with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signUp(String username, String email, String password) async {
+  Future<Map<String, dynamic>> signUp(
+      String username, String email, String password) async {
+    Map<String, dynamic> result;
     _setState(AuthState.registering);
     var data = await WebService.signUp(username, email, password);
-    print(_user.username);
-
     if (data['status']) {
       _user = data['data'];
       _message = data['message'];
-      print(_user.username);
-      print('this is the user token ${_user.token}');
       _setState(AuthState.registered);
+      result = {'status': data['status'], 'state': state};
       notifyListeners();
     } else {
-      _setState(AuthState.notRegistered);
       _message = data['message'];
+      _setState(AuthState.notRegistered);
+      result = {'status': data['status'], 'state': state};
       notifyListeners();
     }
+    return result;
   }
 }
