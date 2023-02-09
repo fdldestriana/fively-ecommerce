@@ -40,11 +40,6 @@ class SignupController with ChangeNotifier {
       notifyListeners();
     } else {
       _message = '${data['message']}.\n${data['data'].message}';
-      print(data['status']);
-      print(data['message']);
-      print(data['data'].message);
-      print('------------');
-      print(message);
       _setState(AuthState.notRegistered);
       result = {'status': data['status']};
       notifyListeners();
