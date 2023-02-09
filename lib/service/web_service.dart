@@ -42,7 +42,7 @@ class WebService {
         'message': 'Unsuccessful request',
         'data': Failure(
             message:
-                'There is not internet connection.\n Please check your data roaming')
+                'There is not internet connection. Please check your data roaming')
       };
     }
     return result;

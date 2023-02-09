@@ -112,14 +112,14 @@ class _SignupViewState extends State<SignupView> {
           if (value['status']) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
-              'User ${provider.user.username} ${provider.message}',
+              'User ${provider.user.username} ${provider.message.toLowerCase()}',
               textAlign: TextAlign.center,
             )));
             Navigator.pushNamed(context, LoginView.routeName);
-          } else {
+          } else if (!value['status']) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
-              '$provider.message',
+              provider.message,
               textAlign: TextAlign.center,
             )));
           }
