@@ -35,13 +35,13 @@ class SignupController with ChangeNotifier {
     if (data['status']) {
       _user = data['data'];
       _message = data['message'];
-      _setState(AuthState.registered);
       result = {'status': data['status']};
+      _setState(AuthState.registered);
       notifyListeners();
     } else {
       _message = '${data['message']}.\n${data['data'].message}';
-      _setState(AuthState.notRegistered);
       result = {'status': data['status']};
+      _setState(AuthState.notRegistered);
       notifyListeners();
     }
     return result;

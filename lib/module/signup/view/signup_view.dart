@@ -2,7 +2,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:fively_ecommerce/module/login/view/login_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
-import 'package:fively_ecommerce/module/signup/widget/custom_appbar.dart';
+import 'package:fively_ecommerce/module/signup/widget/custom_appbar_signup.dart';
 import 'package:fively_ecommerce/module/signup/widget/signup_custom_textfield.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
@@ -128,7 +128,7 @@ class _SignupViewState extends State<SignupView> {
     }
 
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBarSignup(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

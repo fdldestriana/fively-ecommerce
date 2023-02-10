@@ -1,5 +1,4 @@
 // import package
-import 'package:fively_ecommerce/model/user.dart';
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/checkout/view/checkout_view.dart';
 import 'package:fively_ecommerce/module/forgot_password/view/forgot_password_view.dart';
@@ -9,10 +8,8 @@ import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_
 import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
-import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
 import 'package:fively_ecommerce/module/shop/view/shop_product_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
-import 'package:fively_ecommerce/module/signup/view/signup_view.dart';
 import 'package:fively_ecommerce/module/success/view/success_view.dart';
 import 'package:fively_ecommerce/service/user_preferrences.dart';
 import 'package:fively_ecommerce/shared/utils/app_router.dart';
@@ -82,7 +79,7 @@ class MyApp extends StatelessWidget {
           providers: providers,
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: const SignupView(),
+            home: const LoginView(),
             onGenerateRoute: AppRouter.onGenerateRoute,
             routes: routes,
             theme: themeData(),
@@ -93,32 +90,32 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class LoadView extends StatelessWidget {
-  const LoadView({
-    Key? key,
-  }) : super(key: key);
-  Future<User?> getUser() => UserPreferrences().getUser();
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: getUser(),
-        builder: ((context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-              return const CircularProgressIndicator(
-                color: Colors.red,
-              );
-            default:
-              if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else if (snapshot.hasData == false) {
-                return const LoginView();
-              } else {
-                UserPreferrences().removeUser();
-              }
-              return const ProductListView();
-          }
-        }));
-  }
-}
+// class LoadView extends StatelessWidget {
+//   const LoadView({
+//     Key? key,
+//   }) : super(key: key);
+//   Future<User?> getUser() => UserPreferrences().getUser();
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder(
+//         future: getUser(),
+//         builder: ((context, snapshot) {
+//           switch (snapshot.connectionState) {
+//             case ConnectionState.none:
+//             case ConnectionState.waiting:
+//               return const CircularProgressIndicator(
+//                 color: Colors.red,
+//               );
+//             default:
+//               if (snapshot.hasError) {
+//                 return Text('Error: ${snapshot.error}');
+//               } else if (snapshot.hasData == false) {
+//                 return const LoginView();
+//               } else {
+//                 UserPreferrences().removeUser();
+//               }
+//               return const ProductListView();
+//           }
+//         }));
+//   }
+// }

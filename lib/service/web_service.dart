@@ -26,13 +26,13 @@ class WebService {
         User user = User.fromJson(json.decode(response.body));
         result = {
           'status': true,
-          'message': 'Successfully registered',
+          'message': 'Successfully registered.',
           'data': user
         };
       } else {
         result = {
           'status': false,
-          'message': 'Registration failed',
+          'message': 'Registration failed.',
           'data': json.decode(response.body)
         };
       }
@@ -42,29 +42,45 @@ class WebService {
         'message': 'Unsuccessful request',
         'data': Failure(
             message:
-                'There is not internet connection. Please check your data roaming')
+                'There is not internet connection. Please check your data roaming.')
       };
     }
     return result;
   }
 
-  static Future login(
-      {String username = 'kminchelle', String password = '0lelplR'}) async {
+  static Future<Map<String, dynamic>> login(
+      String username, String password) async {
+    Map<String, dynamic> result;
     Uri url = Uri.parse('https://dummyjson.com/auth/login');
+    Map<String, String> data = {'username': username, 'password': password};
     try {
       var response = await http.post(url,
-          body: json.encode(
-              <String, String>{'username': username, 'password': password}),
+          body: json.encode(data),
           headers: <String, String>{'Content-Type': 'application/json'});
-      // print(response.body);
-      User user = User.fromJson(json.decode(response.body));
-      // print('this is token of the current user : ${user.token}');
-      return user;
+      if (response.statusCode == 200) {
+        User user = User.fromJson(json.decode(response.body));
+        result = {
+          'status': true,
+          'message': 'Successfully logged in',
+          'data': user
+        };
+      } else {
+        result = {
+          'status': false,
+          'message':
+              'Logged in failed. ${json.decode(response.body)['message']}.',
+        };
+      }
     } on SocketException {
-      throw Failure(
-          message:
-              'There is no internet connection.\n Please check your data roaming');
+      result = {
+        'status': false,
+        'message': 'Unsuccessful request',
+        'data': Failure(
+            message:
+                'There is not internet connection. Please check your data roaming.')
+      };
     }
+    return result;
   }
 
   static Future getProducts() async {

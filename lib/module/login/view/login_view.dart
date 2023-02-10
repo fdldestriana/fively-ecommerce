@@ -1,8 +1,10 @@
 // import package
 import 'package:fively_ecommerce/module/forgot_password/view/forgot_password_view.dart';
 import 'package:fively_ecommerce/module/login/controller/login_controller.dart';
-import 'package:fively_ecommerce/module/login/widget/login_custom_textfield.dart';
+import 'package:fively_ecommerce/module/login/widget/custom_appbar_login.dart';
+import 'package:fively_ecommerce/module/signup/widget/signup_custom_textfield.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
+import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,52 +37,83 @@ class _LoginViewState extends State<LoginView> {
     super.didChangeDependencies();
   }
 
-  void _usernameValidate() {
+  bool _usernameValidate() {
     if (_usernameController.value.text.isEmpty) {
       _usernameErrorText = 'Can\'t be empty';
+      return false;
     } else if (_usernameController.value.text.length < 4) {
       _usernameErrorText = 'Too short';
+      return false;
     } else {
       _usernameErrorText = null;
+      return true;
     }
   }
 
-  void _passwordValidate() {
+  bool _passwordValidate() {
     if (_passwordController.value.text.isEmpty) {
       _passwordErrorText = 'Can\'t be empty';
+      return false;
     } else if (_passwordController.value.text.length < 4) {
       _passwordErrorText = 'Too short';
+      return false;
     } else {
       _passwordErrorText = null;
+      return true;
+    }
+  }
+
+  bool _validate() {
+    setState(() {});
+    var username = _usernameValidate();
+    var password = _passwordValidate();
+    if (username && password) {
+      return true;
+    } else {
+      return false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    AppBar myAppbar = AppBar(
-      elevation: 0,
-      backgroundColor: const Color(0xFFF9F9F9),
-      leading: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Colors.transparent),
-            backgroundColor: const Color(0xFFF9F9F9)),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        child: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black,
-        ),
-      ),
-    );
+    LoginController provider = Provider.of<LoginController>(context);
+    AuthState state = provider.state;
+
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;
-    final bodyHeight = sizeConfig.screenHeight - myAppbar.preferredSize.height;
+    final bodyHeight = sizeConfig.screenHeight;
+
+    String username = _usernameController.value.text;
+    String password = _passwordController.value.text;
+
+    bool issPressable = !(username.isEmpty && password.isEmpty) ? true : false;
+
+    void login() {
+      if (_validate()) {
+        provider.login(username, password).then((value) {
+          if (value['status']) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+              'User ${provider.user.username} ${provider.message.toLowerCase()}',
+              textAlign: TextAlign.center,
+            )));
+            Navigator.pushNamed(context, LoginView.routeName);
+          } else if (!value['status']) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+              provider.message,
+              textAlign: TextAlign.center,
+            )));
+          }
+        });
+      }
+    }
+
     return Scaffold(
-        appBar: myAppbar,
-        body: SingleChildScrollView(
-            child: Column(
+      appBar: const CustomAppBarLogin(),
+      body: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
@@ -95,15 +128,15 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: bodyHeight * 0.10,
             ),
-            LoginCustomTextField(
+            SignupCustomTextField(
               controller: _usernameController,
               errorText: _usernameErrorText,
-              labelText: 'Username',
+              labelText: 'Name',
             ),
             SizedBox(
               height: bodyHeight * 0.01,
             ),
-            LoginCustomTextField(
+            SignupCustomTextField(
               controller: _passwordController,
               errorText: _passwordErrorText,
               labelText: 'Password',
@@ -137,28 +170,30 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: bodyHeight * 0.04,
             ),
-            Center(
-              child: Consumer<LoginController>(
-                builder: (_, value, __) {
-                  return CustomButton(
-                    function: (_usernameController.value.text.isEmpty &&
-                            _passwordController.value.text.isEmpty)
-                        ? null
-                        : () {
-                            setState(() {});
-                            _usernameValidate();
-                            _passwordValidate();
-                            value.login();
-                          },
-                    title: 'LOGIN',
-                    widthSize: bodyWidth * 0.91,
-                    heightSize: bodyHeight * 0.07,
-                  );
-                },
+            if (state == AuthState.notLoggedIn) ...[
+              Center(
+                child: CustomButton(
+                  function: (issPressable) ? login : null,
+                  title: 'LOGIN',
+                  widthSize: bodyWidth * 0.91,
+                  heightSize: bodyHeight * 0.07,
+                ),
               ),
-            ),
+            ] else if (state == AuthState.authenticating) ...[
+              Column(
+                children: [
+                  const Center(
+                    child: CircularProgressIndicator(color: Colors.red),
+                  ),
+                  SizedBox(
+                    height: bodyHeight * 0.01,
+                  ),
+                  const Text('Logging .....')
+                ],
+              )
+            ],
             SizedBox(
-              height: bodyHeight * 0.22,
+              height: bodyHeight * 0.12,
             ),
             const Center(
               child: Text(
@@ -185,6 +220,8 @@ class _LoginViewState extends State<LoginView> {
               ),
             )
           ],
-        )));
+        ),
+      ),
+    );
   }
 }
