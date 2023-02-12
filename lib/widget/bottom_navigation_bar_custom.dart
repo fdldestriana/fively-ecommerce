@@ -25,7 +25,7 @@ class BottomNavigationBarCustom extends StatelessWidget {
             already opened view/page
             */
             if (index != initialIndex) {
-              Navigator.pushNamed(context, '/', arguments: index);
+              Navigator.pushReplacementNamed(context, '/', arguments: index);
             }
           },
         ));

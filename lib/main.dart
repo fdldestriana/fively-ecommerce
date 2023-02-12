@@ -1,6 +1,8 @@
 // import package
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
+import 'package:fively_ecommerce/module/bag/view/bag_view.dart';
 import 'package:fively_ecommerce/module/checkout/view/checkout_view.dart';
+import 'package:fively_ecommerce/module/favorites/view/favorites_view.dart';
 import 'package:fively_ecommerce/module/forgot_password/view/forgot_password_view.dart';
 import 'package:fively_ecommerce/module/login/controller/login_controller.dart';
 import 'package:fively_ecommerce/module/login/view/login_view.dart';
@@ -8,15 +10,18 @@ import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_
 import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
+import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
+import 'package:fively_ecommerce/module/profile/view/profile_view.dart';
 import 'package:fively_ecommerce/module/shop/view/shop_product_view.dart';
+import 'package:fively_ecommerce/module/shop/view/shop_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
+import 'package:fively_ecommerce/module/signup/view/signup_view.dart';
 import 'package:fively_ecommerce/module/success/view/success_view.dart';
-import 'package:fively_ecommerce/service/user_preferrences.dart';
 import 'package:fively_ecommerce/shared/utils/app_router.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (context) => CartController()),
@@ -34,6 +39,11 @@ Map<String, Widget Function(BuildContext)> routes = {
   ProductDetailView.routeName: (context) => const ProductDetailView(),
   ShopProductView.routeName: ((context) => const ShopProductView()),
   SuccessView.routeName: (context) => const SuccessView(),
+  ProductListView.routeName: (context) => const ProductListView(),
+  ShopView.routeName: (context) => const ShopView(),
+  BagView.routeName: (context) => const BagView(),
+  FavoritesView.routeName: (context) => const FavoritesView(),
+  ProfileView.routeName: (context) => const ProfileView()
 };
 
 ThemeData themeData() {
@@ -54,68 +64,35 @@ ThemeData themeData() {
               foregroundColor:
                   MaterialStateProperty.all((const Color(0xFF222222))))),
       textTheme: const TextTheme(
-          bodyText1: TextStyle(color: Color(0xFF222222)),
-          bodyText2: TextStyle(color: Color(0xFF222222))));
+          bodyLarge: TextStyle(color: Color(0xFF222222)),
+          bodyMedium: TextStyle(color: Color(0xFF222222))));
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token');
+  runApp(MyApp(
+    initialRoute:
+        (token != null) ? ProductListView.routeName : SignupView.routeName,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  Future<String> getToken() {
-    var token = UserPreferrences().getToken();
-    return token;
-  }
+  const MyApp({super.key, required this.initialRoute});
+  final String initialRoute;
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      builder: (BuildContext _, Widget? __) {
-        return MultiProvider(
-          providers: providers,
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: const LoginView(),
-            onGenerateRoute: AppRouter.onGenerateRoute,
-            routes: routes,
-            theme: themeData(),
-          ),
-        );
-      },
+    return MultiProvider(
+      providers: providers,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: AppRouter.onGenerateRoute,
+        initialRoute: initialRoute,
+        routes: routes,
+        theme: themeData(),
+      ),
     );
   }
 }
-
-// class LoadView extends StatelessWidget {
-//   const LoadView({
-//     Key? key,
-//   }) : super(key: key);
-//   Future<User?> getUser() => UserPreferrences().getUser();
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder(
-//         future: getUser(),
-//         builder: ((context, snapshot) {
-//           switch (snapshot.connectionState) {
-//             case ConnectionState.none:
-//             case ConnectionState.waiting:
-//               return const CircularProgressIndicator(
-//                 color: Colors.red,
-//               );
-//             default:
-//               if (snapshot.hasError) {
-//                 return Text('Error: ${snapshot.error}');
-//               } else if (snapshot.hasData == false) {
-//                 return const LoginView();
-//               } else {
-//                 UserPreferrences().removeUser();
-//               }
-//               return const ProductListView();
-//           }
-//         }));
-//   }
-// }

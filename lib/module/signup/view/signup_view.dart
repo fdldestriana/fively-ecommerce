@@ -111,17 +111,19 @@ class _SignupViewState extends State<SignupView> {
         provider.signUp(username, email, password).then((value) {
           if (value['status']) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                duration: const Duration(seconds: 1),
                 content: Text(
-              'User ${provider.user.username} ${provider.message.toLowerCase()}',
-              textAlign: TextAlign.center,
-            )));
-            Navigator.pushNamed(context, LoginView.routeName);
+                  'User ${provider.user.username} ${provider.message.toLowerCase()}',
+                  textAlign: TextAlign.center,
+                )));
+            Navigator.pushReplacementNamed(context, LoginView.routeName);
           } else if (!value['status']) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                duration: const Duration(seconds: 1),
                 content: Text(
-              provider.message,
-              textAlign: TextAlign.center,
-            )));
+                  provider.message,
+                  textAlign: TextAlign.center,
+                )));
           }
         });
       }

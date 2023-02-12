@@ -2,6 +2,7 @@
 // import 'package:fively_ecommerce/widgets/custom_button.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
   const CustomSliverAppBar({
@@ -37,7 +38,11 @@ class CustomSliverAppBar extends StatelessWidget {
           elevation: 0,
           actions: [
             TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.remove('token');
+                },
                 child: const Text(
                   'View all',
                   style: TextStyle(

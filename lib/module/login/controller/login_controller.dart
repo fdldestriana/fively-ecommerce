@@ -1,5 +1,6 @@
 // import package
 import 'package:fively_ecommerce/model/user.dart';
+import 'package:fively_ecommerce/service/user_preferrences.dart';
 import 'package:fively_ecommerce/service/web_service.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class LoginController with ChangeNotifier {
       _user = data['data'];
       _message = data['message'];
       result = {'status': data['status']};
+      UserPreferrences().saveUser(_user);
       _setState(AuthState.loggedIn);
       notifyListeners();
     } else {
@@ -44,5 +46,11 @@ class LoginController with ChangeNotifier {
       notifyListeners();
     }
     return result;
+  }
+
+  String? _token;
+  String? get token => _token;
+  void getToken() async {
+    await UserPreferrences().getToken();
   }
 }
