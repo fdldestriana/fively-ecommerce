@@ -38,7 +38,7 @@ class LoginController with ChangeNotifier {
       _setState(AuthState.loggedIn);
       notifyListeners();
     } else {
-      _message = '${data['message']}';
+      _message = '${data['message']} ${data['data'].message}';
       result = {'status': data['status']};
       _setState(AuthState.notLoggedIn);
       notifyListeners();

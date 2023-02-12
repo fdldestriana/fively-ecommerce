@@ -2,7 +2,8 @@
 import 'package:fively_ecommerce/module/forgot_password/view/forgot_password_view.dart';
 import 'package:fively_ecommerce/module/login/controller/login_controller.dart';
 import 'package:fively_ecommerce/module/login/widget/custom_appbar_login.dart';
-import 'package:fively_ecommerce/module/signup/widget/signup_custom_textfield.dart';
+import 'package:fively_ecommerce/module/login/widget/login_custom_textfield.dart';
+import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:fively_ecommerce/widget/custom_button.dart';
@@ -65,13 +66,7 @@ class _LoginViewState extends State<LoginView> {
 
   bool _validate() {
     setState(() {});
-    var username = _usernameValidate();
-    var password = _passwordValidate();
-    if (username && password) {
-      return true;
-    } else {
-      return false;
-    }
+    return (_usernameValidate() && _passwordValidate()) ? true : false;
   }
 
   @override
@@ -98,7 +93,7 @@ class _LoginViewState extends State<LoginView> {
               'User ${provider.user.username} ${provider.message.toLowerCase()}',
               textAlign: TextAlign.center,
             )));
-            Navigator.pushNamed(context, LoginView.routeName);
+            Navigator.pushReplacementNamed(context, ProductListView.routeName);
           } else if (!value['status']) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
@@ -128,7 +123,7 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: bodyHeight * 0.10,
             ),
-            SignupCustomTextField(
+            LoginCustomTextField(
               controller: _usernameController,
               errorText: _usernameErrorText,
               labelText: 'Name',
@@ -136,7 +131,7 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: bodyHeight * 0.01,
             ),
-            SignupCustomTextField(
+            LoginCustomTextField(
               controller: _passwordController,
               errorText: _passwordErrorText,
               labelText: 'Password',

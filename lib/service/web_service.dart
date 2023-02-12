@@ -42,7 +42,7 @@ class WebService {
         'message': 'Unsuccessful request',
         'data': Failure(
             message:
-                'There is not internet connection. Please check your data roaming.')
+                'There is not internet connection, please check your data roaming.')
       };
     }
     return result;
@@ -61,23 +61,24 @@ class WebService {
         User user = User.fromJson(json.decode(response.body));
         result = {
           'status': true,
-          'message': 'Successfully logged in',
+          'message': 'Successfully logged in.',
           'data': user
         };
       } else {
+        String message = '${json.decode(response.body)['message']}.';
         result = {
           'status': false,
-          'message':
-              'Logged in failed. ${json.decode(response.body)['message']}.',
+          'message': 'Logged in failed.',
+          'data': Failure(message: message)
         };
       }
     } on SocketException {
       result = {
         'status': false,
-        'message': 'Unsuccessful request',
+        'message': 'Unsuccessful request.',
         'data': Failure(
             message:
-                'There is not internet connection. Please check your data roaming.')
+                'There is not internet connection, please check your data roaming.')
       };
     }
     return result;
