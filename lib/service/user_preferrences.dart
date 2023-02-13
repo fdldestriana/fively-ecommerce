@@ -51,10 +51,4 @@ class UserPreferrences {
     prefs.remove('image');
     prefs.remove('token');
   }
-
-  Future<String?> getToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token') as String;
-    return token;
-  }
 }

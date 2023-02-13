@@ -47,10 +47,4 @@ class LoginController with ChangeNotifier {
     }
     return result;
   }
-
-  String? _token;
-  String? get token => _token;
-  void getToken() async {
-    await UserPreferrences().getToken();
-  }
 }

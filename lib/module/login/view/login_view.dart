@@ -88,20 +88,26 @@ class _LoginViewState extends State<LoginView> {
       if (_validate()) {
         provider.login(username, password).then((value) {
           if (value['status']) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
                 duration: const Duration(seconds: 1),
                 content: Text(
                   'User ${provider.user.username} ${provider.message.toLowerCase()}',
                   textAlign: TextAlign.center,
-                )));
+                ),
+              ),
+            );
             Navigator.pushReplacementNamed(context, ProductListView.routeName);
           } else if (!value['status']) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
                 duration: const Duration(seconds: 1),
                 content: Text(
                   provider.message,
                   textAlign: TextAlign.center,
-                )));
+                ),
+              ),
+            );
           }
         });
       }

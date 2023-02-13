@@ -1,5 +1,4 @@
 // import package
-// import 'package:fively_ecommerce/widgets/custom_button.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,6 +15,7 @@ class CustomSliverAppBar extends StatelessWidget {
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(bodyHeight * 0.11),
         child: AppBar(

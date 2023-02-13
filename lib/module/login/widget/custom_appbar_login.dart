@@ -15,7 +15,7 @@ class CustomAppBarLogin extends StatelessWidget implements PreferredSizeWidget {
             side: const BorderSide(color: Colors.transparent),
             backgroundColor: const Color(0xFFF9F9F9)),
         onPressed: () {
-          Navigator.of(context).canPop();
+          Navigator.pop(context);
         },
         child: const Icon(
           Icons.arrow_back_ios,

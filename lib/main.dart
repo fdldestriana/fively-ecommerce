@@ -18,10 +18,10 @@ import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart
 import 'package:fively_ecommerce/module/signup/view/signup_view.dart';
 import 'package:fively_ecommerce/module/success/view/success_view.dart';
 import 'package:fively_ecommerce/shared/utils/app_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (context) => CartController()),
@@ -32,14 +32,15 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (context) => SignupController()),
 ];
 
-Map<String, Widget Function(BuildContext)> routes = {
+Map<String, WidgetBuilder> routes = {
+  ProductListView.routeName: (context) => const ProductListView(),
   CheckoutView.routeName: (context) => const CheckoutView(),
   ForgotPasswordView.routeName: (context) => const ForgotPasswordView(),
   LoginView.routeName: (context) => const LoginView(),
   ProductDetailView.routeName: (context) => const ProductDetailView(),
   ShopProductView.routeName: ((context) => const ShopProductView()),
+  SignupView.routeName: ((context) => const SignupView()),
   SuccessView.routeName: (context) => const SuccessView(),
-  ProductListView.routeName: (context) => const ProductListView(),
   ShopView.routeName: (context) => const ShopView(),
   BagView.routeName: (context) => const BagView(),
   FavoritesView.routeName: (context) => const FavoritesView(),
@@ -72,24 +73,25 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token');
-  runApp(MyApp(
+  final MyApp myApp = MyApp(
     initialRoute:
         (token != null) ? ProductListView.routeName : SignupView.routeName,
-  ));
+  );
+  runApp(myApp);
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.initialRoute});
-  final String initialRoute;
 
+  final String initialRoute;
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        onGenerateRoute: AppRouter.onGenerateRoute,
         initialRoute: initialRoute,
+        onGenerateRoute: AppRouter.onGenerateRoute,
         routes: routes,
         theme: themeData(),
       ),
