@@ -3,10 +3,10 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:fively_ecommerce/model/failure.dart';
+import 'package:fively_ecommerce/model/user.dart';
 import 'package:fively_ecommerce/model/cart.dart';
 import 'package:fively_ecommerce/model/category.dart';
 import 'package:fively_ecommerce/model/product.dart';
-import 'package:fively_ecommerce/model/user.dart';
 
 class WebService {
   static Future<Map<String, dynamic>> signUp(
