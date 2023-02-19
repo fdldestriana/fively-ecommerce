@@ -1,3 +1,4 @@
+import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBarProfile extends StatelessWidget
@@ -8,6 +9,11 @@ class CustomAppBarProfile extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    final SizeConfig sizeConfig = SizeConfig();
+    sizeConfig.init(context);
+    final bodyHeight = sizeConfig.screenHeight;
+    final bodyWidth = sizeConfig.screenWidth;
+
     return AppBar(
       actions: [
         IconButton(
@@ -16,6 +22,31 @@ class CustomAppBarProfile extends StatelessWidget
         )
       ],
       backgroundColor: const Color(0xFFF9F9F9),
+      bottom: PreferredSize(
+        preferredSize: Size(bodyWidth * 0.45, bodyHeight * 0.04),
+        child: Column(
+          children: [
+            const Text(
+              'My Profile',
+              style: TextStyle(
+                  fontSize: 34,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Metropolis-Bold'),
+            ),
+            SizedBox(
+              height: bodyHeight * 0.03,
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                minRadius: bodyHeight * 0.08,
+                maxRadius: bodyHeight * 0.08,
+              ),
+              title: const Text('Matilda Brown'),
+              subtitle: const Text('matildabrown@gmail.com'),
+            ),
+          ],
+        ),
+      ),
       elevation: 0,
     );
   }
