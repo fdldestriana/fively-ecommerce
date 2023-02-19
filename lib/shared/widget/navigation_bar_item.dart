@@ -1,6 +1,6 @@
-// This list is gonna use in BottomNavigationBarCustom widget
 import 'package:flutter/material.dart';
 
+// This list is gonna use in BottomNavigationBarCustom widget
 final List<String> bottomTab = [
   'assets/images/buttons/bottom_navigation_bar/home',
   'assets/images/buttons/bottom_navigation_bar/shop',
