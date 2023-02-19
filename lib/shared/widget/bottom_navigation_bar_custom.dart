@@ -1,5 +1,5 @@
 // import package
-import 'package:fively_ecommerce/widget/navigation_bar_item.dart';
+import 'package:fively_ecommerce/shared/widget/navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigationBarCustom extends StatelessWidget {

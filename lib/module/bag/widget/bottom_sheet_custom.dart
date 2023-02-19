@@ -2,7 +2,7 @@ import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/bag/widget/promo_text_field.dart';
 import 'package:fively_ecommerce/module/checkout/view/checkout_view.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
-import 'package:fively_ecommerce/widget/custom_button.dart';
+import 'package:fively_ecommerce/shared/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

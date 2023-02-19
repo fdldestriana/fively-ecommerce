@@ -6,7 +6,7 @@ import 'package:fively_ecommerce/module/signup/widget/custom_appbar_signup.dart'
 import 'package:fively_ecommerce/module/signup/widget/signup_custom_textfield.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
-import 'package:fively_ecommerce/widget/custom_button.dart';
+import 'package:fively_ecommerce/shared/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

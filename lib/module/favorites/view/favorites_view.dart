@@ -3,7 +3,7 @@ import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
-import 'package:fively_ecommerce/widget/bottom_navigation_bar_custom.dart';
+import 'package:fively_ecommerce/shared/widget/bottom_navigation_bar_custom.dart';
 import 'package:fively_ecommerce/module/favorites/widget/category_button.dart';
 import 'package:fively_ecommerce/module/favorites/widget/product_favorite_item.dart';
 import 'package:flutter/material.dart';

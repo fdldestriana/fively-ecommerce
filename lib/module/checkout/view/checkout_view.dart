@@ -1,7 +1,7 @@
 // import package
 import 'package:fively_ecommerce/module/checkout/widget/card_address.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
-import 'package:fively_ecommerce/widget/custom_button.dart';
+import 'package:fively_ecommerce/shared/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class CheckoutView extends StatelessWidget {
