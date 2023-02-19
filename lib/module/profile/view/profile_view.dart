@@ -1,7 +1,7 @@
 // import package
 import 'package:fively_ecommerce/module/profile/widget/custom_appbar_profile.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
-import 'package:fively_ecommerce/shared/widget/bottom_navigation_bar_custom.dart';
+import 'package:fively_ecommerce/shared/widget/custom_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class ProfileView extends StatelessWidget {
@@ -40,8 +40,8 @@ class ProfileView extends StatelessWidget {
           Padding(padding: EdgeInsets.only(left: bodyWidth * 0.04))
         ],
       ),
-      bottomNavigationBar: BottomNavigationBarCustom(
-        initialIndex: index,
+      bottomNavigationBar: CustomBottomNavigationBar(
+        currentIndex: index,
       ),
     );
   }

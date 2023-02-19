@@ -4,7 +4,7 @@ import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/module/shop/widget/product_shop_item.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
-import 'package:fively_ecommerce/shared/widget/bottom_navigation_bar_custom.dart';
+import 'package:fively_ecommerce/shared/widget/custom_bottom_navigation_bar.dart';
 import 'package:fively_ecommerce/module/favorites/widget/category_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -124,7 +124,7 @@ class ShopProductView extends StatelessWidget {
               : Container();
         },
       ),
-      bottomNavigationBar: BottomNavigationBarCustom(initialIndex: index),
+      bottomNavigationBar: CustomBottomNavigationBar(currentIndex: index),
     );
   }
 }
