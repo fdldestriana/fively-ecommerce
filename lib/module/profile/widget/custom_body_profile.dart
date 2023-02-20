@@ -25,7 +25,7 @@ class CustomBodyProfile extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: bodyWidth * 0.04),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     RichText(
                         text: TextSpan(children: [
