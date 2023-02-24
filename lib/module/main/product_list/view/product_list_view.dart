@@ -20,10 +20,7 @@ class ProductListView extends StatelessWidget {
       body: const CustomScrollView(
         slivers: <Widget>[
           CustomSliverAppBar(),
-          SliverPadding(
-            padding: EdgeInsets.all(10),
-            sliver: CustomSliverGrid(),
-          )
+          CustomSliverGrid(),
         ],
       ),
       bottomNavigationBar: CustomBottomNavigationBar(

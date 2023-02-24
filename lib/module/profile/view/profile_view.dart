@@ -35,7 +35,24 @@ class ProfileView extends StatelessWidget {
           centerTitle: false,
           elevation: 0,
           flexibleSpace: FlexibleSpaceBar(
-            title: ListTile(
+            title:
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     CircleAvatar(
+                //       minRadius: bodyHeight * 0.08,
+                //       maxRadius: bodyHeight * 0.08,
+                //     ),
+                //     Column(
+                //       children: [
+                //         Text('Matilda Brown'),
+                //         Text('matildabrown@gmail.com'),
+                //       ],
+                //     ),
+                //   ],
+                // )
+
+                ListTile(
               leading: CircleAvatar(
                 minRadius: bodyHeight * 0.08,
                 maxRadius: bodyHeight * 0.08,
