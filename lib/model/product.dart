@@ -60,10 +60,6 @@ class Product {
         'rating': rating,
         'images': images,
       };
-
-  void addFavorite() {
-    isFavorite = !isFavorite;
-  }
 }
 
 var electronics = [
