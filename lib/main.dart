@@ -10,13 +10,14 @@ import 'package:fively_ecommerce/module/main/product_detail/view/product_detail_
 import 'package:fively_ecommerce/module/favorites/controller/product_favorite_controller.dart';
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
-import 'package:fively_ecommerce/module/main/product_list/view/product_list_view.dart';
+import 'package:fively_ecommerce/module/main/product_list/view/product_listview.dart';
 import 'package:fively_ecommerce/module/profile/view/profile_view.dart';
 import 'package:fively_ecommerce/module/shop/view/shop_product_view.dart';
 import 'package:fively_ecommerce/module/shop/view/shop_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
 import 'package:fively_ecommerce/module/signup/view/signup_view.dart';
 import 'package:fively_ecommerce/module/success/view/success_view.dart';
+import 'package:fively_ecommerce/product_listview_test.dart';
 import 'package:fively_ecommerce/shared/utils/app_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/single_child_widget.dart';
@@ -74,28 +75,40 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token');
-  final MyApp myApp = MyApp(
-    initialRoute:
-        (token != null) ? ProductListView.routeName : SignupView.routeName,
-  );
-  runApp(myApp);
+  // final MyApp myApp = MyApp(
+  //   initialRoute:
+  //       (token != null) ? ProductListView.routeName : SignupView.routeName,
+  // );
+  runApp(const MyAppTest());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.initialRoute});
+class MyAppTest extends StatelessWidget {
+  const MyAppTest({super.key});
 
-  final String initialRoute;
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: providers,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: initialRoute,
-        onGenerateRoute: AppRouter.onGenerateRoute,
-        routes: routes,
-        theme: themeData(),
+    return MaterialApp(
+      home: Scaffold(
+        body: ProductListViewTest(),
       ),
     );
   }
 }
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key, required this.initialRoute});
+
+//   final String initialRoute;
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiProvider(
+//       providers: providers,
+//       child: MaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         initialRoute: initialRoute,
+//         onGenerateRoute: AppRouter.onGenerateRoute,
+//         routes: routes,
+//         theme: themeData(),
+//       ),
+//     );
+//   }
+// }
