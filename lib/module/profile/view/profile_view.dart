@@ -1,4 +1,5 @@
 // import package
+import 'package:fively_ecommerce/module/profile/widget/custom_appbar_profile.dart';
 import 'package:fively_ecommerce/module/profile/widget/custom_body_profile.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/shared/widget/custom_bottom_navigation_bar.dart';
@@ -22,53 +23,9 @@ class ProfileView extends StatelessWidget {
     final bodyHeight = sizeConfig.screenHeight;
     final bodyWidth = sizeConfig.screenWidth;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(bodyHeight * 0.21),
-        child: AppBar(
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            ),
-          ],
-          backgroundColor: const Color(0xFFF9F9F9),
-          centerTitle: false,
-          elevation: 0,
-          flexibleSpace: FlexibleSpaceBar(
-            title:
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     CircleAvatar(
-                //       minRadius: bodyHeight * 0.08,
-                //       maxRadius: bodyHeight * 0.08,
-                //     ),
-                //     Column(
-                //       children: [
-                //         Text('Matilda Brown'),
-                //         Text('matildabrown@gmail.com'),
-                //       ],
-                //     ),
-                //   ],
-                // )
-
-                ListTile(
-              leading: CircleAvatar(
-                minRadius: bodyHeight * 0.08,
-                maxRadius: bodyHeight * 0.08,
-              ),
-              title: const Text('Matilda Brown'),
-              subtitle: const Text('matildabrown@gmail.com'),
-            ),
-          ),
-          title: const Text(
-            'My Profile',
-            style: TextStyle(
-                fontSize: 34,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Metropolis-Bold'),
-          ),
-        ),
+      appBar: CustomAppbarProfile(
+        bodyHeight: bodyHeight,
+        bodyWidth: bodyWidth,
       ),
       body: const CustomBodyProfile(),
       bottomNavigationBar: CustomBottomNavigationBar(
