@@ -89,10 +89,6 @@ class WebService {
     try {
       var response = await http.get(url);
       List data = json.decode(response.body)['products'];
-      data.map((e) => Product.fromJson(e)).toList();
-      for (var item in data) {
-        print(item.toString());
-      }
       return data.map((e) => Product.fromJson(e)).toList();
     } on SocketException {
       throw Failure(
