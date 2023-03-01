@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "979665319816",
+    "project_id": "fively-ecommerce",
+    "storage_bucket": "fively-ecommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979665319816:android:6dd04162ed1bae4347ac3d",
+        "android_client_info": {
+          "package_name": "com.example.fively_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979665319816-cnp6tb7q2qt6etrsk4cv1n5d72894tqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCmZGLDaxm0V5HuGd4jblpmAxxG9_oZVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "979665319816-a4utgqfjgct017finb4tiu50ncmek098.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

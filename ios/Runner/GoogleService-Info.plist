@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>979665319816-igub4rhuo1r2s1qa5862a705qegi1a2q.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.979665319816-igub4rhuo1r2s1qa5862a705qegi1a2q</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC9ndA2UVhsQt4aBNh5MT3LS-QLqqKYH3Y</string>
+	<key>GCM_SENDER_ID</key>
+	<string>979665319816</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.fivelyEcommerce</string>
+	<key>PROJECT_ID</key>
+	<string>fively-ecommerce</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fively-ecommerce.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:979665319816:ios:ee251ce4bd9e76ae47ac3d</string>
+</dict>
+</plist>
