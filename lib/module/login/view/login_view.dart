@@ -4,6 +4,7 @@ import 'package:fively_ecommerce/module/login/controller/login_controller.dart';
 import 'package:fively_ecommerce/module/login/widget/custom_appbar_login.dart';
 import 'package:fively_ecommerce/module/login/widget/login_custom_textfield.dart';
 import 'package:fively_ecommerce/module/main/product_list/view/product_listview.dart';
+import 'package:fively_ecommerce/service/firebase_auth.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:fively_ecommerce/shared/widget/custom_button.dart';
@@ -212,7 +213,11 @@ class _LoginViewState extends State<LoginView> {
                 child: Row(
                   children: <Widget>[
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          FirebaseAuthService.doGoogleLogin();
+                          Navigator.of(context)
+                              .pushReplacementNamed(ProductListView.routeName);
+                        },
                         child: Image.asset('assets/images/buttons/Google.png')),
                     TextButton(
                         onPressed: () {},

@@ -1,4 +1,5 @@
 // import package
+import 'package:firebase_core/firebase_core.dart';
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/module/bag/view/bag_view.dart';
 import 'package:fively_ecommerce/module/checkout/view/checkout_view.dart';
@@ -73,10 +74,10 @@ ThemeData themeData() {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  await Firebase.initializeApp();
   String? token = prefs.getString('token');
   final MyApp myApp = MyApp(
-    initialRoute:
-        (token != null) ? ProductListView.routeName : SignupView.routeName,
+    initialRoute: (token != null) ? LoginView.routeName : SignupView.routeName,
   );
   runApp(myApp);
 }
