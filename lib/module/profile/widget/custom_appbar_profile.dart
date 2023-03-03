@@ -26,31 +26,36 @@ class CustomAppbarProfile extends StatelessWidget implements PreferredSize {
         preferredSize: Size(bodyWidth * 1.00, bodyHeight * 0.1),
         child: Padding(
           padding: EdgeInsets.only(left: bodyWidth * 0.05),
-          child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  minRadius: bodyHeight * 0.05,
-                  maxRadius: bodyHeight * 0.05,
-                  child: const FlutterLogo(),
-                ),
-                SizedBox(
-                  width: bodyWidth * 0.05,
-                ),
-                Consumer<ProfileController>(
-                  builder: (BuildContext _, value, Widget? __) {
-                    return Column(
+          child: Consumer<ProfileController>(
+            builder: (context, value, child) {
+              return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      minRadius: bodyHeight * 0.05,
+                      maxRadius: bodyHeight * 0.05,
+                      child: ClipRRect(
+                        child: Image.network(
+                          '${value.userCredential?.user?.photoURL}',
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: bodyWidth * 0.05,
+                    ),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('${value.userCredential?.user?.displayName}'),
-                        const Text('matildabrown@gmail.com'),
+                        const SizedBox(height: 10),
+                        Text('${value.userCredential?.user?.email}'),
                       ],
-                    );
-                  },
-                ),
-              ]),
+                    ),
+                  ]);
+            },
+          ),
         ),
       ),
       title: const Text(

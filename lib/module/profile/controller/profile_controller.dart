@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class ProfileController extends ChangeNotifier {
   UserCredential? _userCredential;
   UserCredential? get userCredential => _userCredential;
-  getCurretUser() async {
+  void getCurretUser() async {
     _userCredential = await FirebaseAuthService.doGoogleLogin();
   }
 }
