@@ -12,6 +12,7 @@ import 'package:fively_ecommerce/module/favorites/controller/product_favorite_co
 import 'package:fively_ecommerce/controller/categories_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/view/product_listview.dart';
+import 'package:fively_ecommerce/module/profile/controller/profile_controller.dart';
 import 'package:fively_ecommerce/module/profile/view/profile_view.dart';
 import 'package:fively_ecommerce/module/shop/view/shop_product_view.dart';
 import 'package:fively_ecommerce/module/shop/view/shop_view.dart';
@@ -31,6 +32,7 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (context) => ProductFavoriteController()),
   ChangeNotifierProvider(create: (context) => ProductListController()),
   ChangeNotifierProvider(create: (context) => SignupController()),
+  ChangeNotifierProvider(create: (context) => ProfileController())
 ];
 
 Map<String, WidgetBuilder> routes = {
@@ -83,7 +85,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.initialRoute});
+  MyApp({super.key, required this.initialRoute});
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   final String initialRoute;
   @override
@@ -95,6 +98,7 @@ class MyApp extends StatelessWidget {
         initialRoute: initialRoute,
         onGenerateRoute: AppRouter.onGenerateRoute,
         routes: routes,
+        navigatorKey: navigatorKey,
         theme: themeData(),
       ),
     );

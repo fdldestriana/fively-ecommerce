@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
-  static doGoogleLogin() async {
+  static Future<UserCredential> doGoogleLogin() async {
     GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+    UserCredential userCredential;
 
     try {
       await googleSignIn.disconnect();
@@ -17,13 +18,11 @@ class FirebaseAuthService {
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
-      var userCredential =
+      userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      print("userCredential: $userCredential");
-      //TODO: on login success
-      //------------------
+      return userCredential;
     } catch (e) {
-      print('This is the error ${e.toString()}');
+      throw e.toString();
     }
   }
 }

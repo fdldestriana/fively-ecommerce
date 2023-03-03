@@ -1,5 +1,7 @@
 // import package
+import 'package:fively_ecommerce/module/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomAppbarProfile extends StatelessWidget implements PreferredSize {
   const CustomAppbarProfile(
@@ -36,13 +38,17 @@ class CustomAppbarProfile extends StatelessWidget implements PreferredSize {
                 SizedBox(
                   width: bodyWidth * 0.05,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text('Matilda Brown'),
-                    Text('matildabrown@gmail.com'),
-                  ],
+                Consumer<ProfileController>(
+                  builder: (BuildContext _, value, Widget? __) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('${value.userCredential?.user?.displayName}'),
+                        const Text('matildabrown@gmail.com'),
+                      ],
+                    );
+                  },
                 ),
               ]),
         ),

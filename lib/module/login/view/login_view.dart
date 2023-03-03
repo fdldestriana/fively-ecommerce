@@ -213,7 +213,7 @@ class _LoginViewState extends State<LoginView> {
                 child: Row(
                   children: <Widget>[
                     TextButton(
-                        onPressed: () {
+                        onPressed: () async {
                           FirebaseAuthService.doGoogleLogin();
                           Navigator.of(context)
                               .pushReplacementNamed(ProductListView.routeName);
