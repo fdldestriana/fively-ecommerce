@@ -39,12 +39,11 @@ class Product {
       category: json['category'],
       description: json['description'],
       rating: json['rating'],
-      images: (json['category'] == 'smartphones' ||
-              json['category'] == 'laptops')
-          ? 'https://api.lorem.space/image/watch?w=640&h=480&r=${json['id']}'
+      images: (json['category'] == 'smartphones')
+          ? '$electronic${json['id']}'
           : (json['category'] == 'groceries')
-              ? 'https://api.lorem.space/image/shoes?w=640&h=480&r=${json['id']}'
-              : 'https://api.lorem.space/image/fashion?w=640&h=480&r=${json['id']}');
+              ? '$menClothing${json['id']}'
+              : '$womenClothing${json['id']}');
 
   Map<String, dynamic> toJson() => {
         'quantity': quantity,
@@ -61,6 +60,10 @@ class Product {
         'images': images,
       };
 }
+
+String electronic = 'https://api.lorem.space/image/watch?w=640&h=480&r=';
+String womenClothing = 'https://api.lorem.space/image/fashion?w=640&h=480&r=';
+String menClothing = 'https://api.lorem.space/image/shoes?w=640&h=480&r=';
 
 var electronics = [
   "https://api.lorem.space/image/watch?w=640&h=480&r=10",

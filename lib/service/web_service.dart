@@ -99,14 +99,17 @@ class WebService {
 
   static Future getProduct(int productId) async {
     Uri url = Uri.parse('https://dummyjson.com/products/$productId');
+    http.Response? response;
     try {
-      var response = await http.get(url);
+      response = await http.get(url);
       Product product = Product.fromJson(json.decode(response.body));
       return product;
     } on SocketException {
       throw Failure(
           message:
               'There is no internet connection.\n Please check your data roaming');
+    } on HttpException {
+      throw Failure(message: '${response?.statusCode}');
     }
   }
 
