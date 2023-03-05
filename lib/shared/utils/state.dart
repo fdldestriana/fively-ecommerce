@@ -1,4 +1,4 @@
-enum DataState { initial, loading, loaded }
+enum DataState { initial, loading, notLoaded, loaded }
 
 enum AuthState {
   notLoggedIn,

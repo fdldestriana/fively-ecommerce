@@ -90,52 +90,57 @@ class WebService {
       var response = await http.get(url);
       List data = json.decode(response.body)['products'];
       return data.map((e) => Product.fromJson(e)).toList();
-    } on SocketException {
+    } on SocketException catch (_) {
       throw Failure(
           message:
-              'There is no internet connection.\n Please check your data roaming');
+              'There is no internet connection.\n Please check your data roaming.');
+    } on HttpException catch (e) {
+      throw Failure(message: 'Oopss!!!\n$e.message');
     }
   }
 
   static Future getProduct(int productId) async {
     Uri url = Uri.parse('https://dummyjson.com/products/$productId');
-    http.Response? response;
+    var response = await http.get(url);
     try {
-      response = await http.get(url);
       Product product = Product.fromJson(json.decode(response.body));
       return product;
-    } on SocketException {
+    } on SocketException catch (e) {
       throw Failure(
           message:
-              'There is no internet connection.\n Please check your data roaming');
-    } on HttpException {
-      throw Failure(message: '${response?.statusCode}');
+              'There is no internet connection.\n Please check your data roaming.\n${e.toString()}');
+    } on HttpException catch (e) {
+      throw Failure(message: '${response.statusCode}\n${e.toString()}');
     }
   }
 
   static Future getCategories() async {
     Uri url = Uri.parse('https://dummyjson.com/products/categories');
+    var response = await http.get(url);
     try {
-      var response = await http.get(url);
       List categories = json.decode(response.body);
       return categories.map((e) => Category(name: e)).toList();
-    } on SocketException {
+    } on SocketException catch (e) {
       throw Failure(
           message:
-              'There is no internet connection.\n Please check your data roaming');
+              'There is no internet connection.\n Please check your data roaming.\n${e.toString()}');
+    } on HttpException catch (e) {
+      throw Failure(message: '${response.statusCode}\n${e.toString()}');
     }
   }
 
   static Future getCart(int userId) async {
     Uri url = Uri.parse('https://dummyjson.com/carts/user/$userId');
+    var response = await http.get(url);
     try {
-      var respone = await http.get(url);
-      Cart data = Cart.fromJson(json.decode(respone.body)['carts']);
+      Cart data = Cart.fromJson(json.decode(response.body)['carts']);
       return data;
-    } on SocketException {
+    } on SocketException catch (e) {
       throw Failure(
           message:
-              'There is no internet connection.\n Please check your data roaming');
+              'There is no internet connection.\n Please check your data roaming.\n${e.toString()}');
+    } on HttpException catch (e) {
+      throw Failure(message: '${response.statusCode}\n${e.toString()}');
     }
   }
 }

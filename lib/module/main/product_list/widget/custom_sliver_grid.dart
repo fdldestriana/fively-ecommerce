@@ -30,8 +30,7 @@ class _CustomSliverGridState extends State<CustomSliverGrid> {
         List<Product> products = value.products;
         if (value.state == DataState.loading) {
           return const LoadingStateProductList();
-        } else if (value.failure.message.isNotEmpty &&
-            value.failure.message != 'message') {
+        } else if (value.state == DataState.notLoaded) {
           return ErrorStateProductList(
             message: value.failure.message,
           );
