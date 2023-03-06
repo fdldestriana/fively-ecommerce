@@ -1,6 +1,6 @@
 // import package
-import 'package:fively_ecommerce/module/main/product_list/widget/custom_sliver_appbar.dart';
-import 'package:fively_ecommerce/module/main/product_list/widget/custom_sliver_grid.dart';
+import 'package:fively_ecommerce/module/main/product_list/widget/custom_sliverappbar.dart';
+import 'package:fively_ecommerce/module/main/product_list/widget/custom_slivergrid.dart';
 import 'package:fively_ecommerce/shared/widget/custom_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
