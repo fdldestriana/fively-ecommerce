@@ -11,6 +11,7 @@ class LoadingStateSliverAppBar extends StatelessWidget {
     sizeConfig.init(context);
     final bodyHeight = sizeConfig.screenHeight;
     return SliverAppBar(
+      key: UniqueKey(),
       backgroundColor: Colors.black.withOpacity(0.04),
       automaticallyImplyLeading: false,
       expandedHeight: bodyHeight * 0.91,
