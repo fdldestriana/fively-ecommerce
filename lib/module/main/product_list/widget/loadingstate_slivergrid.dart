@@ -7,6 +7,27 @@ class LoadingStateSliverGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return SliverPadding(
+      padding: const EdgeInsets.only(top: 5),
+      sliver: SliverGrid(
+        delegate: SliverChildBuilderDelegate(((context, index) {
+          return const LoadingWidget();
+        }), childCount: 6),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 1 / 1.73,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            crossAxisCount: 2),
+      ),
+    );
+  }
+}
+
+class LoadingWidget extends StatelessWidget {
+  const LoadingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
     final bodyWidth = sizeConfig.screenWidth;

@@ -2,8 +2,7 @@
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
 import 'package:fively_ecommerce/module/main/product_list/view/errorstate_productlist_view.dart';
 import 'package:fively_ecommerce/module/main/product_list/view/loadedstate_productlist_view.dart';
-import 'package:fively_ecommerce/module/main/product_list/widget/custom_sliverappbar.dart';
-import 'package:fively_ecommerce/module/main/product_list/widget/custom_slivergrid.dart';
+import 'package:fively_ecommerce/module/main/product_list/widget/loadedstate_sliverappbar.dart';
 import 'package:fively_ecommerce/module/main/product_list/widget/loadingstate_sliverappbar.dart';
 import 'package:fively_ecommerce/module/main/product_list/widget/loadingstate_slivergrid.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
@@ -29,9 +28,10 @@ class _ProductListViewState extends State<ProductListView> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      Provider.of<ProductListController>(context, listen: false).getProducts();
-    });
+    Future.delayed(
+        Duration.zero,
+        () => Provider.of<ProductListController>(context, listen: false)
+            .getProducts());
   }
 
   @override
@@ -39,13 +39,12 @@ class _ProductListViewState extends State<ProductListView> {
     return Scaffold(
       body: Consumer<ProductListController>(
         builder: (_, value, __) {
-          print(value.state);
           List<Widget> loading = const [
             LoadingStateSliverAppBar(),
             LoadingStateSliverGrid()
           ];
           List<Widget> loaded = [
-            const CustomSliverAppBar(),
+            const LoadedStateSliverAppBar(),
             LoadedStateProductListView(
               products: value.products,
             ),
@@ -57,7 +56,9 @@ class _ProductListViewState extends State<ProductListView> {
             slivers: (value.state == DataState.initial ||
                     value.state == DataState.loading)
                 ? loading
-                : loaded,
+                : (value.state == DataState.loaded)
+                    ? loaded
+                    : error,
           );
         },
       ),

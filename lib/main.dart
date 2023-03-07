@@ -54,7 +54,6 @@ ThemeData themeData() {
   return ThemeData(
       appBarTheme: const AppBarTheme(
           color: Color(0xFFDB3022), foregroundColor: Color(0xFF222222)),
-
       // canvasColor set to transparent to make a showModalBottomSheet clipping the background
       canvasColor: Colors.transparent,
       fontFamily: 'Metropolis',

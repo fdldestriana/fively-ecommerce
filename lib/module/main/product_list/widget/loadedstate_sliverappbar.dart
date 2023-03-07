@@ -3,8 +3,8 @@ import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomSliverAppBar extends StatelessWidget {
-  const CustomSliverAppBar({
+class LoadedStateSliverAppBar extends StatelessWidget {
+  const LoadedStateSliverAppBar({
     Key? key,
   }) : super(key: key);
 
