@@ -5,10 +5,10 @@ import 'package:fively_ecommerce/module/main/product_list/view/loadedstate_produ
 import 'package:fively_ecommerce/module/main/product_list/widget/loadedstate_sliverappbar.dart';
 import 'package:fively_ecommerce/module/main/product_list/widget/loadingstate_sliverappbar.dart';
 import 'package:fively_ecommerce/module/main/product_list/widget/loadingstate_slivergrid.dart';
-import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:fively_ecommerce/shared/widget/custom_bottom_navigation_bar.dart';
-import 'package:flutter/material.dart';
+import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 class ProductListView extends StatefulWidget {
   const ProductListView({super.key});
@@ -52,14 +52,16 @@ class _ProductListViewState extends State<ProductListView> {
           List<Widget> error = [
             ErrorStateProductListView(message: value.failure.message)
           ];
-          return CustomScrollView(
-            slivers: (value.state == DataState.initial ||
-                    value.state == DataState.loading)
-                ? loading
-                : (value.state == DataState.loaded)
-                    ? loaded
-                    : error,
-          );
+          List<Widget> slivers;
+          if (value.state == DataState.initial ||
+              value.state == DataState.loading) {
+            slivers = loading;
+          } else if (value.state == DataState.loaded) {
+            slivers = loaded;
+          } else {
+            slivers = error;
+          }
+          return CustomScrollView(slivers: slivers);
         },
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
