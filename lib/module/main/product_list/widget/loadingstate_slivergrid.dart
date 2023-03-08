@@ -1,17 +1,24 @@
 // import package
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
-class LoadingStateSliverGrid extends StatelessWidget {
+class LoadingStateSliverGrid extends StatefulWidget {
   const LoadingStateSliverGrid({Key? key}) : super(key: key);
 
+  @override
+  State<LoadingStateSliverGrid> createState() => _LoadingStateSliverGridState();
+}
+
+class _LoadingStateSliverGridState extends State<LoadingStateSliverGrid> {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.only(top: 5),
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(((context, index) {
-          return const LoadingWidget();
+          return Animate(
+              child: const LoadingWidget().animate().shimmer(duration: 3.ms));
         }), childCount: 6),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1 / 1.73,

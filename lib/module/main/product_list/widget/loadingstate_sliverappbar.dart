@@ -1,12 +1,17 @@
 // import package
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
-class LoadingStateSliverAppBar extends StatelessWidget {
-  const LoadingStateSliverAppBar({
-    Key? key,
-  }) : super(key: key);
+class LoadingStateSliverAppBar extends StatefulWidget {
+  const LoadingStateSliverAppBar({Key? key}) : super(key: key);
 
+  @override
+  State<LoadingStateSliverAppBar> createState() =>
+      _LoadingStateSliverAppBarState();
+}
+
+class _LoadingStateSliverAppBarState extends State<LoadingStateSliverAppBar> {
   @override
   Widget build(BuildContext context) {
     final SizeConfig sizeConfig = SizeConfig();
@@ -17,12 +22,14 @@ class LoadingStateSliverAppBar extends StatelessWidget {
       foregroundColor: Colors.black.withOpacity(0.04),
       automaticallyImplyLeading: false,
       pinned: false,
-      expandedHeight: bodyHeight * 0.91,
+      expandedHeight: bodyHeight * 0.71,
       flexibleSpace: Align(
         alignment: Alignment.bottomLeft,
         child: FlexibleSpaceBar(
-          background: Container(
-            color: Colors.black.withOpacity(0.04),
+          background: Animate(
+            child: Container(
+              color: Colors.black.withOpacity(0.04),
+            ).animate().shimmer(duration: 3.seconds),
           ),
         ),
       ),
