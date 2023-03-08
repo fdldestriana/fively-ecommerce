@@ -1,7 +1,7 @@
 // import package
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
-import 'package:fively_ecommerce/module/main/product_list/view/errorstate_productlist_view.dart';
-import 'package:fively_ecommerce/module/main/product_list/view/loadedstate_productlist_view.dart';
+import 'package:fively_ecommerce/module/main/product_list/widget/errorstate_productlist_view.dart';
+import 'package:fively_ecommerce/module/main/product_list/widget/loadedstate_productlist_view.dart';
 import 'package:fively_ecommerce/module/main/product_list/widget/loadedstate_sliverappbar.dart';
 import 'package:fively_ecommerce/module/main/product_list/widget/loadingstate_sliverappbar.dart';
 import 'package:fively_ecommerce/module/main/product_list/widget/loadingstate_slivergrid.dart';
