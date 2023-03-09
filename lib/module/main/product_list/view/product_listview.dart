@@ -1,10 +1,10 @@
 // import package
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
-import 'package:fively_ecommerce/module/main/product_list/widget/errorstate_productlist_view.dart';
-import 'package:fively_ecommerce/module/main/product_list/widget/loadedstate_productlist_view.dart';
-import 'package:fively_ecommerce/module/main/product_list/widget/loadedstate_sliverappbar.dart';
-import 'package:fively_ecommerce/module/main/product_list/widget/loadingstate_sliverappbar.dart';
-import 'package:fively_ecommerce/module/main/product_list/widget/loadingstate_slivergrid.dart';
+import 'package:fively_ecommerce/module/main/product_list/widget/error_state/errorstate_slivertoboxadapter.dart';
+import 'package:fively_ecommerce/module/main/product_list/widget/loaded/loadedstate_slivergrid.dart';
+import 'package:fively_ecommerce/module/main/product_list/widget/loaded/loadedstate_sliverappbar.dart';
+import 'package:fively_ecommerce/module/main/product_list/widget/loading/loadingstate_sliverappbar.dart';
+import 'package:fively_ecommerce/module/main/product_list/widget/loading/loadingstate_slivergrid.dart';
 import 'package:fively_ecommerce/shared/widget/custom_bottom_navigation_bar.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:provider/provider.dart';
@@ -45,12 +45,12 @@ class _ProductListViewState extends State<ProductListView> {
           ];
           List<Widget> loaded = [
             const LoadedStateSliverAppBar(),
-            LoadedStateProductListView(
+            LoadedStateSliverGrid(
               products: value.products,
             ),
           ];
           List<Widget> error = [
-            ErrorStateProductListView(message: value.failure.message)
+            ErrorStateSliverToBoxAdapter(message: value.failure.message)
           ];
           List<Widget> slivers;
           if (value.state == DataState.initial ||

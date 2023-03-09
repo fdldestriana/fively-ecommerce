@@ -2,8 +2,8 @@ import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/module/main/product_list/widget/product_item.dart';
 import 'package:flutter/material.dart';
 
-class LoadedStateProductListView extends StatelessWidget {
-  const LoadedStateProductListView({
+class LoadedStateSliverGrid extends StatelessWidget {
+  const LoadedStateSliverGrid({
     Key? key,
     required this.products,
   }) : super(key: key);

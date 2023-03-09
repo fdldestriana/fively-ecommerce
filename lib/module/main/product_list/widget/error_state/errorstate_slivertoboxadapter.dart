@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ErrorStateProductListView extends StatelessWidget {
-  const ErrorStateProductListView({Key? key, required this.message})
+class ErrorStateSliverToBoxAdapter extends StatelessWidget {
+  const ErrorStateSliverToBoxAdapter({Key? key, required this.message})
       : super(key: key);
 
   final String message;
