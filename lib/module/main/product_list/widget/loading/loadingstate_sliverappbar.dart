@@ -1,7 +1,7 @@
 // import package
 import 'package:fively_ecommerce/shared/utils/size.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter/material.dart';
 
 class LoadingStateSliverAppBar extends StatefulWidget {
   const LoadingStateSliverAppBar({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class _LoadingStateSliverAppBarState extends State<LoadingStateSliverAppBar> {
           background: Animate(
             child: Container(
               color: Colors.black.withOpacity(0.04),
-            ).animate().shimmer(duration: 3.seconds),
+            ).animate().shimmer(color: Colors.white, duration: 20.seconds),
           ),
         ),
       ),

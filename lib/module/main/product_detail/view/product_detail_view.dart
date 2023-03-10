@@ -1,14 +1,14 @@
 // import package
-import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
-import 'package:fively_ecommerce/model/product.dart';
 import 'package:fively_ecommerce/module/main/product_list/controller/product_list_controller.dart';
-import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/module/main/product_detail/widget/favorite_button.dart';
-import 'package:fively_ecommerce/shared/widget/custom_button.dart';
+import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
 import 'package:fively_ecommerce/shared/widget/outlined_button_custom.dart';
 import 'package:fively_ecommerce/shared/widget/snackbar_message.dart';
-import 'package:flutter/material.dart';
+import 'package:fively_ecommerce/shared/widget/custom_button.dart';
+import 'package:fively_ecommerce/shared/utils/size.dart';
+import 'package:fively_ecommerce/model/product.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 class ProductDetailView extends StatelessWidget {
   const ProductDetailView({super.key});
@@ -102,16 +102,21 @@ class ProductDetailView extends StatelessWidget {
                           fontWeight: FontWeight.w700),
                       children: <TextSpan>[
                         TextSpan(
-                            text: '\n${product.title}',
-                            style: const TextStyle(
-                                fontSize: 11, color: Color(0xFF9B9B9B))),
+                          text: '\n${product.title}',
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: Color(0xFF9B9B9B),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  Text('\$${product.price.ceilToDouble()}',
-                      maxLines: 1,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.w700))
+                  Text(
+                    '\$${product.price.ceilToDouble()}',
+                    maxLines: 1,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w700),
+                  )
                 ],
               ),
             ),
@@ -122,26 +127,13 @@ class ProductDetailView extends StatelessWidget {
               padding: EdgeInsets.only(left: bodyWidth * 0.03),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Icon(
-                    Icons.star_border_rounded,
-                    color: Color(0xFF9B9B9B),
-                  ),
-                  Icon(
-                    Icons.star_border_rounded,
-                    color: Color(0xFF9B9B9B),
-                  ),
-                  Icon(
-                    Icons.star_border_rounded,
-                    color: Color(0xFF9B9B9B),
-                  ),
-                  Icon(
-                    Icons.star_border_rounded,
-                    color: Color(0xFF9B9B9B),
-                  ),
-                  Icon(
-                    Icons.star_border_rounded,
-                    color: Color(0xFF9B9B9B),
+                children: [
+                  ...List.generate(
+                    5,
+                    (_) => const Icon(
+                      Icons.star_border_rounded,
+                      color: Color(0xFF9B9B9B),
+                    ),
                   )
                 ],
               ),
