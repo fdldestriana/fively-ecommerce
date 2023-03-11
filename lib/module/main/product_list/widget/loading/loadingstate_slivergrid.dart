@@ -18,9 +18,15 @@ class _LoadingStateSliverGridState extends State<LoadingStateSliverGrid> {
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(((context, index) {
           return Animate(
-              child: const LoadingWidget()
-                  .animate()
-                  .shimmer(color: Colors.grey[100], duration: 20.seconds));
+              child: const LoadingWidget().animate().shimmer(
+                  blendMode: BlendMode.srcATop,
+                  colors: const [
+                    Color(0xFFEBEBF4),
+                    Color(0xFFF4F4F4),
+                    Color(0xFFEBEBF4),
+                  ],
+                  // color: Colors.grey[100],
+                  duration: 20.seconds));
         }), childCount: 6),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1 / 1.73,

@@ -27,7 +27,7 @@ class LoadingWidget extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.black.withOpacity(0.04),
+                          color: Colors.black,
                         ),
                         width: constraints.maxWidth * 1.00,
                         height: constraints.maxHeight * 0.71,
@@ -46,7 +46,7 @@ class LoadingWidget extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: Colors.black.withOpacity(0.04),
+                          color: Colors.black,
                         ),
                         width: constraints.maxWidth * 1.00,
                         height: constraints.maxHeight * 0.05,

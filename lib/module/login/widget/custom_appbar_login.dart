@@ -8,20 +8,21 @@ class CustomAppBarLogin extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: const Color(0xFFF9F9F9),
-      leading: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Colors.transparent),
-            backgroundColor: const Color(0xFFF9F9F9)),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black,
-        ),
-      ),
+      // leading: OutlinedButton(
+      //   style: OutlinedButton.styleFrom(
+      //       side: const BorderSide(color: Colors.transparent),
+      //       backgroundColor: const Color(0xFFF9F9F9)),
+      //   onPressed: () {
+      //     Navigator.pop(context);
+      //   },
+      //   child: const Icon(
+      //     Icons.arrow_back_ios,
+      //     color: Colors.black,
+      //   ),
+      // ),
     );
   }
 

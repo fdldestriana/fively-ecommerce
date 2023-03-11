@@ -18,8 +18,7 @@ class _LoadingStateSliverAppBarState extends State<LoadingStateSliverAppBar> {
     sizeConfig.init(context);
     final bodyHeight = sizeConfig.screenHeight;
     return SliverAppBar(
-      backgroundColor: Colors.black.withOpacity(0.04),
-      foregroundColor: Colors.black.withOpacity(0.04),
+      backgroundColor: const Color(0xFFEBEBF4),
       automaticallyImplyLeading: false,
       pinned: false,
       expandedHeight: bodyHeight * 0.71,
@@ -29,7 +28,14 @@ class _LoadingStateSliverAppBarState extends State<LoadingStateSliverAppBar> {
           background: Animate(
             child: Container(
               color: Colors.black.withOpacity(0.04),
-            ).animate().shimmer(color: Colors.white, duration: 20.seconds),
+            ).animate().shimmer(
+                blendMode: BlendMode.srcATop,
+                colors: const [
+                  Color(0xFFEBEBF4),
+                  Color(0xFFF4F4F4),
+                  Color(0xFFEBEBF4),
+                ],
+                duration: 20.seconds),
           ),
         ),
       ),
