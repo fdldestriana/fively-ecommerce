@@ -24,7 +24,7 @@ class ProductListController with ChangeNotifier {
     try {
       _setState(DataState.loading);
       _products = await WebService.getProducts();
-      // _setState(DataState.loaded);
+      _setState(DataState.loaded);
     } on Failure catch (f) {
       _setFailure(f);
       _setState(DataState.notLoaded);

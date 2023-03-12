@@ -35,7 +35,7 @@ class _LoadingStateSliverAppBarState extends State<LoadingStateSliverAppBar> {
                   Color(0xFFF4F4F4),
                   Color(0xFFEBEBF4),
                 ],
-                duration: 20.seconds),
+                duration: 2.seconds),
           ),
         ),
       ),

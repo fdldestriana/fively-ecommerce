@@ -26,7 +26,7 @@ class _LoadingStateSliverGridState extends State<LoadingStateSliverGrid> {
                     Color(0xFFEBEBF4),
                   ],
                   // color: Colors.grey[100],
-                  duration: 20.seconds));
+                  duration: 2.seconds));
         }), childCount: 6),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1 / 1.73,
