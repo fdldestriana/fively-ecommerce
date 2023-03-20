@@ -96,12 +96,13 @@ class ShopProductView extends StatelessWidget {
       body: Consumer<ProductListController>(
         builder: (BuildContext _, value, Widget? __) {
           List<Product> products = [];
+          value.data.fold((_) => _, (r) => products = r);
           if (category != 'all') {
-            products = value.products
+            products = products
                 .where((element) => element.category == category)
                 .toList();
           } else if (category == 'all') {
-            products = value.products;
+            products = products;
           }
           return (products.isNotEmpty)
               ? GridView.builder(

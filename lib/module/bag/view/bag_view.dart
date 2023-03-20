@@ -117,11 +117,12 @@ class _BagViewState extends State<BagView> {
         ),
         body: Consumer<CartController>(
           builder: (_, value, __) {
-            if (value.state == DataState.loading &&
+            if (value.state == NotifierState.loading &&
                 value.cartProducts.isEmpty) {
               return const LoadingStateCart();
             }
-            if (value.state == DataState.loaded && value.cartProducts.isEmpty) {
+            if (value.state == NotifierState.loaded &&
+                value.cartProducts.isEmpty) {
               return const LoadingStateCart();
             }
             if (value.failure.message.isNotEmpty &&
@@ -130,7 +131,7 @@ class _BagViewState extends State<BagView> {
                 message: value.failure.message,
               );
             }
-            if (value.state == DataState.loaded &&
+            if (value.state == NotifierState.loaded &&
                 value.cartProducts.isNotEmpty) {
               return LoadedStateCart(
                   controller: _controller, cartProducts: value.cartProducts);

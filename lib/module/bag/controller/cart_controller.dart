@@ -11,10 +11,10 @@ class CartController with ChangeNotifier {
   /*
   This code below is to get the state
   */
-  DataState _state = DataState.loading;
-  DataState get state => _state;
+  NotifierState _state = NotifierState.loading;
+  NotifierState get state => _state;
 
-  void _setState(DataState state) {
+  void _setState(NotifierState state) {
     _state = state;
     notifyListeners();
   }
@@ -39,11 +39,11 @@ class CartController with ChangeNotifier {
       totalProducts: 0,
       totalQuantity: 0);
   Future getCart({int userId = 5}) async {
-    _setState(DataState.loading);
+    _setState(NotifierState.loading);
     try {
       _cart = await WebService.getCart(userId);
       _cartProducts = _cart.products.map((e) => Product.fromJson(e)).toList();
-      _setState(DataState.loaded);
+      _setState(NotifierState.loaded);
     } on Failure catch (f) {
       _setFailure(f);
     }

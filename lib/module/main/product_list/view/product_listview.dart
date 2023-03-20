@@ -39,29 +39,32 @@ class _ProductListViewState extends State<ProductListView> {
     return Scaffold(
       body: Consumer<ProductListController>(
         builder: (_, value, __) {
-          List<Widget> loading = const [
-            LoadingStateSliverAppBar(),
-            LoadingStateSliverGrid()
-          ];
-          List<Widget> loaded = [
-            const LoadedStateSliverAppBar(),
-            LoadedStateSliverGrid(
-              products: value.products,
-            ),
-          ];
-          List<Widget> error = [
-            ErrorStateSliverToBoxAdapter(message: value.failure.message)
-          ];
-          List<Widget> slivers;
-          if (value.state == DataState.initial ||
-              value.state == DataState.loading) {
-            slivers = loading;
-          } else if (value.state == DataState.loaded) {
-            slivers = loaded;
-          } else {
-            slivers = error;
+          if (value.state == NotifierState.initial) {
+            return const CustomScrollView(
+              slivers: [LoadingStateSliverAppBar(), LoadingStateSliverGrid()],
+            );
           }
-          return CustomScrollView(slivers: slivers);
+          if (value.state == NotifierState.loading) {
+            return const CustomScrollView(
+              slivers: [LoadingStateSliverAppBar(), LoadingStateSliverGrid()],
+            );
+          } else {
+            return value.data.fold(
+              (failure) => CustomScrollView(
+                slivers: [
+                  ErrorStateSliverToBoxAdapter(message: failure.message)
+                ],
+              ),
+              (products) => CustomScrollView(
+                slivers: [
+                  const LoadedStateSliverAppBar(),
+                  LoadedStateSliverGrid(
+                    products: products,
+                  ),
+                ],
+              ),
+            );
+          }
         },
       ),
       bottomNavigationBar: CustomBottomNavigationBar(

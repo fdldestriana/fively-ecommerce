@@ -22,8 +22,10 @@ class ProductDetailView extends StatelessWidget {
     final bodyWidth = sizeConfig.screenWidth;
     final bodyHeight = sizeConfig.screenHeight;
     final id = ModalRoute.of(context)!.settings.arguments as int;
-    final List<Product> products =
-        Provider.of<ProductListController>(context, listen: false).products;
+    late List<Product> products = [];
+    Provider.of<ProductListController>(context, listen: false)
+        .data
+        .fold((_) => _, (r) => products = r);
 
     final Product product = products.firstWhere(
       (element) => element.id == id,
