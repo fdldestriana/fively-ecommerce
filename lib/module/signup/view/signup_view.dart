@@ -2,11 +2,11 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:fively_ecommerce/module/login/view/login_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
-import 'package:fively_ecommerce/module/signup/widget/custom_appbar_signup.dart';
 import 'package:fively_ecommerce/module/signup/widget/signup_custom_textfield.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:fively_ecommerce/shared/widget/custom_button.dart';
+import 'package:fively_ecommerce/shared/widget/ecircle_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -108,144 +108,159 @@ class _SignupViewState extends State<SignupView> {
 
     void signUp() {
       if (_validate()) {
-        provider.signUp(username, email, password).then((value) {
-          if (value['status']) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                duration: const Duration(seconds: 1),
-                content: Text(
-                  'User ${provider.user.username} ${provider.message.toLowerCase()}',
-                  textAlign: TextAlign.center,
-                )));
-            Navigator.pushReplacementNamed(context, LoginView.routeName);
-          } else if (!value['status']) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                duration: const Duration(seconds: 1),
-                content: Text(
-                  provider.message,
-                  textAlign: TextAlign.center,
-                )));
-          }
-        });
+        provider.signUp(username, email, password).then(
+          (value) {
+            if (value['status']) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  duration: const Duration(seconds: 1),
+                  content: Text(
+                    'User ${provider.user.username} ${provider.message.toLowerCase()}',
+                    textAlign: TextAlign.center,
+                  )));
+              Navigator.pushReplacementNamed(context, LoginView.routeName);
+            } else if (!value['status']) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 1),
+                  content: Text(
+                    provider.message,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            }
+          },
+        );
       }
     }
 
     return Scaffold(
-      appBar: const CustomAppBarSignup(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: bodyHeight * 0.02,
-            ),
-            Container(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: bodyHeight * 0.02),
+              Container(
                 margin: const EdgeInsets.only(left: 14),
                 child: const Text(
                   'Sign up',
                   style: TextStyle(fontSize: 34, fontWeight: FontWeight.w700),
-                )),
-            SizedBox(
-              height: bodyHeight * 0.10,
-            ),
-            SignupCustomTextField(
-              controller: _usernameController,
-              errorText: _usernameErrorText,
-              labelText: 'Name',
-            ),
-            SizedBox(
-              height: bodyHeight * 0.01,
-            ),
-            SignupCustomTextField(
-              controller: _emailController,
-              errorText: _emailErrorText,
-              labelText: 'Email',
-            ),
-            SizedBox(
-              height: bodyHeight * 0.01,
-            ),
-            SignupCustomTextField(
-              controller: _passwordController,
-              errorText: _passwordErrorText,
-              labelText: 'Password',
-            ),
-            SizedBox(
-              height: bodyHeight * 0.02,
-            ),
-            Row(
-              children: <Widget>[
-                const SizedBox(
-                  width: 154,
                 ),
-                const Text(
-                  'Already have an account?',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(LoginView.routeName);
-                      },
-                      child: const Icon(
-                        Icons.arrow_right_alt_outlined,
-                        color: Color(0xFFDB3022),
-                      )),
-                )
-              ],
-            ),
-            SizedBox(
-              height: bodyHeight * 0.04,
-            ),
-            if (state == AuthState.notRegistered) ...[
+              ),
               Center(
-                child: CustomButton(
-                  function: (issPressable) ? signUp : null,
-                  title: 'SIGN UP',
-                  widthSize: bodyWidth * 0.91,
-                  heightSize: bodyHeight * 0.07,
-                ),
-              ),
-            ] else if (state == AuthState.registering) ...[
-              Column(
-                children: [
-                  const Center(
-                    child: CircularProgressIndicator(color: Colors.red),
-                  ),
-                  SizedBox(
-                    height: bodyHeight * 0.01,
-                  ),
-                  const Text('Registering the user')
-                ],
-              )
-            ],
-            SizedBox(
-              height: bodyHeight * 0.12,
-            ),
-            const Center(
-              child: Text(
-                'Or sign up with social account',
-                style: TextStyle(fontSize: 14),
-              ),
-            ),
-            SizedBox(
-              height: bodyHeight * 0.02,
-            ),
-            Center(
-              child: FittedBox(
-                child: Row(
-                  children: <Widget>[
-                    TextButton(
-                        onPressed: () {},
-                        child: Image.asset('assets/images/buttons/Google.png')),
-                    TextButton(
-                        onPressed: () {},
-                        child:
-                            Image.asset('assets/images/buttons/Facebook.png'))
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    ECircleAvatar(
+                        avatarRadius: 40.0,
+                        iconSize: 40.0,
+                        bgCircleAvatar: Colors.grey[300] as Color,
+                        bgIcon: Colors.black,
+                        icon: Icons.person),
+                    GestureDetector(
+                      onTap: () {},
+                      child: ECircleAvatar(
+                        avatarRadius: 16.0,
+                        iconSize: 16.0,
+                        bgCircleAvatar: Colors.grey[400] as Color,
+                        bgIcon: Colors.white,
+                        icon: Icons.camera_alt,
+                      ),
+                    ),
                   ],
                 ),
               ),
-            )
-          ],
+              SizedBox(height: bodyHeight * 0.05),
+              SignupCustomTextField(
+                controller: _usernameController,
+                errorText: _usernameErrorText,
+                labelText: 'Name',
+              ),
+              SizedBox(height: bodyHeight * 0.01),
+              SignupCustomTextField(
+                controller: _emailController,
+                errorText: _emailErrorText,
+                labelText: 'Email',
+              ),
+              SizedBox(height: bodyHeight * 0.01),
+              SignupCustomTextField(
+                controller: _passwordController,
+                errorText: _passwordErrorText,
+                labelText: 'Password',
+              ),
+              SizedBox(height: bodyHeight * 0.02),
+              Row(
+                children: <Widget>[
+                  const SizedBox(
+                    width: 154,
+                  ),
+                  const Text(
+                    'Already have an account?',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(LoginView.routeName);
+                        },
+                        child: const Icon(
+                          Icons.arrow_right_alt_outlined,
+                          color: Color(0xFFDB3022),
+                        )),
+                  )
+                ],
+              ),
+              SizedBox(height: bodyHeight * 0.04),
+              if (state == AuthState.notRegistered) ...[
+                Center(
+                  child: CustomButton(
+                    function: (issPressable) ? signUp : null,
+                    title: 'SIGN UP',
+                    widthSize: bodyWidth * 0.91,
+                    heightSize: bodyHeight * 0.07,
+                  ),
+                ),
+              ] else if (state == AuthState.registering) ...[
+                Column(
+                  children: [
+                    const Center(
+                      child: CircularProgressIndicator(color: Colors.red),
+                    ),
+                    SizedBox(
+                      height: bodyHeight * 0.01,
+                    ),
+                    const Text('Registering the user')
+                  ],
+                )
+              ],
+              SizedBox(height: bodyHeight * 0.08),
+              const Center(
+                child: Text(
+                  'Or sign up with social account',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              SizedBox(height: bodyHeight * 0.02),
+              Center(
+                child: FittedBox(
+                  child: Row(
+                    children: <Widget>[
+                      TextButton(
+                          onPressed: () {},
+                          child:
+                              Image.asset('assets/images/buttons/Google.png')),
+                      TextButton(
+                          onPressed: null,
+                          child:
+                              Image.asset('assets/images/buttons/Facebook.png'))
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

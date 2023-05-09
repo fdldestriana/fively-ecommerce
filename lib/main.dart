@@ -1,3 +1,5 @@
+import 'package:fively_ecommerce/state_util.dart';
+
 // import package
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fively_ecommerce/module/bag/controller/cart_controller.dart';
@@ -95,9 +97,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: initialRoute,
-        onGenerateRoute: AppRouter.onGenerateRoute,
-        routes: routes,
-        navigatorKey: navigatorKey,
+        // onGenerateRoute: AppRouter.onGenerateRoute,
+        // routes: routes,
+        home: const SignupView(),
+        // navigatorKey: navigatorKey,
+        navigatorKey: Get.navigatorKey,
         theme: themeData(),
       ),
     );
