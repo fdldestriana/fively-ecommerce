@@ -1,5 +1,6 @@
 // import package
 import 'package:email_validator/email_validator.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:fively_ecommerce/module/login/view/login_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
 import 'package:fively_ecommerce/module/signup/widget/signup_custom_textfield.dart';
@@ -111,12 +112,15 @@ class _SignupViewState extends State<SignupView> {
         provider.signUp(username, email, password).then(
           (value) {
             if (value['status']) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
                   duration: const Duration(seconds: 1),
                   content: Text(
                     'User ${provider.user.username} ${provider.message.toLowerCase()}',
                     textAlign: TextAlign.center,
-                  )));
+                  ),
+                ),
+              );
               Navigator.pushReplacementNamed(context, LoginView.routeName);
             } else if (!value['status']) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -159,7 +163,25 @@ class _SignupViewState extends State<SignupView> {
                         bgIcon: Colors.black,
                         icon: Icons.person),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () async {
+                        final result = await FilePicker.platform.pickFiles(
+                          allowMultiple: false,
+                          allowedExtensions: ['png', 'jpg'],
+                          type: FileType.custom,
+                        );
+                        if (result == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('No file selected'),
+                            ),
+                          );
+                          return;
+                        }
+                        final path = result.files.single.path;
+                        final fileName = result.files.single.name;
+                        print(path);
+                        print(fileName);
+                      },
                       child: ECircleAvatar(
                         avatarRadius: 16.0,
                         iconSize: 16.0,

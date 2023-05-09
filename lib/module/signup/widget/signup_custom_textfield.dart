@@ -37,11 +37,15 @@ class SignupCustomTextField extends StatelessWidget {
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.only(left: 20),
                   errorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red)),
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
                   errorText: (errorText != null) ? errorText : null,
                   focusedErrorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red)),
-                  labelStyle: const TextStyle(color: Color(0xFF9B9B9B)),
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  labelStyle: const TextStyle(
+                    color: Color(0xFF9B9B9B),
+                  ),
                   labelText: labelText,
                   suffixIcon:
                       (errorText == null && controller.value.text.length > 4)
