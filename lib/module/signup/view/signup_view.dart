@@ -1,9 +1,12 @@
 // import package
 import 'package:email_validator/email_validator.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:fively_ecommerce/module/login/view/login_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
 import 'package:fively_ecommerce/module/signup/widget/signup_custom_textfield.dart';
+import 'package:fively_ecommerce/service/firebase_auth.dart';
+import 'package:fively_ecommerce/service/firebase_storage.dart';
 import 'package:fively_ecommerce/shared/utils/size.dart';
 import 'package:fively_ecommerce/shared/utils/state.dart';
 import 'package:fively_ecommerce/shared/widget/custom_button.dart';
@@ -78,22 +81,24 @@ class _SignupViewState extends State<SignupView> {
     }
   }
 
-  bool _validate() {
-    setState(() {});
-    var username = _usernameValidate();
-    var email = _emailValidate(_emailController.value.text);
-    var password = _passwordValidate();
-    if (username && email && password) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  String? photoUrl;
+
+  // bool _validate() {
+  //   setState(() {});
+  //   var username = _usernameValidate();
+  //   var email = _emailValidate(_emailController.value.text);
+  //   var password = _passwordValidate();
+  //   if (username && email && password) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    SignupController provider = Provider.of<SignupController>(context);
-    AuthState state = provider.state;
+    // SignupController provider = Provider.of<SignupController>(context);
+    // AuthState state = provider.state;
 
     final SizeConfig sizeConfig = SizeConfig();
     sizeConfig.init(context);
@@ -107,36 +112,36 @@ class _SignupViewState extends State<SignupView> {
     bool issPressable =
         !(username.isEmpty && email.isEmpty && password.isEmpty) ? true : false;
 
-    void signUp() {
-      if (_validate()) {
-        provider.signUp(username, email, password).then(
-          (value) {
-            if (value['status']) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  duration: const Duration(seconds: 1),
-                  content: Text(
-                    'User ${provider.user.username} ${provider.message.toLowerCase()}',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              );
-              Navigator.pushReplacementNamed(context, LoginView.routeName);
-            } else if (!value['status']) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  duration: const Duration(seconds: 1),
-                  content: Text(
-                    provider.message,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              );
-            }
-          },
-        );
-      }
-    }
+    // void signUp() {
+    //   if (_validate()) {
+    //     provider.signUp(username, email, password).then(
+    //       (value) {
+    //         if (value['status']) {
+    //           ScaffoldMessenger.of(context).showSnackBar(
+    //             SnackBar(
+    //               duration: const Duration(seconds: 1),
+    //               content: Text(
+    //                 'User ${provider.user.username} ${provider.message.toLowerCase()}',
+    //                 textAlign: TextAlign.center,
+    //               ),
+    //             ),
+    //           );
+    //           Navigator.pushReplacementNamed(context, LoginView.routeName);
+    //         } else if (!value['status']) {
+    //           ScaffoldMessenger.of(context).showSnackBar(
+    //             SnackBar(
+    //               duration: const Duration(seconds: 1),
+    //               content: Text(
+    //                 provider.message,
+    //                 textAlign: TextAlign.center,
+    //               ),
+    //             ),
+    //           );
+    //         }
+    //       },
+    //     );
+    //   }
+    // }
 
     return Scaffold(
       body: SafeArea(
@@ -164,23 +169,25 @@ class _SignupViewState extends State<SignupView> {
                         icon: Icons.person),
                     GestureDetector(
                       onTap: () async {
-                        final result = await FilePicker.platform.pickFiles(
-                          allowMultiple: false,
-                          allowedExtensions: ['png', 'jpg'],
-                          type: FileType.custom,
-                        );
-                        if (result == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('No file selected'),
-                            ),
-                          );
-                          return;
-                        }
-                        final path = result.files.single.path;
-                        final fileName = result.files.single.name;
-                        print(path);
-                        print(fileName);
+                        // final result = await FilePicker.platform.pickFiles(
+                        //   allowMultiple: false,
+                        //   allowedExtensions: ['png', 'jpg'],
+                        //   type: FileType.custom,
+                        // );
+                        // if (result == null) {
+                        //   // ignore: use_build_context_synchronously
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     const SnackBar(
+                        //       content: Text('No file selected'),
+                        //     ),
+                        //   );
+                        //   return;
+                        // }
+                        // final path = result.files.single.path;
+                        // final fileName = result.files.single.name;
+                        FirebaseStorageService firebaseStorageService =
+                            FirebaseStorageService();
+                        photoUrl = await firebaseStorageService.doUploadPhoto();
                       },
                       child: ECircleAvatar(
                         avatarRadius: 16.0,
@@ -235,28 +242,36 @@ class _SignupViewState extends State<SignupView> {
                 ],
               ),
               SizedBox(height: bodyHeight * 0.04),
-              if (state == AuthState.notRegistered) ...[
-                Center(
-                  child: CustomButton(
-                    function: (issPressable) ? signUp : null,
-                    title: 'SIGN UP',
-                    widthSize: bodyWidth * 0.91,
-                    heightSize: bodyHeight * 0.07,
-                  ),
+              // if (state == AuthState.notRegistered) ...[
+              Center(
+                child: CustomButton(
+                  function: (issPressable)
+                      ? () {
+                          FirebaseAuthService.doEmailSignUp(
+                              name: username,
+                              email: email,
+                              password: password,
+                              photoProfile: photoUrl as String);
+                        }
+                      : null,
+                  title: 'SIGN UP',
+                  widthSize: bodyWidth * 0.91,
+                  heightSize: bodyHeight * 0.07,
                 ),
-              ] else if (state == AuthState.registering) ...[
-                Column(
-                  children: [
-                    const Center(
-                      child: CircularProgressIndicator(color: Colors.red),
-                    ),
-                    SizedBox(
-                      height: bodyHeight * 0.01,
-                    ),
-                    const Text('Registering the user')
-                  ],
-                )
-              ],
+              ),
+              // ] else if (state == AuthState.registering) ...[
+              //   Column(
+              //     children: [
+              //       const Center(
+              //         child: CircularProgressIndicator(color: Colors.red),
+              //       ),
+              //       SizedBox(
+              //         height: bodyHeight * 0.01,
+              //       ),
+              //       const Text('Registering the user')
+              //     ],
+              //   )
+              // ],
               SizedBox(height: bodyHeight * 0.08),
               const Center(
                 child: Text(

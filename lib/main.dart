@@ -21,7 +21,8 @@ import 'package:fively_ecommerce/module/shop/view/shop_view.dart';
 import 'package:fively_ecommerce/module/signup/controller/signup_controller.dart';
 import 'package:fively_ecommerce/module/signup/view/signup_view.dart';
 import 'package:fively_ecommerce/module/success/view/success_view.dart';
-import 'package:fively_ecommerce/shared/utils/app_router.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:provider/provider.dart';
@@ -54,30 +55,45 @@ Map<String, WidgetBuilder> routes = {
 
 ThemeData themeData() {
   return ThemeData(
-      appBarTheme: const AppBarTheme(
-          color: Color(0xFFDB3022), foregroundColor: Color(0xFF222222)),
-      // canvasColor set to transparent to make a showModalBottomSheet clipping the background
-      canvasColor: Colors.transparent,
-      fontFamily: 'Metropolis',
-      outlinedButtonTheme: OutlinedButtonThemeData(
-          style: ButtonStyle(
-              foregroundColor:
-                  MaterialStateProperty.all((const Color(0xFF222222))))),
-      primaryColor: const Color(0xFF222222),
-      scaffoldBackgroundColor: const Color(0xFFF9F9F9),
-      textButtonTheme: TextButtonThemeData(
-          style: ButtonStyle(
-              foregroundColor:
-                  MaterialStateProperty.all((const Color(0xFF222222))))),
-      textTheme: const TextTheme(
-          bodyLarge: TextStyle(color: Color(0xFF222222)),
-          bodyMedium: TextStyle(color: Color(0xFF222222))));
+    appBarTheme: const AppBarTheme(
+      color: Color(0xFFDB3022),
+      foregroundColor: Color(0xFF222222),
+    ),
+    // canvasColor set to transparent to make a showModalBottomSheet clipping the background
+    canvasColor: Colors.transparent,
+    fontFamily: 'Metropolis',
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(
+          (const Color(0xFF222222)),
+        ),
+      ),
+    ),
+    primaryColor: const Color(0xFF222222),
+    scaffoldBackgroundColor: const Color(0xFFF9F9F9),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(
+          (const Color(0xFF222222)),
+        ),
+      ),
+    ),
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(
+        color: Color(0xFF222222),
+      ),
+      bodyMedium: TextStyle(
+        color: Color(0xFF222222),
+      ),
+    ),
+  );
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await Firebase.initializeApp();
+  // await dotenv.load(fileName: '.env');
   String? token = prefs.getString('token');
   final MyApp myApp = MyApp(
     initialRoute: (token != null) ? LoginView.routeName : SignupView.routeName,
