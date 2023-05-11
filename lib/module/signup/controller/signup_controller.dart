@@ -1,49 +1,38 @@
 // import package
-import 'package:fively_ecommerce/model/user.dart';
-import 'package:fively_ecommerce/service/web_service.dart';
-import 'package:fively_ecommerce/shared/utils/state.dart';
+import 'package:fively_ecommerce/core.dart';
+
 import 'package:flutter/material.dart';
 
 class SignupController with ChangeNotifier {
-  AuthState _state = AuthState.notRegistered;
-  AuthState get state => _state;
+  // AuthState _state = AuthState.notRegistered;
+  // AuthState get state => _state;
 
-  User _user = User(
-      id: 0,
-      username: '',
-      email: '',
-      firstName: '',
-      lastName: '',
-      gender: '',
-      image: '',
-      token: '');
+  User _user = User.empty;
   User get user => _user;
 
-  String _message = '';
-  String get message => _message;
+  // String _message = '';
+  // String get message => _message;
 
-  void _setState(AuthState state) {
-    _state = state;
-    notifyListeners();
-  }
+  // void _setState(AuthState state) {
+  //   _state = state;
+  //   notifyListeners();
+  // }
 
-  Future<Map<String, dynamic>> signUp(
-      String username, String email, String password) async {
-    Map<String, dynamic> result;
-    _setState(AuthState.registering);
-    var data = await WebService.signUp(username, email, password);
-    if (data['status']) {
-      _user = data['data'];
-      _message = data['message'];
-      result = {'status': data['status']};
-      _setState(AuthState.registered);
-      notifyListeners();
-    } else {
-      _message = '${data['message']}.\n${data['data'].message}';
-      result = {'status': data['status']};
-      _setState(AuthState.notRegistered);
-      notifyListeners();
-    }
-    return result;
+  Future<void> doEmailSignUp(
+      {required String name,
+      required String email,
+      required String password,
+      required String photoProfile}) async {
+    var user = await FirebaseAuthService.doEmailSignUp(
+        name: name,
+        email: email,
+        password: password,
+        photoProfile: photoProfile);
+
+    _user.uid = user!.uid;
+    _user.username = user.displayName as String;
+    _user.email = user.email as String;
+    _user.firstName = user.displayName!.split(" ")[0];
+    _user.lastName = user.displayName!.split(" ")[1];
   }
 }

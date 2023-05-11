@@ -9,15 +9,7 @@ class LoginController with ChangeNotifier {
   AuthState _state = AuthState.notLoggedIn;
   AuthState get state => _state;
 
-  User _user = User(
-      id: 0,
-      username: '',
-      email: '',
-      firstName: '',
-      lastName: '',
-      gender: '',
-      image: '',
-      token: '');
+  User _user = User.empty;
   User get user => _user;
 
   String _message = '';
