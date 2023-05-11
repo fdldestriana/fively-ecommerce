@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fively_ecommerce/model/failure.dart';
-import 'package:fively_ecommerce/service/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
@@ -29,7 +28,7 @@ class FirebaseAuthService {
     }
   }
 
-  static Future<void> doEmailSignUp(
+  static Future<UserCredential> doEmailSignUp(
       {required String name,
       required String email,
       required String password,
@@ -50,6 +49,7 @@ class FirebaseAuthService {
           'role': 'buyer'
         },
       );
+      return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         throw Failure(message: e.message as String);

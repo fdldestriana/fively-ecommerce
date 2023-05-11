@@ -18,6 +18,16 @@ class User {
       required this.image,
       required this.token});
 
+  static User get user => User(
+      id: 0,
+      username: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      gender: '',
+      image: '',
+      token: '');
+
   factory User.fromJson(Map<String, dynamic> json) => User(
       id: json['id'],
       username: json['username'],

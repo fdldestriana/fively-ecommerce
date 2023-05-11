@@ -29,7 +29,8 @@ class Get {
   }
 
   static double get height {
-    return MediaQuery.of(currentContext).size.width;
+    return MediaQuery.of(currentContext).size.height -
+        MediaQuery.of(currentContext).padding.top;
   }
 }
 
