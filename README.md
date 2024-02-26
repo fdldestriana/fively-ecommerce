@@ -1,15 +1,6 @@
 # fively_ecommerce
 
 Photo by <a href="https://unsplash.com/@bbestamis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Bestami Sarıkaya</a> on <a href="https://unsplash.com/s/photos/smart-watch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
-
-
-
-
-
-
-
-Shine Bright Like a Diamond: How to Create a Professional Loading Screen with Flutter's Shimmer Effect
 
 I. Introduction
 
